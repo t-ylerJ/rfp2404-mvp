@@ -5,14 +5,12 @@ import plane from '/airplane.svg';
 import '../App.css';
 
 function App() {
-  const [count, setCount] = useState(0);
   const [selectedCity, setSelectedCity] = useState('');
   const [showResult, setShowResult] = useState(false);
   const [cityChoices, setCityChoices] = useState([]);
   const [gameState, setGameState] = useState(false);
   const [winningCity, setWinningCity] = useState('Austin');
   const cities = [
-      'Austin',
       'Dallas',
       'New York',
       'LA',
@@ -25,20 +23,20 @@ function App() {
       'Orlando',
       'Seattle'
   ];
-cities.push(winningCity);
 
   useEffect(() => {
+    cities.push(winningCity);
     setCityChoices(
       cities
         .map(value => ({ value,
           sort: value === winningCity ?
-            Math.floor(Math.random() * 4)
+            Math.floor(Math.random() * 3)
           : Math.floor(Math.random() * cities.length)}))
         .sort((a, b) => a.sort - b.sort)
         .map(({ value }) => value)
         .slice(0, 4)
     );
-  }, [])
+  }, [showResult])
 
 const handleSubmit = (e) => {
   e.preventDefault();
@@ -47,7 +45,7 @@ const handleSubmit = (e) => {
 }
 
 const handleChange = (e) => {
-  // setSelectedCity(e.target.value);
+  setSelectedCity(e.target.value);
 }
 
   return (
@@ -70,9 +68,9 @@ const handleChange = (e) => {
                 <label htmlFor={`city${index}`}>{city}</label>
               </span>
             ))}
-            <div>
-              <button type="submit">Select</button>
+            <div className="text-gray-600 pt-10">
             </div>
+              <button type="submit">Select</button>
           </form>
         ) : (
           <div>
@@ -80,7 +78,7 @@ const handleChange = (e) => {
               <img src={reactLogo} className="logo react" alt="React logo" />
             </a>
             <div>
-              {!gameState ?
+              {gameState ?
                 'Congrats!' : 'Oh no!'
               }
 
@@ -90,9 +88,7 @@ const handleChange = (e) => {
         )}
       </div>
       <div className="card">
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+
       </div>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
