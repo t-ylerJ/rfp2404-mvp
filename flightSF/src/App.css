@@ -11,12 +11,25 @@
   will-change: filter;
   transition: filter 300ms;
 }
+
+.icon {
+  height: 1em;
+  padding-top: none;
+  will-change: filter;
+  transition: filter 300ms;
+}
+
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
+
+.icon:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+
 
 @keyframes logo-spin {
   from {
@@ -28,8 +41,22 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+  a:nth-of-type(1) .logo {
+    animation: logo-spin infinite 10s ease-out;
+  }
+}
+
+@keyframes icon-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .icon {
+    animation: icon-spin infinite 10s ease-out;
   }
 }
 
