@@ -9,6 +9,8 @@ function App() {
   const [selectedCity, setSelectedCity] = useState('');
   const [showResult, setShowResult] = useState(false);
   const [cityChoices, setCityChoices] = useState([]);
+  const [cityNames, setCityNames] = useState([]);
+
   const [gameState, setGameState] = useState(false);
   const [winningCity, setWinningCity] = useState('Austin');
   const [flights, setFlights] = useState([]);
@@ -16,20 +18,20 @@ function App() {
   const [searchPrices, setSearchPrices] = useState([]);
   const [searchReturn, setSearchReturn] = useState([])
   const cities = [
-      'Dallas',
-      'New York',
-      'LA',
-      'Houston',
-      'Chicago',
-      'Denver',
-      'San Antonio',
-      'Boston',
-      'Helena',
-      'Orlando',
-      'Seattle'
-  ];
+//       'Dallas',
+//       'New York',
+//       'LA',
+//       'Houston',
+//       'Chicago',
+//       'Denver',
+//       'San Antonio',
+//       'Boston',
+//       'Helena',
+//       'Orlando',
+//       'Seattle'
+//   ];
 
-const obj = [
+// const cities2 = [
   {
     'name': 'Dallas',
     'code': 'DFW',
@@ -61,17 +63,11 @@ const obj = [
   }
 ]
 
-const findSmallest = function (arr) {
-  const smallest = arr.reduce(
-    (acc, loc) =>
-      acc.price < loc.price ? acc : loc
-  )
-  return smallest;
-}
-useEffect(() => {
-}, [])
 
-console.log(winningCity)
+// useEffect(() => {
+// }, [])
+
+
 useEffect(() => {
   // setWinningCity(findSmallest(obj));
   setCityChoices(
@@ -84,13 +80,21 @@ useEffect(() => {
     );
   }, [showResult])
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setWinningCity(findSmallest(cityChoices));
-    setShowResult(!showResult);
-    selectedCity === winningCity ? setGameState(true) : setGameState(false);
-}
 
+  const handleSubmit = (e) => {
+
+  const smallest = cityChoices.sort((a, b) => a.price - b.price)
+
+
+    e.preventDefault();
+    setShowResult(!showResult);
+    setWinningCity((smallest[0].name)
+    );
+    selectedCity === winningCity ? setGameState(true) : setGameState(false);
+    setCityNames(cityChoices.map(city => (city.name)))
+}
+console.log(winningCity)
+console.log(cityChoices)
 const handleChange = (e) => {
   setSelectedCity(e.target.value);
 }
@@ -122,7 +126,7 @@ const getFlights = async function(location) {
  try {
 
    const response = await axios.post('https://test.api.amadeus.com/v2/shopping/flight-offers', flightSearch,{ headers: {
-     "Authorization": "Bearer HNBjdF3Ggg5RTttcr5biovpe2sAR",
+     "Authorization": "Bearer 336GaO0xGdW9ZHtUzbcZ3mcJswAO",
      "Content-Type": "application/json"
     }});
     setSearchReturn(response.data.data)
@@ -158,8 +162,8 @@ console.log(searchIteneraries);
             <p>Select city with cheapest flight to SF:</p>
             {cityChoices.map((city, index) => (
               <span key={index}>
-                <input type="radio" id={`city${index}`} name="citySelection" value={city} onChange={handleChange} required/>
-                <label htmlFor={`city${index}`}>{city}</label>
+                <input type="radio" id={`city${index}`} name="citySelection" value={city.name} onChange={handleChange} required/>
+                <label htmlFor={`city${index}`}>{city.name}</label>
               </span>
             ))}
             <div className="text-gray-600 pt-10">
