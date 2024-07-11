@@ -54,7 +54,7 @@ const handleChange = (e) => {
 
 const getFlights = async () => {
  try {
-  const response = await axios.get('https://test.api.amadeus.com/flight-search', {
+  const response = await axios.get('/flight-search', {
     params: {
       originCode: 'LAX',
       destinationCode: 'SFO',
@@ -62,11 +62,17 @@ const getFlights = async () => {
       Adults: '1'
     }
   })
+
   setSearchReturn(response.data)
-  } catch(err) {
-      console.error('Error fetching city/airport data:', err)
-    }
-  }
+} catch(err) {
+  console.error('Error fetching city/airport data:', err)
+}
+}
+useEffect(() => {
+getFlights()
+}, [])
+console.log(searchReturn)
+
 
   return (
     <>
@@ -97,6 +103,7 @@ const getFlights = async () => {
             <a href="https://react.dev" target="_blank">
               <img src={reactLogo} className="logo react" alt="React logo" />
             </a>
+
             <div>
               {gameState ?
                 'Congrats!' : 'Oh no!'

@@ -4,15 +4,16 @@ import express from 'express';
 import axios from 'axios';
 import morgan from 'morgan';
 import 'dotenv/config';
+import { getFlightPrices } from './routes/flights.js';
+const API_SERVER_URL = 'https://test.api.amadeus.com/v2'
 
-const amadeus = new Amadeus({
-  clientId: 'process.env.API_TOKEN',
-  clientSecret: 'process.env.API_SECRET'
-})
+
 const app = express();
-// const PORT = process.env.port || 3000;
-const PORT = 5000;
-
+const PORT = process.env.PORT || 5000;
+const amadeus = new Amadeus({
+  clientId: process.env.API_KEY,
+  clientSecret: process.env.API_SECRET
+})
 
 
 app.use(express.json());
@@ -23,22 +24,9 @@ app.use(cors({
 }));
 
 
+app.get('/flight-search', getFlightPrices)
 
-app.get(`/city-and-airport-search/:parameter`, (req, res) => {
-  const parameter = req.params.parameter;
-  amadeus.referenceData.locations
-  .get({
-    keyword: parameter,
-    subType: Amadeus.location.any,
-  })
-  .then((response) => {
-    res.send(response.result);
-  })
-  .catch((err) => {
-    res.status(500).send('Error fetching city and airport data');
-    console.error('Error fetching city/airport data:', err)
-  })
-})
+app.all('*/')
 
 
 
