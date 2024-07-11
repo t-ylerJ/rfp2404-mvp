@@ -13,6 +13,7 @@ function App() {
   const [winningCity, setWinningCity] = useState('Austin');
   const [flights, setFlights] = useState([]);
   const [searchIteneraries, setSearchIteneraries] = useState([]);
+  const [searchPrices, setSearchPrices] = useState([]);
   const [searchReturn, setSearchReturn] = useState([])
   const cities = [
       'Dallas',
@@ -121,13 +122,14 @@ const getFlights = async function(location) {
  try {
 
    const response = await axios.post('https://test.api.amadeus.com/v2/shopping/flight-offers', flightSearch,{ headers: {
-     "Authorization": "Bearer l1PMIpgAPEvtVXunJ3CNThiYUSVV",
+     "Authorization": "Bearer HNBjdF3Ggg5RTttcr5biovpe2sAR",
      "Content-Type": "application/json"
-    }})
+    }});
     setSearchReturn(response.data.data)
-    setSearchIteneraries(response.data.data.map((itenerary) => (
-      { 'itenerary': itenerary }
-    )))
+    setSearchIteneraries(response.data.data.map((flight) => (
+      // { 'itenerary': itenerary, 'price': price }
+      { 'id': flight.id, 'itenerary': flight.iteneraries, 'price': flight.price.total }
+    )));
   } catch(err) {
     console.error('Error fetching flight data:', err)
   }
@@ -135,9 +137,9 @@ const getFlights = async function(location) {
 
 useEffect(() => {
 getFlights('LAX')
-}, [])
-console.log(searchReturn)
-console.log(searchIteneraries)
+}, []);
+console.log(searchReturn);
+console.log(searchIteneraries);
 
 
   return (
