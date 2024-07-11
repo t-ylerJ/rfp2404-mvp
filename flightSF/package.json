@@ -12,7 +12,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "amadeus": "^10.1.0",
     "axios": "^1.7.2",
+    "cors": "^2.8.5",
     "express": "^4.19.2",
     "morgan": "^1.10.0",
     "node-fetch": "^2.6.1",

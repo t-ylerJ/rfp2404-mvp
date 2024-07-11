@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import reactLogo from '/react.svg';
 import viteLogo from '/vite.svg';
 import plane from '/airplane.svg';
+import axios from 'axios';
 import '../App.css';
 
 function App() {
@@ -10,6 +11,9 @@ function App() {
   const [cityChoices, setCityChoices] = useState([]);
   const [gameState, setGameState] = useState(false);
   const [winningCity, setWinningCity] = useState('Austin');
+  const [flights, setFlights] = useState([]);
+  const [search, setSearch] = useState('');
+  const [searchReturn, setSearchReturn] = useState([])
   const cities = [
       'Dallas',
       'New York',
@@ -47,6 +51,22 @@ const handleSubmit = (e) => {
 const handleChange = (e) => {
   setSelectedCity(e.target.value);
 }
+
+const getFlights = async () => {
+ try {
+  const response = await axios.get('https://test.api.amadeus.com/flight-search', {
+    params: {
+      originCode: 'LAX',
+      destinationCode: 'SFO',
+      dateOfDeparture: '2024-10-01',
+      Adults: '1'
+    }
+  })
+  setSearchReturn(response.data)
+  } catch(err) {
+      console.error('Error fetching city/airport data:', err)
+    }
+  }
 
   return (
     <>
@@ -91,7 +111,7 @@ const handleChange = (e) => {
 
       </div>
       <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
+
       </p>
     </>
   )
