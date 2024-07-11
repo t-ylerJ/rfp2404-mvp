@@ -12,7 +12,7 @@ function App() {
   const [gameState, setGameState] = useState(false);
   const [winningCity, setWinningCity] = useState('Austin');
   const [flights, setFlights] = useState([]);
-  const [search, setSearch] = useState('');
+  const [searchIteneraries, setSearchIteneraries] = useState([]);
   const [searchReturn, setSearchReturn] = useState([])
   const cities = [
       'Dallas',
@@ -28,50 +28,116 @@ function App() {
       'Seattle'
   ];
 
-  useEffect(() => {
-    cities.push(winningCity);
-    setCityChoices(
-      cities
-        .map(value => ({ value,
-          sort: value === winningCity ?
-            Math.floor(Math.random() * 3)
-          : Math.floor(Math.random() * cities.length)}))
-        .sort((a, b) => a.sort - b.sort)
-        .map(({ value }) => value)
-        .slice(0, 4)
+const obj = [
+  {
+    'name': 'Dallas',
+    'code': 'DFW',
+    'price': 2
+  },
+
+  {
+    'name': 'Los Angeles',
+    'code': 'LAS',
+    'price': 5
+  },
+
+  {
+    'name': 'ORD',
+    'code': 'Chicago',
+    'price': 6
+  },
+
+  {
+    'name': 'Austin',
+    'code': 'AUS',
+    'price': 3
+  },
+
+  {
+    'name': 'Denver',
+    'code': 'DEN',
+    'price': 1
+  }
+]
+
+const findSmallest = function (arr) {
+  const smallest = arr.reduce(
+    (acc, loc) =>
+      acc.price < loc.price ? acc : loc
+  )
+  return smallest;
+}
+useEffect(() => {
+}, [])
+
+console.log(winningCity)
+useEffect(() => {
+  // setWinningCity(findSmallest(obj));
+  setCityChoices(
+    cities
+    .map(value => ({ value,
+      sort: Math.floor(Math.random() * cities.length)}))
+      .sort((a, b) => a.sort - b.sort)
+      .map(({ value }) => value)
+      .slice(0, 4)
     );
   }, [showResult])
 
-const handleSubmit = (e) => {
-  e.preventDefault();
-  setShowResult(!showResult);
-  selectedCity === winningCity ? setGameState(true) : setGameState(false);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setWinningCity(findSmallest(cityChoices));
+    setShowResult(!showResult);
+    selectedCity === winningCity ? setGameState(true) : setGameState(false);
 }
 
 const handleChange = (e) => {
   setSelectedCity(e.target.value);
 }
 
-const getFlights = async () => {
- try {
-  const response = await axios.get('/flight-search', {
-    params: {
-      originCode: 'LAX',
-      destinationCode: 'SFO',
-      dateOfDeparture: '2024-10-01',
-      Adults: '1'
-    }
-  })
+const getFlights = async function(location) {
+  var flightSearch = {
+    "currencyCode": "USD",
+    "originDestinations": [
+      {
+        "id": "1",
+        "originLocationCode": location,
+        "destinationLocationCode": "SFO",
+        "departureDateTimeRange": {
+          "date": "2024-11-01"
+        }
+      }
+    ],
+    "travelers": [
+      {
+        "id": "1",
+        "travelerType": "ADULT"
+      }
+    ],
+    "sources": [
+      "GDS"
+    ]
+  }
 
-  setSearchReturn(response.data)
-} catch(err) {
-  console.error('Error fetching city/airport data:', err)
-}
-}
+ try {
+
+   const response = await axios.post('https://test.api.amadeus.com/v2/shopping/flight-offers', flightSearch,{ headers: {
+     "Authorization": "Bearer l1PMIpgAPEvtVXunJ3CNThiYUSVV",
+     "Content-Type": "application/json"
+    }})
+    setSearchReturn(response.data.data)
+    setSearchIteneraries(response.data.data.map((itenerary) => (
+      { 'itenerary': itenerary }
+    )))
+  } catch(err) {
+    console.error('Error fetching flight data:', err)
+  }
+    }
+
 useEffect(() => {
-getFlights()
+getFlights('LAX')
 }, [])
 console.log(searchReturn)
+console.log(searchIteneraries)
 
 
   return (

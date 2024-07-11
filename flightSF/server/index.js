@@ -5,7 +5,7 @@ import axios from 'axios';
 import morgan from 'morgan';
 import 'dotenv/config';
 import { getFlightPrices } from './routes/flights.js';
-const API_SERVER_URL = 'https://test.api.amadeus.com/v2'
+const API_SERVER_URL = 'https://test.api.amadeus.com/v2/shopping/flight-offers'
 
 
 const app = express();
@@ -24,9 +24,7 @@ app.use(cors({
 }));
 
 
-app.get('/flight-search', getFlightPrices)
-
-app.all('*/')
+app.post('https://test.api.amadeus.com/v2/shopping/flight-offers', getFlightPrices);
 
 
 
