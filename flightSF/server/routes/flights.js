@@ -35,7 +35,7 @@ export function getFlightPrices(req, res) {
 
    axios.post('https://test.api.amadeus.com/v2/shopping/flight-offers', flightSearch,
       { headers: {
-      "Authorization": `Bearer 88TcwJCvcwCrFK8SiyjeGHQQFSnq`,
+      "Authorization": `Bearer tldzzweGoWP5GNXUM911ScHuXLTC`,
       "Content-Type": "application/json"
     }}
    )

@@ -124,7 +124,7 @@ const getFlights = async function(location) {
  try {
 
    const response = await axios.post('https://test.api.amadeus.com/v2/shopping/flight-offers', flightSearch,{ headers: {
-     "Authorization": "Bearer 88TcwJCvcwCrFK8SiyjeGHQQFSnq",
+     "Authorization": "Bearer tldzzweGoWP5GNXUM911ScHuXLTC",
      "Content-Type": "application/json"
     }});
     // setSearchReturn(response.data.data.iteneraries.map((itenerary) => itenerary.segments.map((segment) => segment.departurn.iataCode)))
@@ -140,7 +140,9 @@ const getFlights = async function(location) {
     );
     const departing = searchIteneraries.map((itenerary)=> (
       itenerary.itenerary.map((segment) => (
-        segment.duration)
+        segment.segments.map((seg) => (
+          seg.departure.iataCode
+        )))
       )));
     setSearchReturn(departing)
 
