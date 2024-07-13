@@ -17,21 +17,9 @@ function App() {
   const [searchIteneraries, setSearchIteneraries] = useState([]);
   const [searchPrices, setSearchPrices] = useState([]);
   const [searchReturn, setSearchReturn] = useState([])
-  const cities = [
-//       'Dallas',
-//       'New York',
-//       'LA',
-//       'Houston',
-//       'Chicago',
-//       'Denver',
-//       'San Antonio',
-//       'Boston',
-//       'Helena',
-//       'Orlando',
-//       'Seattle'
-//   ];
 
-// const cities2 = [
+  const cities = [
+
   {
     'name': 'Dallas',
     'code': 'DFW',
@@ -59,8 +47,19 @@ function App() {
   {
     'name': 'Denver',
     'code': 'DEN',
-    'price': 1
-  }
+    'price': 4
+  },
+  {
+    'name': 'Atlanta',
+    'code': 'ATL',
+    'price': 3
+  },
+  {
+    'name': 'Seattle',
+    'code': 'SEA',
+    'price': 5
+  },
+
 ]
 
 
@@ -93,8 +92,7 @@ useEffect(() => {
     selectedCity === winningCity ? setGameState(true) : setGameState(false);
     setCityNames(cityChoices.map(city => (city.name)))
 }
-console.log(winningCity)
-console.log(cityChoices)
+
 const handleChange = (e) => {
   setSelectedCity(e.target.value);
 }
@@ -126,18 +124,32 @@ const getFlights = async function(location) {
  try {
 
    const response = await axios.post('https://test.api.amadeus.com/v2/shopping/flight-offers', flightSearch,{ headers: {
-     "Authorization": "Bearer 336GaO0xGdW9ZHtUzbcZ3mcJswAO",
+     "Authorization": "Bearer 88TcwJCvcwCrFK8SiyjeGHQQFSnq",
      "Content-Type": "application/json"
     }});
-    setSearchReturn(response.data.data)
+    // setSearchReturn(response.data.data.iteneraries.map((itenerary) => itenerary.segments.map((segment) => segment.departurn.iataCode)))
+
+//     setSearchIteneraries(response.data.data.map((flight) => (
+//       // { 'itenerary': itenerary, 'price': price }
+//       { 'id': flight.id, 'itenerary': flight.itineraries, 'price': flight.price.total }
+//     ))
+// );
     setSearchIteneraries(response.data.data.map((flight) => (
-      // { 'itenerary': itenerary, 'price': price }
-      { 'id': flight.id, 'itenerary': flight.iteneraries, 'price': flight.price.total }
-    )));
+      { 'id': flight.id, 'itenerary': flight.itineraries, 'price': flight.price.total }
+      ))
+    );
+    const departing = searchIteneraries.map((itenerary)=> (
+      itenerary.itenerary.map((segment) => (
+        segment.duration)
+      )));
+    setSearchReturn(departing)
+
+
   } catch(err) {
     console.error('Error fetching flight data:', err)
   }
-    }
+}
+
 
 useEffect(() => {
 getFlights('LAX')
