@@ -1,11 +1,9 @@
 import cors from 'cors';
 import Amadeus from 'amadeus';
 import express from 'express';
-import axios from 'axios';
 import morgan from 'morgan';
 import 'dotenv/config';
 import { getFlightPrices } from './routes/flights.js';
-const API_SERVER_URL = 'https://test.api.amadeus.com/v2/shopping/flight-offers'
 
 
 const app = express();
@@ -15,19 +13,13 @@ const amadeus = new Amadeus({
   clientSecret: process.env.API_SECRET
 })
 
-
 app.use(express.json());
 app.use(morgan('dev'));
 app.use(express.static('/Users/tylerjohnson/hackreactor/rfp2404/mvp/rfp2404-mvp/flightSF/public'))
 app.use(cors({
   origin: 'http://localhost:5173'
 }));
-
-
-app.post('https://test.api.amadeus.com/v2/shopping/flight-offers', getFlightPrices);
-
-
-
+app.all('https://test.api.amadeus.com/v2/shopping/flight-offers', getFlightPrices);
 
 
 app.listen(PORT, () => {

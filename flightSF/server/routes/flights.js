@@ -15,7 +15,7 @@ export function getFlightPrices(req, res) {
     "originDestinations": [
       {
         "id": "1",
-        "originLocationCode": req.body.originLocationCode,
+        "originLocationCode": req.body.location,
         "destinationLocationCode": "SFO",
         "departureDateTimeRange": {
           "date": "2024-11-01"
@@ -28,14 +28,17 @@ export function getFlightPrices(req, res) {
         "travelerType": "ADULT"
       }
     ],
+    "searchCriteria": {
+    "maxFlightOffers": 2
+      },
     "sources": [
       "GDS"
     ]
   }
 
-   axios.post('https://test.api.amadeus.com/v2/shopping/flight-offers', flightSearch,
+   axios.get('https://test.api.amadeus.com/v2/shopping/flight-offers', flightSearch,
       { headers: {
-      "Authorization": `Bearer tldzzweGoWP5GNXUM911ScHuXLTC`,
+      "Authorization": `Bearer pyp4ZnJqd9SLI9uCE6Ra12oEsMaj`,
       "Content-Type": "application/json"
     }}
    )
