@@ -10,60 +10,59 @@ function App() {
   const [showResult, setShowResult] = useState(false);
   const [cityChoices, setCityChoices] = useState([]);
   const [gameState, setGameState] = useState(false);
+  const [flightDetails, setFlightDetails] = useState([]);
 
 
 
 
 
   const [cities, setCities] = useState([
-    { 'name': 'Dallas', 'code': 'DFW', 'price': 0 },
+    { 'name': 'Dallas', 'code': 'DFW', 'price': 6 },
     { 'name': 'Las Vegas', 'code': 'LAS', 'price': 0 },
-    { 'name': 'Chicago', 'code': 'ORD', 'price': 0 },
-    { 'name': 'Austin', 'code': 'AUS', 'price': 0 },
-    { 'name': 'Denver', 'code': 'DEN', 'price': 0 },
-    { 'name': 'Atlanta', 'code': 'ATL', 'price': 0 },
-    { 'name': 'Seattle', 'code': 'SEA', 'price': 0 },
+    { 'name': 'Chicago', 'code': 'ORD', 'price': 1 },
+    { 'name': 'Austin', 'code': 'AUS', 'price': 2 },
+    { 'name': 'Denver', 'code': 'DEN', 'price': 3 },
+    { 'name': 'Atlanta', 'code': 'ATL', 'price': 4 },
+    { 'name': 'Seattle', 'code': 'SEA', 'price': 5 },
   ])
 
 
 
   const getFlights = async function (location) {
-    var flightSearch = {
-      "currencyCode": "USD",
-      "originDestinations": [
-        {
-          "id": "1",
-          "originLocationCode": location,
-          "destinationLocationCode": "SFO",
-          "departureDateTimeRange": {
-            "date": "2024-11-01"
-          }
-        }
-      ],
-      "travelers": [
-        {
-          "id": "1",
-          "travelerType": "ADULT"
-        }
-      ],
-      "searchCriteria": {
-        "maxFlightOffers": 2
-      },
-      "sources": [
-        "GDS"
-      ]
+    var params = {
+      currencyCode: "USD",
+      originLocationCode: location,
+      destinationLocationCode: "SFO",
+      departureDate: "2024-11-01",
+      adults: 1
     }
 
-    const response = axios.get('https://test.api.amadeus.com/v2/shopping/flight-offers', flightSearch, {
+    const ticketSearch = (obj, target) =>
+      target in obj
+        ? obj[target]
+        : Object.values(obj).reduce((acc, val) => {
+            if (acc !== undefined) return acc;
+            if (typeof val === 'object') return ticketSearch(val, target);
+          }, undefined);
+
+    const response = axios.get('https://test.api.amadeus.com/v2/shopping/flight-offers', {
+      params: params,
       headers: {
-        "Authorization": "Bearer pyp4ZnJqd9SLI9uCE6Ra12oEsMaj",
+        "Authorization": "Bearer oAsCQpSzMg8pxzAAwmHDrZ1LbpZU",
         "Content-Type": "application/json"
       }
     })
+    const trips = response.data;
+
+    const ticketPrice = ticketSearch(trips, 'total')
+    setCities(
+      cities.map((city) => (
+        city.price = ticketPrice()
+      )))
 
     return response;
   };
-
+console.log(flightDetails)
   const fetchCityPrices = async () => {
     const cityPromises = cities.map((city) => {
 
@@ -75,7 +74,7 @@ function App() {
   }
 
   useEffect(() => {
-    fetchCityPrices()
+    setInterval(fetchCityPrices,1000)
   }, [])
 
   useEffect(() => {
@@ -102,6 +101,9 @@ function App() {
   const handleChange = (e) => {
     setSelectedCity(e.target.value);
   }
+
+
+
 
 
 
