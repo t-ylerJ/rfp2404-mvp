@@ -15,15 +15,15 @@ function App() {
 
 
 
-
+//Amadeus API authentication tokens only last for 30 mins at a time, so I have added dummy data for ease of use
   const [cities, setCities] = useState([
-    { 'name': 'Dallas', 'code': 'DFW', 'price': 6 },
-    { 'name': 'Las Vegas', 'code': 'LAS', 'price': 0 },
-    { 'name': 'Chicago', 'code': 'ORD', 'price': 1 },
-    { 'name': 'Austin', 'code': 'AUS', 'price': 2 },
-    { 'name': 'Denver', 'code': 'DEN', 'price': 3 },
-    { 'name': 'Atlanta', 'code': 'ATL', 'price': 4 },
-    { 'name': 'Seattle', 'code': 'SEA', 'price': 5 },
+    { 'name': 'Dallas', 'code': 'DFW', 'price': 250 },
+    { 'name': 'Las Vegas', 'code': 'LAS', 'price': 114 },
+    { 'name': 'Chicago', 'code': 'ORD', 'price': 150 },
+    { 'name': 'Austin', 'code': 'AUS', 'price': 239 },
+    { 'name': 'Denver', 'code': 'DEN', 'price': 109 },
+    { 'name': 'Atlanta', 'code': 'ATL', 'price': 300 },
+    { 'name': 'Seattle', 'code': 'SEA', 'price': 125 },
   ])
 
 
@@ -62,7 +62,7 @@ function App() {
 
     return response;
   };
-console.log(flightDetails)
+
   const fetchCityPrices = async () => {
     const cityPromises = cities.map((city) => {
 
