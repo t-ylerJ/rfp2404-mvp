@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useId } from 'react';
 import reactLogo from '/react.svg';
 import goldenGateBridge from '/golden-gate-bridge.svg';
 import plane from '/airplane.svg';
@@ -18,12 +18,33 @@ function App() {
 //Amadeus API authentication tokens only last for 30 mins at a time, so I have added dummy data for ease of use
   const [cities, setCities] = useState([
     { 'name': 'Dallas', 'code': 'DFW', 'price': 250 },
-    { 'name': 'Las Vegas', 'code': 'LAS', 'price': 114 },
     { 'name': 'Chicago', 'code': 'ORD', 'price': 150 },
     { 'name': 'Austin', 'code': 'AUS', 'price': 239 },
     { 'name': 'Denver', 'code': 'DEN', 'price': 109 },
     { 'name': 'Atlanta', 'code': 'ATL', 'price': 300 },
     { 'name': 'Seattle', 'code': 'SEA', 'price': 125 },
+    { 'name': 'Orlando', 'code': 'MCO', 'price': 380 },
+    { 'name': 'Miami', 'code': 'MIA', 'price': 400 },
+    { 'name': 'Phoenix', 'code': 'PHX', 'price': 210 },
+    { 'name': 'Houston', 'code': 'IAH', 'price': 340 },
+    { 'name': 'Charlotte', 'code': 'CLT', 'price': 370 },
+    { 'name': 'Newark', 'code': 'EWR', 'price': 380 },
+    { 'name': 'Minneapolis', 'code': 'MSP', 'price': 310 },
+    { 'name': 'Detroit', 'code': 'DTW', 'price': 330 },
+    { 'name': 'Philadelphia', 'code': 'PHL', 'price': 370 },
+    { 'name': 'Boston', 'code': 'BOS', 'price': 360 },
+    { 'name': 'Salt Lake City', 'code': 'SLC', 'price': 190 },
+    { 'name': 'Washington D.C.', 'code': 'DCA', 'price': 350 },
+    { 'name': 'Baltimore', 'code': 'BWI', 'price': 340 },
+    { 'name': 'Fort Lauderdale', 'code': 'FLL', 'price': 370 },
+    { 'name': 'Tampa', 'code': 'TPA', 'price': 360 },
+    { 'name': 'Portland', 'code': 'PDX', 'price': 250 },
+    { 'name': 'San Antonio', 'code': 'SAT', 'price': 330 },
+    { 'name': 'St. Louis', 'code': 'STL', 'price': 300 },
+    { 'name': 'Cleveland', 'code': 'CLE', 'price': 310 },
+    { 'name': 'Kansas City', 'code': 'MCI', 'price': 320 },
+    { 'name': 'Indianapolis', 'code': 'IND', 'price': 310 }
+
   ])
 
 
@@ -45,22 +66,22 @@ function App() {
             if (typeof val === 'object') return ticketSearch(val, target);
           }, undefined);
 
-    const response = axios.get('https://test.api.amadeus.com/v2/shopping/flight-offers', {
-      params: params,
-      headers: {
-        "Authorization": "Bearer oAsCQpSzMg8pxzAAwmHDrZ1LbpZU",
-        "Content-Type": "application/json"
-      }
-    })
-    const trips = response.data;
+    // const response = axios.get('https://test.api.amadeus.com/v2/shopping/flight-offers', {
+    //   params: params,
+    //   headers: {
+    //     "Authorization": "Bearer oAsCQpSzMg8pxzAAwmHDrZ1LbpZU",
+    //     "Content-Type": "application/json"
+    //   }
+    // })
+    // const trips = response.data;
 
     const ticketPrice = ticketSearch(trips, 'total')
-    setCities(
-      cities.map((city) => (
-        city.price = ticketPrice()
-      )))
+    // setCities(
+    //   cities.map((city) => (
+    //     city.price = ticketPrice()
+    //   )))
 
-    return response;
+    // return response;
   };
 
   const fetchCityPrices = async () => {
@@ -74,7 +95,7 @@ function App() {
   }
 
   useEffect(() => {
-    setInterval(fetchCityPrices,1000)
+    // setInterval(fetchCityPrices,1000)
   }, [])
 
   useEffect(() => {
@@ -96,12 +117,13 @@ function App() {
 
     setShowResult(!showResult);
     setGameState(selectedCity === smallest[0].name)
+    console.log(cities.sort((a, b) => a.price - b.price))
   }
 
   const handleChange = (e) => {
     setSelectedCity(e.target.value);
   }
-
+  const cityId = useId();
 
 
 
@@ -121,13 +143,18 @@ function App() {
         {!showResult ? (
 
           <form onSubmit={handleSubmit}>
-            <p>Select city with cheapest flight to SF:</p>
-            {cityChoices.map((city, index) => (
-              <span key={index}>
-                <input type="radio" id={`city${index}`} name="citySelection" value={city.name} onChange={handleChange} required />
-                <label htmlFor={`city${index}`}>{city.name}</label>
-              </span>
-            ))}
+          <label htmlFor={cityId}>
+            Select city with cheapest flight to SF:
+          </label>
+            <select
+              value={selectedCity}
+              onChange={handleChange}
+              id={cityId} name="citySelection">
+              {cityChoices.map((city, index) => (
+                <option value={city.name} key={index}>{city.name}</option>
+
+              ))}
+          </select>
             <div className="text-gray-600 pt-10">
             </div>
             <button type="submit">Select</button>
