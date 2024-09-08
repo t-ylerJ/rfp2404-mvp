@@ -124,7 +124,13 @@ function App() {
     setSelectedCity(e.target.value);
   }
   const cityId = useId();
-
+  // var fourWeeksOut, threeWeeksOut, twoWeeksOut, oneWeekOut = new Date();
+  var fourWeeksOut = new Date();
+  var threeWeeksOut = new Date();
+  fourWeeksOut.setDate(fourWeeksOut.getDate() - 7);
+  threeWeeksOut.setDate(threeWeeksOut.getDate() - 14);
+  // twoWeeksOut.setDate(twoWeeksOut.getDate() - 21);
+  // oneWeekOut.setDate(oneWeekOut.getDate() - 28);
 
 
 
@@ -161,6 +167,16 @@ function App() {
           </form>
         ) : (
           <div>
+            <div className="flex flex-row">
+            <span>4 Weeks Ago
+              <p>{fourWeeksOut.toString()}</p>
+            </span>
+            <span>3 Weeks Ago
+              <p>{threeWeeksOut.toString()}</p>
+            </span>
+            <span>2 Weeks Ago</span>
+            <span>1 Week Ago</span>
+            </div>
             <img src={goldenGateBridge} className="logo bridge" alt="golden-gate-bridge" />
             <div>
               {gameState ?
