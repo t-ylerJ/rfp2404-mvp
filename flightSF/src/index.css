@@ -31,13 +31,13 @@ body {
   min-height: 100vh;
 }
 
-h1 {
+#firstLine {
   font-size: 2.2em;
   line-height: .3;
   padding: 0;
 }
-h2 {
-  font-size: 2.3em;
+h1 {
+  font-size: 4.3em;
   line-height: .5;
   padding: 0;
 }

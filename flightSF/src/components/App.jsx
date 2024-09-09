@@ -140,19 +140,19 @@ function App() {
 
   return (
     <>
-      <h1>Cheapest Flight to
-        <h2>San Francisco
+      <p id="firstLine">Cheapest Flight to </p>
+        <h1>San Francisco
           <a href="https://www.sftravel.com/" target="_blank">
             <img src={plane} className="Plane icon" alt="Plane icon" />
           </a>
-        </h2>
-      </h1>
+        </h1>
+
       <div className="w-full">
         {!showResult ? (
 
           <form onSubmit={handleSubmit}>
           <label htmlFor={cityId}>
-            Select city with cheapest flight to SF:
+            Select departing city:
           </label>
             <select
               value={selectedCity}
@@ -171,18 +171,22 @@ function App() {
           <div className="w-full justify-between">
             {/* <div className="flex flex-direction: row flex-row flex-wrap justify-between"> */}
             <div id="timeContainer" style={{ display: 'flex', flexDirection: 'row', gap: '1rem' }}>
-              <span className="w-1/4">4 Weeks Ago
+              <span className="w-1/4">
+                <h2>4 Weeks Ago</h2>
                 <p>{fourWeeksOut.toDateString()}</p>
               </span>
-              <span className=" w-1/4">3 Weeks Ago
+              <span className=" w-1/4">
+                <h2>3 Weeks Ago</h2>
                 <p>{threeWeeksOut.toDateString()}</p>
               </span>
-              <div className="flex flex-col w-1/4">2 Weeks Ago
-              <p>{twoWeeksOut.toDateString()}</p>
-              </div>
-              <div className="flex flex-col w-1/4">1 Week Ago
-              <p>{oneWeekOut.toDateString()}</p>
-              </div>
+              <span className="flex flex-col w-1/4">
+                <h2>2 Weeks Ago</h2>
+                <p>{twoWeeksOut.toDateString()}</p>
+              </span>
+              <span className="flex flex-col w-1/4">
+                <h2>1 Week Ago</h2>
+                <p>{oneWeekOut.toDateString()}</p>
+              </span>
             </div>
 
             <img src={goldenGateBridge} className="logo bridge" alt="golden-gate-bridge" />
