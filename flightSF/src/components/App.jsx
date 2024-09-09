@@ -124,13 +124,15 @@ function App() {
     setSelectedCity(e.target.value);
   }
   const cityId = useId();
-  // var fourWeeksOut, threeWeeksOut, twoWeeksOut, oneWeekOut = new Date();
+
   var fourWeeksOut = new Date();
   var threeWeeksOut = new Date();
+  var twoWeeksOut = new Date();
+  var oneWeekOut = new Date ();
   fourWeeksOut.setDate(fourWeeksOut.getDate() - 7);
   threeWeeksOut.setDate(threeWeeksOut.getDate() - 14);
-  // twoWeeksOut.setDate(twoWeeksOut.getDate() - 21);
-  // oneWeekOut.setDate(oneWeekOut.getDate() - 28);
+  twoWeeksOut.setDate(twoWeeksOut.getDate() - 21);
+  oneWeekOut.setDate(oneWeekOut.getDate() - 28);
 
 
 
@@ -145,7 +147,7 @@ function App() {
           </a>
         </h2>
       </h1>
-      <div>
+      <div className="w-full">
         {!showResult ? (
 
           <form onSubmit={handleSubmit}>
@@ -166,17 +168,23 @@ function App() {
             <button type="submit">Select</button>
           </form>
         ) : (
-          <div>
-            <div className="flex flex-row">
-            <span>4 Weeks Ago
-              <p>{fourWeeksOut.toString()}</p>
-            </span>
-            <span>3 Weeks Ago
-              <p>{threeWeeksOut.toString()}</p>
-            </span>
-            <span>2 Weeks Ago</span>
-            <span>1 Week Ago</span>
+          <div className="w-full justify-between">
+            {/* <div className="flex flex-direction: row flex-row flex-wrap justify-between"> */}
+            <div id="timeContainer" style={{ display: 'flex', flexDirection: 'row', gap: '1rem' }}>
+              <span className="w-1/4">4 Weeks Ago
+                <p>{fourWeeksOut.toString()}</p>
+              </span>
+              <span className=" w-1/4">3 Weeks Ago
+                <p>{threeWeeksOut.toString()}</p>
+              </span>
+              <div className="flex flex-col w-1/4">2 Weeks Ago
+              <p>{twoWeeksOut.toString()}</p>
+              </div>
+              <div className="flex flex-col w-1/4">1 Week Ago
+              <p>{oneWeekOut.toString()}</p>
+              </div>
             </div>
+
             <img src={goldenGateBridge} className="logo bridge" alt="golden-gate-bridge" />
             <div>
               {gameState ?
