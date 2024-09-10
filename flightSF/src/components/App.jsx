@@ -44,10 +44,12 @@ function App() {
     { 'name': 'Cleveland', 'code': 'CLE', 'price': 310 },
     { 'name': 'Kansas City', 'code': 'MCI', 'price': 320 },
     { 'name': 'Indianapolis', 'code': 'IND', 'price': 310 }
-
   ])
 
-
+  const priceMap = cities.reduce((acc, city) => {
+    acc[city.code] = city.price;
+    return acc;
+  }, {});
 
   const getFlights = async function (location) {
     var params = {
@@ -137,7 +139,7 @@ function App() {
   const options = { year: 'numeric', month: 'short', day: 'numeric'};
 
 
-
+console.log(selectedCity)
 
   return (
     <>
@@ -175,6 +177,7 @@ function App() {
               <span className="w-1/4">
                 <h2>4 Weeks Ago</h2>
                 <p>{fourWeeksOut.toLocaleDateString('en-US', options)}</p>
+                <p>{selectedCity || ''}</p>
               </span>
               <span className=" w-1/4">
                 <h2>3 Weeks Ago</h2>
