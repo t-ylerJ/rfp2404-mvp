@@ -134,6 +134,7 @@ function App() {
   twoWeeksOut.setDate(twoWeeksOut.getDate() - 14);
   oneWeekOut.setDate(oneWeekOut.getDate() - 7);
 
+  const options = { year: 'numeric', month: 'short', day: 'numeric'};
 
 
 
@@ -170,22 +171,22 @@ function App() {
         ) : (
           <div className="w-full justify-between">
             {/* <div className="flex flex-direction: row flex-row flex-wrap justify-between"> */}
-            <div id="timeContainer" style={{ display: 'flex', flexDirection: 'row', gap: '1rem' }}>
+            <div id="timeContainer" style={{ display: 'flex', flexDirection: 'row', gap: '6rem' }}>
               <span className="w-1/4">
                 <h2>4 Weeks Ago</h2>
-                <p>{fourWeeksOut.toDateString()}</p>
+                <p>{fourWeeksOut.toLocaleDateString('en-US', options)}</p>
               </span>
               <span className=" w-1/4">
                 <h2>3 Weeks Ago</h2>
-                <p>{threeWeeksOut.toDateString()}</p>
+                <p>{threeWeeksOut.toLocaleDateString('en-US', options)}</p>
               </span>
               <span className="flex flex-col w-1/4">
                 <h2>2 Weeks Ago</h2>
-                <p>{twoWeeksOut.toDateString()}</p>
+                <p>{twoWeeksOut.toLocaleDateString('en-US', options)}</p>
               </span>
               <span className="flex flex-col w-1/4">
                 <h2>1 Week Ago</h2>
-                <p>{oneWeekOut.toDateString()}</p>
+                <p>{oneWeekOut.toLocaleDateString('en-US', options)}</p>
               </span>
             </div>
 
