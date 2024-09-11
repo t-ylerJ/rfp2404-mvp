@@ -25,7 +25,7 @@ function App() {
     { 'name': 'Atlanta', 'code': 'ATL', 'price': 300 },
     { 'name': 'Seattle', 'code': 'SEA', 'price': 125 },
     { 'name': 'Orlando', 'code': 'MCO', 'price': 380 },
-    { 'name': 'Miami', 'code': 'MIA', 'price': 400 },
+    { 'name': 'Miami', 'code': 'MIA', 'price': 390 },
     { 'name': 'Phoenix', 'code': 'PHX', 'price': 210 },
     { 'name': 'Houston', 'code': 'IAH', 'price': 340 },
     { 'name': 'Charlotte', 'code': 'CLT', 'price': 370 },
@@ -47,12 +47,23 @@ function App() {
     { 'name': 'Indianapolis', 'code': 'IND', 'price': 310 }
   ])
 
-  const priceMap = cities.reduce((acc, city) => {
-    // {DFW: 250, ORD: 150, AUS: 239...}
-    acc[city.name] = city.price;
-    return acc;
-  }, {});
-  console.log(priceMap['Dallas']);
+  const getPrice = (selectedCity, week) => {
+    const multiplier = {
+      //weeks ago: multiplier
+      4: 1,
+      3: 1.2,
+      2: 1.5,
+      1: 1.75
+    }
+      const priceMap = cities.reduce((acc, city) => {
+        // {DFW: 250, ORD: 150, AUS: 239...}
+        acc[city.name] = Math.trunc(Math.random() * ((city.price * multiplier[week]) - city.price) + city.price);
+        return acc;
+      }, {});
+
+      return priceMap[selectedCity];
+    }
+
 
   const getFlights = async function (location) {
     var params = {
@@ -188,24 +199,29 @@ console.log(selectedCity)
           </form>
         ) : (
           <div className="w-full justify-between">
-            {/* <div className="flex flex-direction: row flex-row flex-wrap justify-between"> */}
             <div id="timeContainer" style={{ display: 'flex', flexDirection: 'row', gap: '6rem' }}>
               <span className="w-1/4">
                 <h2>4 Weeks Ago</h2>
                 <p>{fourWeeksOut.toLocaleDateString('en-US', options)}</p>
-                <p>{priceMap[selectedCity]}</p>
+                <p>${getPrice(selectedCity,4)}</p>
               </span>
+
               <span className=" w-1/4">
                 <h2>3 Weeks Ago</h2>
                 <p>{threeWeeksOut.toLocaleDateString('en-US', options)}</p>
+                <p>${getPrice(selectedCity,3)}</p>
               </span>
+
               <span className="flex flex-col w-1/4">
                 <h2>2 Weeks Ago</h2>
                 <p>{twoWeeksOut.toLocaleDateString('en-US', options)}</p>
+                <p>${getPrice(selectedCity,2)}</p>
               </span>
+
               <span className="flex flex-col w-1/4">
                 <h2>1 Week Ago</h2>
                 <p>{oneWeekOut.toLocaleDateString('en-US', options)}</p>
+                <p>${getPrice(selectedCity,1)}</p>
               </span>
             </div>
 
