@@ -128,7 +128,8 @@ function App() {
 
     setShowResult(!showResult);
     setGameState(selectedCity === smallest[0].name);
-
+    // setInitialCity(true);
+    console.log("initialCity:", initialCity)
     // console.log(cities.sort((a, b) => a.price - b.price))
   }
 
@@ -213,7 +214,9 @@ console.log(selectedCity)
               }
 
             </div>
-            <button onClick={handleSubmit}>Try Again</button>
+            <button onClick={() => {
+              setInitialCity(true)
+              setShowResult(!showResult)}}>Try Again</button>
           </div>
         )}
       </div>
