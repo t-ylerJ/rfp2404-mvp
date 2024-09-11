@@ -100,6 +100,11 @@ function App() {
 
 
   useEffect(() => {
+    setInitialCity(true);
+      // setSelectedCity(cityChoices[0].name);
+      // console.log("Updated selectedCity:", cityChoices[0].name);
+  }, []);
+  useEffect(() => {
     setCityChoices(
       cities
       .map(value => ({ value, sort: Math.floor(Math.random() * cities.length) }))
@@ -107,27 +112,23 @@ function App() {
       .map(({ value }) => value)
       .slice(0, 4)
     );
-    if (initialCity === true) {
+    if (initialCity === true && cityChoices[0]) {
       setSelectedCity(cityChoices[0].name);
       console.log("initial city:", initialCity)
-      console.log("selectedCity:", selectedCity, cityChoices[0].name);
+      console.log("selectedCity:", selectedCity, cityChoices[0]);
     }
   }, [showResult]);
 
 
-  useEffect(() => {
-      // setSelectedCity(cityChoices[0].name);
-      // console.log("Updated selectedCity:", cityChoices[0].name);
-  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-
     const smallest = [...cityChoices].sort((a, b) => a.price - b.price)
 
     setShowResult(!showResult);
-    setGameState(selectedCity === smallest[0].name)
+    setGameState(selectedCity === smallest[0].name);
+
     // console.log(cities.sort((a, b) => a.price - b.price))
   }
 
@@ -189,7 +190,7 @@ console.log(selectedCity)
               <span className="w-1/4">
                 <h2>4 Weeks Ago</h2>
                 <p>{fourWeeksOut.toLocaleDateString('en-US', options)}</p>
-                <p>{showResult ? selectedCity : cityChoices[0]?.name}</p>
+                <p>{showResult ? selectedCity : cityChoices[0]?.price}</p>
               </span>
               <span className=" w-1/4">
                 <h2>3 Weeks Ago</h2>
