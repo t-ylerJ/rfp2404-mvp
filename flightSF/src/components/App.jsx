@@ -11,6 +11,7 @@ function App() {
   const [cityChoices, setCityChoices] = useState([]);
   const [gameState, setGameState] = useState(false);
   const [flightDetails, setFlightDetails] = useState([]);
+  const [initialCity, setInitialCity] = useState(true);
 
 
 
@@ -97,8 +98,8 @@ function App() {
   }
 
 
-  useEffect(() => {
 
+  useEffect(() => {
     setCityChoices(
       cities
       .map(value => ({ value, sort: Math.floor(Math.random() * cities.length) }))
@@ -106,21 +107,24 @@ function App() {
       .map(({ value }) => value)
       .slice(0, 4)
     );
+    if (initialCity === true) {
+      setSelectedCity(cityChoices[0].name);
+      console.log("initial city:", initialCity)
+      console.log("selectedCity:", selectedCity, cityChoices[0].name);
+    }
   }, [showResult]);
 
 
   useEffect(() => {
-    if (cityChoices.length > 0) {
-      setSelectedCity(cityChoices[0].name);
-      console.log("Updated selectedCity:", cityChoices[0].name);
-    }
-  }, [cityChoices]);
+      // setSelectedCity(cityChoices[0].name);
+      // console.log("Updated selectedCity:", cityChoices[0].name);
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const sortedCityChoices = [...cityChoices]
-    sortedCityChoices.sort((a, b) => a.price - b.price)
-    const smallest = sortedCityChoices[0];
+
+
+    const smallest = [...cityChoices].sort((a, b) => a.price - b.price)
 
     setShowResult(!showResult);
     setGameState(selectedCity === smallest[0].name)
@@ -129,6 +133,9 @@ function App() {
 
   const handleChange = (e) => {
     setSelectedCity(e.target.value);
+    setInitialCity(false);
+    console.log("initialCity", initialCity)
+    console.log("selectedCity:", selectedCity)
   }
   const cityId = useId();
 
