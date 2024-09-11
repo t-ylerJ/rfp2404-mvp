@@ -48,9 +48,11 @@ function App() {
   ])
 
   const priceMap = cities.reduce((acc, city) => {
-    acc[city.code] = city.price;
+    // {DFW: 250, ORD: 150, AUS: 239...}
+    acc[city.name] = city.price;
     return acc;
   }, {});
+  console.log(priceMap['Dallas']);
 
   const getFlights = async function (location) {
     var params = {
@@ -191,7 +193,7 @@ console.log(selectedCity)
               <span className="w-1/4">
                 <h2>4 Weeks Ago</h2>
                 <p>{fourWeeksOut.toLocaleDateString('en-US', options)}</p>
-                <p>{showResult ? selectedCity : cityChoices[0]?.price}</p>
+                <p>{priceMap[selectedCity]}</p>
               </span>
               <span className=" w-1/4">
                 <h2>3 Weeks Ago</h2>
