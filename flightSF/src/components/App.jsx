@@ -96,30 +96,35 @@ function App() {
 
   }
 
-  useEffect(() => {
-    // setInterval(fetchCityPrices,1000)
-  }, [])
 
   useEffect(() => {
 
     setCityChoices(
       cities
-        .map(value => ({ value, sort: Math.floor(Math.random() * cities.length) }))
-        .sort((a, b) => a.sort - b.sort)
-        .map(({ value }) => value)
-        .slice(0, 4)
+      .map(value => ({ value, sort: Math.floor(Math.random() * cities.length) }))
+      .sort((a, b) => a.sort - b.sort)
+      .map(({ value }) => value)
+      .slice(0, 4)
     );
   }, [showResult]);
 
 
+  useEffect(() => {
+    if (cityChoices.length > 0) {
+      setSelectedCity(cityChoices[0].name);
+      console.log("Updated selectedCity:", cityChoices[0].name);
+    }
+  }, [cityChoices]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const smallest = cityChoices.sort((a, b) => a.price - b.price);
+    const sortedCityChoices = [...cityChoices]
+    sortedCityChoices.sort((a, b) => a.price - b.price)
+    const smallest = sortedCityChoices[0];
 
     setShowResult(!showResult);
     setGameState(selectedCity === smallest[0].name)
-    console.log(cities.sort((a, b) => a.price - b.price))
+    // console.log(cities.sort((a, b) => a.price - b.price))
   }
 
   const handleChange = (e) => {
@@ -158,7 +163,7 @@ console.log(selectedCity)
             Select departing city:
           </label>
             <select
-              value={selectedCity}
+
               onChange={handleChange}
               id={cityId} name="citySelection">
               {cityChoices.map((city, index) => (
@@ -177,7 +182,7 @@ console.log(selectedCity)
               <span className="w-1/4">
                 <h2>4 Weeks Ago</h2>
                 <p>{fourWeeksOut.toLocaleDateString('en-US', options)}</p>
-                <p>{selectedCity || ''}</p>
+                <p>{showResult ? selectedCity : cityChoices[0]?.name}</p>
               </span>
               <span className=" w-1/4">
                 <h2>3 Weeks Ago</h2>
