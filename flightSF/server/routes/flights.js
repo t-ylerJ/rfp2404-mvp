@@ -9,7 +9,6 @@ const amadeus = new Amadeus({
 
 
 export function getFlightPrices(req, res) {
-
   // var flightSearch = {
   //   "currencyCode": "USD",
   //   "originDestinations": [

@@ -4,6 +4,12 @@ import goldenGateBridge from '/golden-gate-bridge.svg';
 import plane from '/airplane.svg';
 import axios from 'axios';
 import '../App.css';
+import Chart from "chart.js/auto";
+import { CategoryScale } from "chart.js";
+import { FlightGraph } from "../utils/FlightGraph";
+import PieChart from "./PieChart.jsx";
+
+Chart.register(CategoryScale);
 
 function App() {
   const [selectedCity, setSelectedCity] = useState('');
@@ -12,6 +18,24 @@ function App() {
   const [gameState, setGameState] = useState(false);
   const [flightDetails, setFlightDetails] = useState([]);
   const [initialCity, setInitialCity] = useState(true);
+  const [chartData, setChartData] = useState({
+    labels: FlightGraph.map((data) => data.year),
+    datasets: [
+      {
+        label: "Users Gained ",
+        data: FlightGraph.map((data) => data.userGain),
+        backgroundColor: [
+          "rgba(75,192,192,1)",
+          "#ecf0f1",
+          "#50AF95",
+          "#f3ba2f",
+          "#2a71d0"
+        ],
+        borderColor: "black",
+        borderWidth: 2
+      }
+    ]
+  });
 
 
 
@@ -50,7 +74,6 @@ function App() {
   const getPrice = (selectedCity, week) => {
     //placeholder price generator. priceMap creates an object literal of city: flightprice and gives each price a bigger multiplier based on how close the flight is
     const multiplier = {
-      //4 weeks ago = no multiplier
       4: 1,
       3: 1.2,
       2: 1.5,
@@ -73,7 +96,6 @@ function App() {
       } else {
         return <span className="down">▼</span>;
       }
-      return arrow;
     }
     const week4Price = getPrice(selectedCity,4);
     const week3Price = getPrice(selectedCity,3);
@@ -148,12 +170,12 @@ function App() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const smallest = [...cityChoices].sort((a, b) => a.price - b.price)
+    const smallest = [...cityChoices].sort((a, b) => a.price - b.price);
 
     setShowResult(!showResult);
     setGameState(selectedCity === smallest[0].name);
     // setInitialCity(true);
-    console.log("initialCity:", initialCity)
+    console.log("initialCity:", initialCity);
     // console.log(cities.sort((a, b) => a.price - b.price))
   }
 
@@ -184,7 +206,7 @@ console.log(selectedCity)
       <p id="firstLine">Cheapest Flight to </p>
         <h1>San Francisco
           <a href="https://www.sftravel.com/" target="_blank">
-            <img src={plane} className="Plane icon" alt="Plane icon" />
+          <img src={goldenGateBridge} className="icon" alt="golden-gate-bridge" />
           </a>
         </h1>
 
@@ -237,14 +259,11 @@ console.log(selectedCity)
                 <p>{priceTrend(week2Price,week1Price)} ${week1Price}</p>
               </span>
             </div>
-
-            <img src={goldenGateBridge} className="logo bridge" alt="golden-gate-bridge" />
-            <div>
-              {gameState ?
-                'Congrats!' : 'Oh no!'
-              }
-
+            <div className="App">
+            <p>Using Chart.js in React</p>
+            <PieChart chartData={chartData} />
             </div>
+
             <button onClick={() => {
               setInitialCity(true)
               setShowResult(!showResult)}}>Try Again</button>
