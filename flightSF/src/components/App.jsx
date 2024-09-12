@@ -7,7 +7,7 @@ import '../App.css';
 import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
 import { FlightGraph } from "../utils/FlightGraph";
-import PieChart from "./PieChart.jsx";
+import LineChart from "./LineChart.jsx";
 
 Chart.register(CategoryScale);
 
@@ -261,7 +261,7 @@ console.log(selectedCity)
             </div>
             <div className="App">
             <p>Using Chart.js in React</p>
-            <PieChart chartData={chartData} />
+            <LineChart chartData={chartData} />
             </div>
 
             <button onClick={() => {
