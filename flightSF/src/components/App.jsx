@@ -66,13 +66,12 @@ function App() {
     }
 
     const priceTrend = (price1, price2) => {
-      let arrow;
       if (price1 === price2) {
-        arrow = '=';
+        return <span className="equal">=</span>;
       } else if (price1 < price2) {
-        arrow = '^';
+        return <span className="up">▲</span>;
       } else {
-        arrow = 'v'
+        return <span className="down">▼</span>;
       }
       return arrow;
     }
@@ -221,22 +220,21 @@ console.log(selectedCity)
               <span className=" w-1/4">
                 <h2>3 Weeks Ago</h2>
                 <h3>{threeWeeksOut.toLocaleDateString('en-US', options)}</h3>
-                <p>${week3Price}</p>
-                <p className="trend">{priceTrend(week4Price,week3Price)}</p>
+                <p>{priceTrend(week4Price,week3Price)} ${week3Price}</p>
+                <p className="trend"></p>
               </span>
 
               <span className="flex flex-col w-1/4">
                 <h2>2 Weeks Ago</h2>
                 <h3>{twoWeeksOut.toLocaleDateString('en-US', options)}</h3>
-                <p>${week2Price}</p>
-                <p className="trend">{priceTrend(week3Price,week2Price)}</p>
+                <p>{priceTrend(week3Price,week2Price)} ${week2Price}</p>
+
               </span>
 
               <span className="flex flex-col w-1/4">
                 <h2>1 Week Ago</h2>
                 <h3>{oneWeekOut.toLocaleDateString('en-US', options)}</h3>
-                <p>${week1Price}</p>
-                <p className="trend">{priceTrend(week2Price,week1Price)}</p>
+                <p>{priceTrend(week2Price,week1Price)} ${week1Price}</p>
               </span>
             </div>
 

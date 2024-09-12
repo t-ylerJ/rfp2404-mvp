@@ -20,7 +20,8 @@
 #timeContainer p {
   padding: 0;
   margin: 0;
-  font-size: 120%;
+  font-size: 150%;
+  font-weight: bold;
 }
 .logo {
   height: 6em;
@@ -47,6 +48,15 @@
   filter: drop-shadow(0 0 2em #646cffaa);
 }
 
+.up {
+  color: red;
+}
+.down {
+  color: green;
+}
+.equal {
+  color: white;
+}
 
 @keyframes logo-spin {
   from {
