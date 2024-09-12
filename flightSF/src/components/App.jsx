@@ -214,27 +214,27 @@ console.log(selectedCity)
             <div id="timeContainer" style={{ display: 'flex', flexDirection: 'row', gap: '6rem' }}>
               <span className="w-1/4">
                 <h2>4 Weeks Ago</h2>
-                <p>{fourWeeksOut.toLocaleDateString('en-US', options)}</p>
+                <h3>{fourWeeksOut.toLocaleDateString('en-US', options)}</h3>
                 <p>${week4Price}</p>
               </span>
 
               <span className=" w-1/4">
                 <h2>3 Weeks Ago</h2>
-                <p>{threeWeeksOut.toLocaleDateString('en-US', options)}</p>
+                <h3>{threeWeeksOut.toLocaleDateString('en-US', options)}</h3>
                 <p>${week3Price}</p>
                 <p className="trend">{priceTrend(week4Price,week3Price)}</p>
               </span>
 
               <span className="flex flex-col w-1/4">
                 <h2>2 Weeks Ago</h2>
-                <p>{twoWeeksOut.toLocaleDateString('en-US', options)}</p>
+                <h3>{twoWeeksOut.toLocaleDateString('en-US', options)}</h3>
                 <p>${week2Price}</p>
                 <p className="trend">{priceTrend(week3Price,week2Price)}</p>
               </span>
 
               <span className="flex flex-col w-1/4">
                 <h2>1 Week Ago</h2>
-                <p>{oneWeekOut.toLocaleDateString('en-US', options)}</p>
+                <h3>{oneWeekOut.toLocaleDateString('en-US', options)}</h3>
                 <p>${week1Price}</p>
                 <p className="trend">{priceTrend(week2Price,week1Price)}</p>
               </span>
