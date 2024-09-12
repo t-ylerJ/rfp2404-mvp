@@ -48,8 +48,9 @@ function App() {
   ])
 
   const getPrice = (selectedCity, week) => {
+    //placeholder price generator. priceMap creates an object literal of city: flightprice and gives each price a bigger multiplier based on how close the flight is
     const multiplier = {
-      //weeks ago: multiplier
+      //4 weeks ago = no multiplier
       4: 1,
       3: 1.2,
       2: 1.5,
@@ -64,7 +65,21 @@ function App() {
       return priceMap[selectedCity];
     }
 
-
+    const priceTrend = (price1, price2) => {
+      let arrow;
+      if (price1 === price2) {
+        arrow = '=';
+      } else if (price1 < price2) {
+        arrow = '^';
+      } else {
+        arrow = 'v'
+      }
+      return arrow;
+    }
+    const week4Price = getPrice(selectedCity,4);
+    const week3Price = getPrice(selectedCity,3);
+    const week2Price = getPrice(selectedCity, 2);
+    const week1Price = getPrice(selectedCity, 1);
   const getFlights = async function (location) {
     var params = {
       currencyCode: "USD",
@@ -107,15 +122,12 @@ function App() {
     });
     const updatedCities = await Promise.all(cityPromises);
     setCities(updatedCities);
-
   }
 
 
 
   useEffect(() => {
     setInitialCity(true);
-      // setSelectedCity(cityChoices[0].name);
-      // console.log("Updated selectedCity:", cityChoices[0].name);
   }, []);
   useEffect(() => {
     setCityChoices(
@@ -203,25 +215,28 @@ console.log(selectedCity)
               <span className="w-1/4">
                 <h2>4 Weeks Ago</h2>
                 <p>{fourWeeksOut.toLocaleDateString('en-US', options)}</p>
-                <p>${getPrice(selectedCity,4)}</p>
+                <p>${week4Price}</p>
               </span>
 
               <span className=" w-1/4">
                 <h2>3 Weeks Ago</h2>
                 <p>{threeWeeksOut.toLocaleDateString('en-US', options)}</p>
-                <p>${getPrice(selectedCity,3)}</p>
+                <p>${week3Price}</p>
+                <p className="trend">{priceTrend(week4Price,week3Price)}</p>
               </span>
 
               <span className="flex flex-col w-1/4">
                 <h2>2 Weeks Ago</h2>
                 <p>{twoWeeksOut.toLocaleDateString('en-US', options)}</p>
-                <p>${getPrice(selectedCity,2)}</p>
+                <p>${week2Price}</p>
+                <p className="trend">{priceTrend(week3Price,week2Price)}</p>
               </span>
 
               <span className="flex flex-col w-1/4">
                 <h2>1 Week Ago</h2>
                 <p>{oneWeekOut.toLocaleDateString('en-US', options)}</p>
-                <p>${getPrice(selectedCity,1)}</p>
+                <p>${week1Price}</p>
+                <p className="trend">{priceTrend(week2Price,week1Price)}</p>
               </span>
             </div>
 
