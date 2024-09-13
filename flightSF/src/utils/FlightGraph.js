@@ -1,3 +1,5 @@
+import '../components/App.jsx';
+
 export const FlightGraph = [
   {
     id: 1,
@@ -23,10 +25,4 @@ export const FlightGraph = [
     userGain: 90000,
     userLost: 4555
   },
-  {
-    id: 5,
-    year: 2020,
-    userGain: 4300,
-    userLost: 234
-  }
 ];

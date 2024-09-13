@@ -18,24 +18,7 @@ function App() {
   const [gameState, setGameState] = useState(false);
   const [flightDetails, setFlightDetails] = useState([]);
   const [initialCity, setInitialCity] = useState(true);
-  const [chartData, setChartData] = useState({
-    labels: FlightGraph.map((data) => data.year),
-    datasets: [
-      {
-        label: "Users Gained ",
-        data: FlightGraph.map((data) => data.userGain),
-        backgroundColor: [
-          "rgba(75,192,192,1)",
-          "#ecf0f1",
-          "#50AF95",
-          "#f3ba2f",
-          "#2a71d0"
-        ],
-        borderColor: "black",
-        borderWidth: 2
-      }
-    ]
-  });
+  const [chartData, setChartData] = useState(null);
 
 
 
@@ -89,18 +72,15 @@ function App() {
     }
 
     const priceTrend = (price1, price2) => {
-      if (price1 === price2) {
-        return <span className="equal">=</span>;
-      } else if (price1 < price2) {
-        return <span className="up">▲</span>;
-      } else {
-        return <span className="down">▼</span>;
+      const trend = price1 < price2 ? <span className="up">▲</span> : <span className="down">▼</span>;
+        return trend;
       }
-    }
+
     const week4Price = getPrice(selectedCity,4);
     const week3Price = getPrice(selectedCity,3);
     const week2Price = getPrice(selectedCity, 2);
     const week1Price = getPrice(selectedCity, 1);
+
   const getFlights = async function (location) {
     var params = {
       currencyCode: "USD",
@@ -166,17 +146,33 @@ function App() {
   }, [showResult]);
 
 
+  const updateChartData = (week4Price, week3Price, week2Price, week1Price) => {
+    setChartData({
+      labels: ['4 Weeks Ago', '3 Weeks Ago', '2 Weeks Ago', '1 Week Ago'],
+      datasets: [
+        {
+          label: `${selectedCity} Flight Prices`,
+          data: [week4Price, week3Price, week2Price, week1Price],
+          backgroundColor: 'rgba(75,192,192,0.4)',
+          borderColor: 'rgba(75,192,192,1)',
+          borderWidth: 2
+        }
+      ]
+    });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     const smallest = [...cityChoices].sort((a, b) => a.price - b.price);
+    const week4Price = getPrice(selectedCity, 4);
+    const week3Price = getPrice(selectedCity, 3);
+    const week2Price = getPrice(selectedCity, 2);
+    const week1Price = getPrice(selectedCity, 1);
 
+    updateChartData(week4Price, week3Price, week2Price, week1Price);
     setShowResult(!showResult);
-    setGameState(selectedCity === smallest[0].name);
-    // setInitialCity(true);
     console.log("initialCity:", initialCity);
-    // console.log(cities.sort((a, b) => a.price - b.price))
+
   }
 
   const handleChange = (e) => {
@@ -261,7 +257,7 @@ console.log(selectedCity)
             </div>
             <div className="App">
             <p>Using Chart.js in React</p>
-            <LineChart chartData={chartData} />
+            {chartData && <LineChart chartData={chartData}/>}
             </div>
 
             <button onClick={() => {

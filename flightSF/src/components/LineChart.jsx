@@ -8,30 +8,38 @@ function LineChart({ chartData }) {
   useEffect(() => {
     const canvas = chartRef.current.getContext('2d');
 
-    // Custom Plugin for setting the canvas background color
     const customCanvasBackgroundColor = {
       id: 'customCanvasBackgroundColor',
       beforeDraw: (chart) => {
         const ctx = chart.canvas.getContext('2d');
         ctx.save();
         ctx.globalCompositeOperation = 'destination-over';
-        ctx.fillStyle = 'lightGreen'; // Background color
+        ctx.fillStyle = 'lightGreen';
         ctx.fillRect(0, 0, chart.width, chart.height);
         ctx.restore();
       }
     };
 
     const myChart = new Chart(canvas, {
-      type: 'line', // change 'doughnut' to 'line' since you're working with a line chart
+      type: 'line',
       data: chartData,
+      width: 500,
+      height:50,
       options: {
         plugins: {
           customCanvasBackgroundColor: {
             color: 'lightGreen',
           },
+          title: {
+            display: true,
+            text: "Flight prices over last 30 days"
+          },
+          legend: {
+            display: false
+          },
         },
       },
-      plugins: [customCanvasBackgroundColor], // Register the plugin here
+      plugins: [customCanvasBackgroundColor],
     });
     return () => {
       myChart.destroy();
@@ -41,7 +49,7 @@ function LineChart({ chartData }) {
   return (
     <div className="chart-container">
       <h2 style={{ textAlign: "center" }}>Line Chart</h2>
-      <Line
+      {/* <Line
         data={chartData}
         options={{
           plugins: {
@@ -54,7 +62,7 @@ function LineChart({ chartData }) {
             },
           },
         }}
-      />
+      /> */}
       <canvas ref={chartRef}></canvas>
     </div>
   );
