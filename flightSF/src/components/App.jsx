@@ -19,7 +19,10 @@ function App() {
   const [flightDetails, setFlightDetails] = useState([]);
   const [initialCity, setInitialCity] = useState(true);
   const [chartData, setChartData] = useState(null);
-
+  const [week4Price, setWeek4Price] = useState(0);
+  const [week3Price, setWeek3Price] = useState(0);
+  const [week2Price, setWeek2Price] = useState(0);
+  const[week1Price, setWeek1Price] = useState(0);
 
 
 
@@ -76,114 +79,118 @@ function App() {
         return trend;
       }
 
-    const week4Price = getPrice(selectedCity,4);
-    const week3Price = getPrice(selectedCity,3);
-    const week2Price = getPrice(selectedCity, 2);
-    const week1Price = getPrice(selectedCity, 1);
 
-  const getFlights = async function (location) {
-    var params = {
-      currencyCode: "USD",
-      originLocationCode: location,
-      destinationLocationCode: "SFO",
-      departureDate: "2024-11-01",
-      adults: 1
-    }
+      const getFlights = async function (location) {
+        var params = {
+          currencyCode: "USD",
+          originLocationCode: location,
+          destinationLocationCode: "SFO",
+          departureDate: "2024-11-01",
+          adults: 1
+        }
 
-    const ticketSearch = (obj, target) =>
-      target in obj
+        const ticketSearch = (obj, target) =>
+          target in obj
         ? obj[target]
         : Object.values(obj).reduce((acc, val) => {
-            if (acc !== undefined) return acc;
-            if (typeof val === 'object') return ticketSearch(val, target);
-          }, undefined);
+          if (acc !== undefined) return acc;
+          if (typeof val === 'object') return ticketSearch(val, target);
+        }, undefined);
 
-    // const response = axios.get('https://test.api.amadeus.com/v2/shopping/flight-offers', {
-    //   params: params,
-    //   headers: {
-//  "Authorization": `"Bearer ${process.env.ACCESS_TOKEN}"`,
-//       "Content-Type": "application/json"
-    //   }
-    // })
-    // const trips = response.data;
+        // const response = axios.get('https://test.api.amadeus.com/v2/shopping/flight-offers', {
+          //   params: params,
+          //   headers: {
+            //  "Authorization": `"Bearer ${process.env.ACCESS_TOKEN}"`,
+            //       "Content-Type": "application/json"
+            //   }
+            // })
+            // const trips = response.data;
 
-    const ticketPrice = ticketSearch(trips, 'total')
-    // setCities(
-    //   cities.map((city) => (
-    //     city.price = ticketPrice()
-    //   )))
+            const ticketPrice = ticketSearch(trips, 'total')
+            // setCities(
+              //   cities.map((city) => (
+                //     city.price = ticketPrice()
+                //   )))
 
-    // return response;
-  };
+                // return response;
+              };
 
-  const fetchCityPrices = async () => {
-    const cityPromises = cities.map((city) => {
+              const fetchCityPrices = async () => {
+                const cityPromises = cities.map((city) => {
 
-      return getFlights(city.code)
-    });
-    const updatedCities = await Promise.all(cityPromises);
-    setCities(updatedCities);
-  }
-
-
-
-  useEffect(() => {
-    setInitialCity(true);
-  }, []);
-  useEffect(() => {
-    setCityChoices(
-      cities
-      .map(value => ({ value, sort: Math.floor(Math.random() * cities.length) }))
-      .sort((a, b) => a.sort - b.sort)
-      .map(({ value }) => value)
-      .slice(0, 4)
-    );
-    if (initialCity === true && cityChoices[0]) {
-      setSelectedCity(cityChoices[0].name);
-      console.log("initial city:", initialCity)
-      console.log("selectedCity:", selectedCity, cityChoices[0]);
-    }
-  }, [showResult]);
+                  return getFlights(city.code)
+                });
+                const updatedCities = await Promise.all(cityPromises);
+                setCities(updatedCities);
+              }
 
 
-  const updateChartData = (week4Price, week3Price, week2Price, week1Price) => {
-    setChartData({
-      labels: ['4 Weeks Ago', '3 Weeks Ago', '2 Weeks Ago', '1 Week Ago'],
-      datasets: [
-        {
-          label: `${selectedCity} Flight Prices`,
-          data: [week4Price, week3Price, week2Price, week1Price],
-          backgroundColor: 'rgba(75,192,192,0.4)',
-          borderColor: 'rgba(75,192,192,1)',
-          borderWidth: 2
-        }
-      ]
-    });
-  };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const smallest = [...cityChoices].sort((a, b) => a.price - b.price);
-    // const week4Price = getPrice(selectedCity, 4);
-    // const week3Price = getPrice(selectedCity, 3);
-    // const week2Price = getPrice(selectedCity, 2);
-    // const week1Price = getPrice(selectedCity, 1);
+              const cityId = useId();
+              useEffect(() => {
+                setInitialCity(true);
+              }, []);
+              useEffect(() => {
+                setCityChoices(
+                  cities
+                  .map(value => ({ value, sort: Math.floor(Math.random() * cities.length) }))
+                  .sort((a, b) => a.sort - b.sort)
+                  .map(({ value }) => value)
+                  .slice(0, 4)
+                );
+                if (initialCity === true && cityChoices[0]) {
+                  setSelectedCity(cityChoices[0].name);
+                  console.log("initial city:", initialCity)
+                  console.log("selectedCity:", selectedCity, cityChoices[0]);
+                }
+              }, [showResult]);
 
-    updateChartData(week4Price, week3Price, week2Price, week1Price);
-    console.log(week4Price, week3Price, week2Price, week1Price);
 
-    setShowResult(!showResult);
-    console.log("initialCity:", initialCity);
+              const updateChartData = (week4Price, week3Price, week2Price, week1Price) => {
+                setChartData({
+                  labels: ['4 Weeks Ago', '3 Weeks Ago', '2 Weeks Ago', '1 Week Ago'],
+                  datasets: [
+                    {
+                      label: `${selectedCity} Flight Prices`,
+                      data: [week4Price, week3Price, week2Price, week1Price],
+                      backgroundColor: 'rgba(75,192,192,0.4)',
+                      borderColor: 'rgba(75,192,192,1)',
+                      borderWidth: 2
+                    }
+                  ]
+                });
+              };
+              useEffect(() => {
+                if (selectedCity) {
+                  // Calculate prices for the selected city when it changes
+                  setWeek4Price(getPrice(selectedCity, 4));
+                  setWeek3Price(getPrice(selectedCity, 3));
+                  setWeek2Price(getPrice(selectedCity, 2));
+                  setWeek1Price(getPrice(selectedCity, 1));
+                }
+              }, [selectedCity]);
 
-  }
+              useEffect(() => {
+                // Update chart data when weekly prices change
+                if (week4Price && week3Price && week2Price && week1Price) {
+                  updateChartData(week4Price, week3Price, week2Price, week1Price);
+                }
+              }, [week4Price, week3Price, week2Price, week1Price]);
 
-  const handleChange = (e) => {
-    setSelectedCity(e.target.value);
-    setInitialCity(false);
-    console.log("initialCity", initialCity)
-    console.log("selectedCity:", selectedCity)
-  }
-  const cityId = useId();
+              const handleChange = (e) => {
+                // Update selected city, triggering the effects to update prices and chart data
+                setSelectedCity(e.target.value);
+                setInitialCity(false);
+                console.log("initialCity", initialCity);
+                console.log("selectedCity:", selectedCity);
+              }
+
+              const handleSubmit = (e) => {
+                e.preventDefault();
+                // No need to update chart data here; it will be handled in the useEffect hooks
+                setShowResult(!showResult);
+                console.log("initialCity:", initialCity);
+              };
 
   var fourWeeksOut = new Date();
   var threeWeeksOut = new Date();
@@ -259,7 +266,7 @@ console.log(selectedCity)
             </div>
             <div className="App">
             {/* Passing down props to give css access to the component */}
-            <p>30 day price history for flights to {selectedCity}</p>
+            <p>Price history for flights to {selectedCity}</p>
             {chartData && <LineChart chartData={chartData}/>}
             </div>
 
