@@ -258,7 +258,8 @@ console.log(selectedCity)
               </span>
             </div>
             <div className="App">
-            <p>Using Chart.js in React</p>
+            {/* Passing down props to give css access to the component */}
+            <p>30 day price history for flights to {selectedCity}</p>
             {chartData && <LineChart chartData={chartData}/>}
             </div>
 
