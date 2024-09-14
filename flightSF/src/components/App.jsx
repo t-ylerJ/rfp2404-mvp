@@ -164,12 +164,14 @@ function App() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const smallest = [...cityChoices].sort((a, b) => a.price - b.price);
-    const week4Price = getPrice(selectedCity, 4);
-    const week3Price = getPrice(selectedCity, 3);
-    const week2Price = getPrice(selectedCity, 2);
-    const week1Price = getPrice(selectedCity, 1);
+    // const week4Price = getPrice(selectedCity, 4);
+    // const week3Price = getPrice(selectedCity, 3);
+    // const week2Price = getPrice(selectedCity, 2);
+    // const week1Price = getPrice(selectedCity, 1);
 
     updateChartData(week4Price, week3Price, week2Price, week1Price);
+    console.log(week4Price, week3Price, week2Price, week1Price);
+
     setShowResult(!showResult);
     console.log("initialCity:", initialCity);
 

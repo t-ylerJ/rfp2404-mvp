@@ -47,8 +47,10 @@ function LineChart({ chartData }) {
   }, [chartData]);
 
   return (
-    <div className="chart-container">
-      <h2 style={{ textAlign: "center" }}>Line Chart</h2>
+    <div className="canvas-wrapper">
+
+      <div className="chart-container">
+        <h2 style={{ textAlign: "center" }}>Line Chart</h2>
       {/* <Line
         data={chartData}
         options={{
@@ -56,14 +58,15 @@ function LineChart({ chartData }) {
             title: {
               display: true,
               text: "Flight prices over last 30 days"
-            },
-            legend: {
-              display: false
-            },
-          },
-        }}
-      /> */}
+              },
+              legend: {
+                display: false
+                },
+                },
+                }}
+                /> */}
       <canvas ref={chartRef}></canvas>
+      </div>
     </div>
   );
 }
