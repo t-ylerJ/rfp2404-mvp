@@ -14,7 +14,7 @@ function LineChart({ chartData }) {
         const ctx = chart.canvas.getContext('2d');
         ctx.save();
         ctx.globalCompositeOperation = 'destination-over';
-        ctx.fillStyle = 'lightGreen';
+        ctx.fillStyle = 'white';
         ctx.fillRect(0, 0, chart.width, chart.height);
         ctx.restore();
       }
@@ -23,12 +23,12 @@ function LineChart({ chartData }) {
     const myChart = new Chart(canvas, {
       type: 'line',
       data: chartData,
-      width: 500,
-      height:50,
+      width: 1000,
+      height:40,
       options: {
         plugins: {
           customCanvasBackgroundColor: {
-            color: 'lightGreen',
+            color: 'white',
           },
           title: {
             display: true,

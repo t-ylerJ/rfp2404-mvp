@@ -267,7 +267,12 @@ console.log(selectedCity)
             <div className="App">
             {/* Passing down props to give css access to the component */}
             <p>Price history for flights to {selectedCity}</p>
-            {chartData && <LineChart chartData={chartData}/>}
+            {chartData && <LineChart
+              width={1000}
+              height={40}
+              options={{ maintainAspectRatio: false }}
+              chartData={chartData}/>
+              }
             </div>
 
             <button onClick={() => {
