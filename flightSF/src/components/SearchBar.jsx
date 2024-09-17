@@ -1,9 +1,16 @@
-function SearchBar() {
+import '../components/App.jsx';
+
+
+function SearchBar( { handleChange, handleSubmit, filterText, initialCity} ) {
 
   return (
-    <form>
-      <input type="text" placeholder="Enter departure city"></input>
-    </form>
+    <>
+      <input
+        type="text"
+        placeholder={initialCity}
+        onChange={handleChange}
+      ></input>
+    </>
   )
 }
 

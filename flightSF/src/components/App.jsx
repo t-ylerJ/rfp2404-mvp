@@ -24,6 +24,7 @@ function App() {
   const [week3Price, setWeek3Price] = useState(0);
   const [week2Price, setWeek2Price] = useState(0);
   const[week1Price, setWeek1Price] = useState(0);
+  const [filterText, setFilterText] = useState('');
 
 
 
@@ -139,12 +140,16 @@ function App() {
                   .map(({ value }) => value)
                   .slice(0, 4)
                 );
-                if (initialCity === true && cityChoices[0]) {
+              }, [cities]);
+
+              useEffect(() => {
+                if (initialCity && cityChoices.length > 0) {
                   setSelectedCity(cityChoices[0].name);
+                  setInitialCity(false);
                   console.log("initial city:", initialCity)
                   console.log("selectedCity:", selectedCity, cityChoices[0]);
                 }
-              }, [showResult]);
+              }, [cityChoices, initialCity]);
 
 
               const updateChartData = (week4Price, week3Price, week2Price, week1Price) => {
@@ -181,7 +186,7 @@ function App() {
               const handleChange = (e) => {
                 // Update selected city, triggering the effects to update prices and chart data
                 setSelectedCity(e.target.value);
-                setInitialCity(false);
+                // setInitialCity(false);
                 console.log("initialCity", initialCity);
                 console.log("selectedCity:", selectedCity);
               }
@@ -219,20 +224,24 @@ console.log(selectedCity)
       <div className="w-full">
         {!showResult ? (
           <form onSubmit={handleSubmit}>
-            <SearchBar />
-          <label htmlFor={cityId}>
-            Select departing city:
-          </label>
-            <select
-
+            <div>
+              <label htmlFor={cityId}>
+              Select departing city:
+              </label>
+              <SearchBar
+                handleChange={handleChange}
+                handleSubmit={handleSubmit}
+                initialCity={selectedCity}
+                filterText={filterText}  />
+              <select
               onChange={handleChange}
               id={cityId} name="citySelection">
               {cityChoices.map((city, index) => (
                 <option value={city.name} key={index}>{city.name}</option>
-
               ))}
           </select>
             <div className="text-gray-600 pt-10">
+            </div>
             </div>
             <button type="submit">Select</button>
           </form>
