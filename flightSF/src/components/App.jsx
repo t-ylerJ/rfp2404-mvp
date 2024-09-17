@@ -8,6 +8,7 @@ import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
 import { FlightGraph } from "../utils/FlightGraph";
 import LineChart from "./LineChart.jsx";
+import SearchBar from "./SearchBar.jsx";
 
 Chart.register(CategoryScale);
 
@@ -207,7 +208,7 @@ function App() {
 console.log(selectedCity)
 
   return (
-    <>
+    <div>
       <p id="firstLine">Cheapest Flight to </p>
         <h1>San Francisco
           <a href="https://www.sftravel.com/" target="_blank">
@@ -217,8 +218,8 @@ console.log(selectedCity)
 
       <div className="w-full">
         {!showResult ? (
-
           <form onSubmit={handleSubmit}>
+            <SearchBar />
           <label htmlFor={cityId}>
             Select departing city:
           </label>
@@ -287,7 +288,7 @@ console.log(selectedCity)
       <p className="read-the-docs">
 
       </p>
-    </>
+    </div>
   )
 }
 
