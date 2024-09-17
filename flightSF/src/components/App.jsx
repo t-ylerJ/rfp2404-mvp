@@ -9,6 +9,7 @@ import { CategoryScale } from "chart.js";
 import { FlightGraph } from "../utils/FlightGraph";
 import LineChart from "./LineChart.jsx";
 import SearchBar from "./SearchBar.jsx";
+import Suggested from "./Suggested.jsx";
 
 Chart.register(CategoryScale);
 
@@ -221,7 +222,7 @@ console.log(airportCodeLookup );
 
   return (
     <div>
-      <p id="firstLine">Cheapest Flight to </p>
+      <p id="firstLine">Flights to </p>
         <h1>San Francisco
           <a href="https://www.sftravel.com/" target="_blank">
           <img src={goldenGateBridge} className="icon" alt="golden-gate-bridge" />
@@ -232,25 +233,24 @@ console.log(airportCodeLookup );
         {!showResult ? (
           <form onSubmit={handleSubmit}>
             <div>
-              <label htmlFor={cityId}>
-              Select departing city:
-              </label>
+              <label htmlFor={cityId}>Select departing city:</label>
               <SearchBar
                 handleChange={handleChange}
                 handleSubmit={handleSubmit}
                 initialCity={selectedCity}
                 filterText={filterText}  />
-              <select
-              onChange={handleChange}
-              id={cityId} name="citySelection">
-              {cityChoices.map((city, index) => (
-                <option value={city.code} key={index}>{city.code}</option>
-              ))}
-          </select>
-            <div className="text-gray-600 pt-10">
+              <select onChange={handleChange} id={cityId} name="citySelection">
+                {cityChoices.map((city, index) => (
+                  <option value={city.code} key={index}>{city.code}</option>
+                ))}
+              </select>
+              <button type="submit">Go</button>
             </div>
-            </div>
-            <button type="submit">Select</button>
+            <Suggested
+              handleChange={handleChange}
+              handleSubmit={handleSubmit}
+              initialCity={selectedCity}
+              filterText={filterText}  />
           </form>
         ) : (
           <div className="w-full justify-between">
@@ -283,8 +283,7 @@ console.log(airportCodeLookup );
             </div>
             <div className="App">
             {/* Passing down props to give css access to the component */}
-            <p>Price history for flights to {airportCodeLookup[selectedCity]}</p>
-            <p>Price history for flights to {selectedCity}</p>
+            <div className="priceTitle">Price history for flights from <span className="currentCity">{airportCodeLookup[selectedCity]}</span></div>
             {chartData && <LineChart
               width={1000}
               height={40}
@@ -295,7 +294,7 @@ console.log(airportCodeLookup );
 
             <button onClick={() => {
               setInitialCity(true)
-              setShowResult(!showResult)}}>Try Again</button>
+              setShowResult(!showResult)}}>New Search</button>
           </div>
         )}
       </div>

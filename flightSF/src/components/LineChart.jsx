@@ -50,7 +50,7 @@ function LineChart({ chartData }) {
     <div className="canvas-wrapper">
 
       <div className="chart-container">
-        <h2 style={{ textAlign: "center" }}>Line Chart</h2>
+
       {/* <Line
         data={chartData}
         options={{
