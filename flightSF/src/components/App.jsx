@@ -69,13 +69,19 @@ function App() {
     }
       const priceMap = cities.reduce((acc, city) => {
         // {DFW: 250, ORD: 150, AUS: 239...}
-        acc[city.name] = Math.trunc(Math.random() * ((city.price * multiplier[week]) - city.price) + city.price);
+        acc[city.code] = Math.trunc(Math.random() * ((city.price * multiplier[week]) - city.price) + city.price);
         return acc;
       }, {});
 
       return priceMap[selectedCity];
     }
 
+    const airportCodeLookup = cities.reduce((acc, city) => {
+      acc[city.code] = city.name;
+      return acc;
+    }, {});
+
+    console.log(airportCodeLookup)
     const priceTrend = (price1, price2) => {
       const trend = price1 < price2 ? <span className="up">▲</span> : <span className="down">▼</span>;
         return trend;
@@ -144,7 +150,7 @@ function App() {
 
               useEffect(() => {
                 if (initialCity && cityChoices.length > 0) {
-                  setSelectedCity(cityChoices[0].name);
+                  setSelectedCity(cityChoices[0].code);
                   setInitialCity(false);
                   console.log("initial city:", initialCity)
                   console.log("selectedCity:", selectedCity, cityChoices[0]);
@@ -211,6 +217,7 @@ function App() {
 
 
 console.log(selectedCity)
+console.log(airportCodeLookup );
 
   return (
     <div>
@@ -237,7 +244,7 @@ console.log(selectedCity)
               onChange={handleChange}
               id={cityId} name="citySelection">
               {cityChoices.map((city, index) => (
-                <option value={city.name} key={index}>{city.name}</option>
+                <option value={city.code} key={index}>{city.code}</option>
               ))}
           </select>
             <div className="text-gray-600 pt-10">
@@ -276,6 +283,7 @@ console.log(selectedCity)
             </div>
             <div className="App">
             {/* Passing down props to give css access to the component */}
+            <p>Price history for flights to {airportCodeLookup[selectedCity]}</p>
             <p>Price history for flights to {selectedCity}</p>
             {chartData && <LineChart
               width={1000}
