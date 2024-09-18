@@ -1,8 +1,17 @@
+body, html {
+  height: 100%;
+  margin: 0;
+}
 #root {
+  min-height: 100%;
+  display: block;
   width: 100%;
-  margin: 0 auto;
-  padding: 2rem;
+  margin: auto;
+  padding: 0rem;
   text-align: center;
+}
+#content {
+  margin-top: 10rem;
 }
 #timeContainer {
   justify-content: center;
@@ -69,5 +78,12 @@
 
 .priceTitle {
   padding: 3rem 0 1rem 0;
+}
 
+.search {
+  margin: 0 3rem;
+}
+
+.departingLabel {
+  padding-right: 1rem;
 }

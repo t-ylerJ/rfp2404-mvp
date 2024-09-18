@@ -8,7 +8,7 @@ function SearchBar( { handleChange, handleSubmit, filterText, initialCity} ) {
       <input
         type="text"
         placeholder={initialCity}
-        value={filterText}
+        // value={filterText}
         onChange={handleChange}
       />
     </>

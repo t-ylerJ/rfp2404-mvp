@@ -26,6 +26,7 @@ function App() {
   const [week2Price, setWeek2Price] = useState(0);
   const[week1Price, setWeek1Price] = useState(0);
   const [filterText, setFilterText] = useState('');
+  const [suggestions, setSuggestions] = useState([]);
 
 
 
@@ -59,6 +60,7 @@ function App() {
     { 'name': 'Kansas City', 'code': 'MCI', 'price': 320 },
     { 'name': 'Indianapolis', 'code': 'IND', 'price': 310 }
   ])
+  const cityId = useId();
 
   const getPrice = (selectedCity, week) => {
     //placeholder price generator. priceMap creates an object literal of city: flightprice and gives each price a bigger multiplier based on how close the flight is
@@ -73,7 +75,6 @@ function App() {
         acc[city.code] = Math.trunc(Math.random() * ((city.price * multiplier[week]) - city.price) + city.price);
         return acc;
       }, {});
-
       return priceMap[selectedCity];
     }
 
@@ -82,7 +83,6 @@ function App() {
       return acc;
     }, {});
 
-    console.log(airportCodeLookup)
     const priceTrend = (price1, price2) => {
       const trend = price1 < price2 ? <span className="up">▲</span> : <span className="down">▼</span>;
         return trend;
@@ -133,9 +133,6 @@ function App() {
                 setCities(updatedCities);
               }
 
-
-
-              const cityId = useId();
               useEffect(() => {
                 setInitialCity(true);
               }, []);
@@ -190,13 +187,29 @@ function App() {
                 }
               }, [week4Price, week3Price, week2Price, week1Price]);
 
+              const filterAirports = (search) => {
+                if (!query) {
+                  return [];
+                }
+                const searchValue = cities.filter((airport) =>
+                airport.city.toLowerCase().startsWith(search.toLowerCase()) ||
+                airport.code.toLowerCase().startsWith(search.toLowerCase())
+                );
+                return searchValue;
+              };
               const handleChange = (e) => {
-                // Update selected city, triggering the effects to update prices and chart data
-                setSelectedCity(e.target.value);
+                const value = e.target.value;
+                setSelectedCity(value);
+                const filteredAirports = filterAirports(value);
+                setSuggestions(filteredAirports)
                 // setInitialCity(false);
                 console.log("initialCity", initialCity);
                 console.log("selectedCity:", selectedCity);
-              }
+              };
+              const handleSuggestionChange = (e) => {
+                setSelectedCity(`${e.city} (${e.code})`);
+                setSuggestions([]);
+              };
 
               const handleSubmit = (e) => {
                 e.preventDefault();
@@ -221,7 +234,7 @@ console.log(selectedCity)
 console.log(airportCodeLookup );
 
   return (
-    <div>
+    <div id="content">
       <p id="firstLine">Flights to </p>
         <h1>San Francisco
           <a href="https://www.sftravel.com/" target="_blank">
@@ -233,18 +246,14 @@ console.log(airportCodeLookup );
         {!showResult ? (
           <form onSubmit={handleSubmit}>
             <div>
-              <label htmlFor={cityId}>Select departing city:</label>
+              <label className="departingLabel" htmlFor={cityId}>Select departing city:</label>
               <SearchBar
                 handleChange={handleChange}
                 handleSubmit={handleSubmit}
                 initialCity={selectedCity}
                 filterText={filterText}  />
-              <select onChange={handleChange} id={cityId} name="citySelection">
-                {cityChoices.map((city, index) => (
-                  <option value={city.code} key={index}>{city.code}</option>
-                ))}
-              </select>
-              <button type="submit">Go</button>
+
+              <button className="search" type="submit">Go</button>
             </div>
             <Suggested
               handleChange={handleChange}
