@@ -188,31 +188,34 @@ function App() {
               }, [week4Price, week3Price, week2Price, week1Price]);
 
               const filterAirports = (search) => {
-                if (!query) {
+                if (!search) {
                   return [];
                 }
                 const searchValue = cities.filter((airport) =>
-                airport.city.toLowerCase().startsWith(search.toLowerCase()) ||
-                airport.code.toLowerCase().startsWith(search.toLowerCase())
+                  airport.name.toLowerCase().startsWith(search.toLowerCase()) ||
+                  airport.code.toLowerCase().startsWith(search.toLowerCase())
                 );
                 return searchValue;
               };
+
               const handleChange = (e) => {
                 const value = e.target.value;
-                setSelectedCity(value);
+                setFilterText(value);
                 const filteredAirports = filterAirports(value);
                 setSuggestions(filteredAirports)
                 // setInitialCity(false);
                 console.log("initialCity", initialCity);
                 console.log("selectedCity:", selectedCity);
               };
-              const handleSuggestionChange = (e) => {
-                setSelectedCity(`${e.city} (${e.code})`);
+              const handleSuggestionChange = (airport) => {
+                setSelectedCity(airport.code);
                 setSuggestions([]);
               };
 
+
               const handleSubmit = (e) => {
                 e.preventDefault();
+                setSelectedCity(e.target.value);
                 // No need to update chart data here; it will be handled in the useEffect hooks
                 setShowResult(!showResult);
                 console.log("initialCity:", initialCity);
@@ -249,17 +252,24 @@ console.log(airportCodeLookup );
               <label className="departingLabel" htmlFor={cityId}>Select departing city:</label>
               <SearchBar
                 handleChange={handleChange}
-                handleSubmit={handleSubmit}
                 initialCity={selectedCity}
                 filterText={filterText}  />
 
               <button className="search" type="submit">Go</button>
-            </div>
-            <Suggested
-              handleChange={handleChange}
-              handleSubmit={handleSubmit}
-              initialCity={selectedCity}
-              filterText={filterText}  />
+              {suggestions.length > 0 && (
+                <div className="suggestions-container">
+                  {suggestions.map((airport, index) => (
+                   <Suggested
+                    handleSuggestionChange={handleSuggestionChange} // Make sure this function is passed here
+                    index={index}
+                    airport={airport}
+                    key={index}
+                 />
+                  ))}
+                </div>
+              )}
+
+              </div>
           </form>
         ) : (
           <div className="w-full justify-between">

@@ -79,11 +79,22 @@ body, html {
 .priceTitle {
   padding: 3rem 0 1rem 0;
 }
+.departingLabel {
+  padding-right: 1rem;
+}
 
 .search {
   margin: 0 3rem;
 }
+.suggestion-item {
+  padding: 8px;
+  cursor: pointer;
+  color: gray;
+  background-color: purple;
+  border: 1px solid #ddd;
+  z-index: 1000;
+}
 
-.departingLabel {
-  padding-right: 1rem;
+.suggestion-item:hover {
+  background-color: #f0f0f0;
 }
