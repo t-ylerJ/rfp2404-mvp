@@ -209,7 +209,9 @@ function App() {
               };
               const handleSuggestionChange = (airport) => {
                 setSelectedCity(airport.code);
+                setFilterText(airport.code);
                 setSuggestions([]);
+
               };
 
 
@@ -219,6 +221,7 @@ function App() {
                 // No need to update chart data here; it will be handled in the useEffect hooks
                 setShowResult(!showResult);
                 console.log("initialCity:", initialCity);
+                setFilterText('')
               };
 
   var fourWeeksOut = new Date();
@@ -265,6 +268,7 @@ console.log(airportCodeLookup );
                     handleSuggestionChange={handleSuggestionChange} // Make sure this function is passed here
                     index={index}
                     airport={airport}
+
                     key={index}
                  />
                   ))}
