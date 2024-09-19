@@ -253,11 +253,12 @@ console.log(airportCodeLookup );
           <form onSubmit={handleSubmit}>
             <div className="suggestions">
               <span className="search"  >
-                <label className="departingLabel" htmlFor={cityId}>Select departing city:</label>
+                <label className="departingLabel" htmlFor={cityId}>Enter name or airport code of departing city:</label>
                 <SearchBar
                   handleChange={handleChange}
                   initialCity={selectedCity}
-                  filterText={filterText}  />
+                  filterText={filterText}
+                  airportCodeLookup={airportCodeLookup}/>
 
                 <button className="search" type="submit">Go</button>
               </span>
