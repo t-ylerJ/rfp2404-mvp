@@ -248,14 +248,16 @@ console.log(airportCodeLookup );
       <div className="w-full">
         {!showResult ? (
           <form onSubmit={handleSubmit}>
-            <div>
-              <label className="departingLabel" htmlFor={cityId}>Select departing city:</label>
-              <SearchBar
-                handleChange={handleChange}
-                initialCity={selectedCity}
-                filterText={filterText}  />
+            <div className="suggestions">
+              <span className="search"  >
+                <label className="departingLabel" htmlFor={cityId}>Select departing city:</label>
+                <SearchBar
+                  handleChange={handleChange}
+                  initialCity={selectedCity}
+                  filterText={filterText}  />
 
-              <button className="search" type="submit">Go</button>
+                <button className="search" type="submit">Go</button>
+              </span>
               {suggestions.length > 0 && (
                 <div className="suggestions-container">
                   {suggestions.map((airport, index) => (

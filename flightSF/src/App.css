@@ -86,6 +86,12 @@ body, html {
 .search {
   margin: 0 3rem;
 }
+span .search {
+  /* padding: 1rem; */
+  margin: 0 2rem;
+}
+
+
 .suggestion-item {
   width:40%;
   padding: 8px;
@@ -100,7 +106,13 @@ body, html {
   background-color: #f0f0f0;
 }
 
+.suggestions {
+
+  flex-direction: row-reverse;
+
+}
 .suggestions-container {
   display: flex;
   flex-direction: column;
+
 }
