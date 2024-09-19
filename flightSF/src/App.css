@@ -87,14 +87,20 @@ body, html {
   margin: 0 3rem;
 }
 .suggestion-item {
+  width:40%;
   padding: 8px;
   cursor: pointer;
-  color: gray;
-  background-color: purple;
+  color: black;
+  background-color: white;
   border: 1px solid #ddd;
   z-index: 1000;
 }
 
 .suggestion-item:hover {
   background-color: #f0f0f0;
+}
+
+.suggestions-container {
+  display: flex;
+  flex-direction: column;
 }
