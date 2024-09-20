@@ -17,16 +17,16 @@ function App() {
   const [selectedCity, setSelectedCity] = useState('');
   const [showResult, setShowResult] = useState(false);
   const [cityChoices, setCityChoices] = useState([]);
-  const [gameState, setGameState] = useState(false);
   const [flightDetails, setFlightDetails] = useState([]);
   const [initialCity, setInitialCity] = useState(true);
   const [chartData, setChartData] = useState(null);
   const [week4Price, setWeek4Price] = useState(0);
   const [week3Price, setWeek3Price] = useState(0);
   const [week2Price, setWeek2Price] = useState(0);
-  const[week1Price, setWeek1Price] = useState(0);
+  const [week1Price, setWeek1Price] = useState(0);
   const [filterText, setFilterText] = useState('');
   const [suggestions, setSuggestions] = useState([]);
+  const [currentCity, setCurrentCity] = useState('')
 
 
 
@@ -63,7 +63,6 @@ function App() {
   const cityId = useId();
 
   const getPrice = (selectedCity, week) => {
-    //placeholder price generator. priceMap creates an object literal of city: flightprice and gives each price a bigger multiplier based on how close the flight is
     const multiplier = {
       4: 1,
       3: 1.2,
@@ -136,13 +135,13 @@ function App() {
               useEffect(() => {
                 setInitialCity(true);
               }, []);
+
               useEffect(() => {
                 setCityChoices(
                   cities
                   .map(value => ({ value, sort: Math.floor(Math.random() * cities.length) }))
                   .sort((a, b) => a.sort - b.sort)
                   .map(({ value }) => value)
-                  .slice(0, 4)
                 );
               }, [cities]);
 
@@ -153,7 +152,13 @@ function App() {
                   console.log("initial city:", initialCity)
                   console.log("selectedCity:", selectedCity, cityChoices[0]);
                 }
-              }, [cityChoices, initialCity]);
+              }, [cityChoices, initialCity, selectedCity]);
+
+              useEffect(() => {
+                if (selectedCity) {
+                  setCurrentCity(airportCodeLookup[selectedCity]);
+                }
+              }, [airportCodeLookup, selectedCity])
 
 
               const updateChartData = (week4Price, week3Price, week2Price, week1Price) => {
@@ -203,7 +208,6 @@ function App() {
                 setFilterText(value);
                 const filteredAirports = filterAirports(value);
                 setSuggestions(filteredAirports)
-                // setInitialCity(false);
                 console.log("initialCity", initialCity);
                 console.log("selectedCity:", selectedCity);
               };
@@ -217,8 +221,8 @@ function App() {
 
               const handleSubmit = (e) => {
                 e.preventDefault();
-                setSelectedCity(e.target.value);
-                // No need to update chart data here; it will be handled in the useEffect hooks
+                setSelectedCity(filterText);
+                setCurrentCity(airportCodeLookup[selectedCity])
                 setShowResult(!showResult);
                 console.log("initialCity:", initialCity);
                 setFilterText('')
@@ -264,15 +268,16 @@ console.log(airportCodeLookup );
               </span>
               {suggestions.length > 0 && (
                 <div className="suggestions-container">
-                  {suggestions.map((airport, index) => (
+                  {suggestions.map((airport, index) => {
+                    const suggestionId = useId;
                    <Suggested
-                    handleSuggestionChange={handleSuggestionChange} // Make sure this function is passed here
+                    handleSuggestionChange={handleSuggestionChange}
                     index={index}
                     airport={airport}
-
                     key={index}
+                    id={suggestionId}
                  />
-                  ))}
+})}
                 </div>
               )}
 
@@ -309,7 +314,7 @@ console.log(airportCodeLookup );
             </div>
             <div className="App">
             {/* Passing down props to give css access to the component */}
-            <div className="priceTitle">Price history for flights from <span className="currentCity">{airportCodeLookup[selectedCity]}</span></div>
+            <div className="priceTitle">Price history for flights from <span className="currentCity">{currentCity}</span></div>
             {chartData && <LineChart
               width={1000}
               height={40}
@@ -319,8 +324,12 @@ console.log(airportCodeLookup );
             </div>
 
             <button onClick={() => {
-              setInitialCity(true)
-              setShowResult(!showResult)}}>New Search</button>
+              setSelectedCity('');      // Reset the selected city
+              setFilterText('');        // Clear the input field
+              setSuggestions([]);       // Clear any suggestions
+              setInitialCity(true);     // Set initialCity back to true
+              setShowResult(!showResult);  // Toggle the result view
+            }}>New Search</button>
           </div>
         )}
       </div>

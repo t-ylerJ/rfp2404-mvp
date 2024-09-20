@@ -3,6 +3,7 @@ import '../components/App.jsx';
 
 function SearchBar( { handleChange, handleSubmit, filterText, initialCity, airportCodeLookup} ) {
 const city = airportCodeLookup[initialCity];
+
   return (
     <>
       <input
