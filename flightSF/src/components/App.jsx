@@ -264,7 +264,7 @@ console.log(airportCodeLookup );
                   filterText={filterText}
                   airportCodeLookup={airportCodeLookup}/>
 
-                <button className="search" type="submit">Go</button>
+                <button id="search-button" type="submit">Go</button>
               </span>
               {suggestions.length > 0 && (
                 <div className="suggestions-container">
