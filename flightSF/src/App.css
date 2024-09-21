@@ -25,6 +25,9 @@ transition: border-color 0.25s;
 #content {
   margin-top: 10rem;
 }
+
+/* Price history styles */
+
 #timeContainer {
   justify-content: center;
 }
@@ -47,7 +50,12 @@ transition: border-color 0.25s;
 #search-button {
   margin-left: 3rem;
 }
-
+#firstLine {
+  font-size: 2.2em;
+  line-height: .3;
+  padding: 0;
+  margin: 0;
+}
 .icon {
   height: 1em;
   padding-top: none;
@@ -61,7 +69,7 @@ transition: border-color 0.25s;
   color: red;
 }
 .down {
-  color: green;
+  color: rgb(72, 227, 72);
 }
 .equal {
   color: white;
