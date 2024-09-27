@@ -110,7 +110,7 @@ transition: border-color 0.25s;
   margin: 0 3rem;
 }
 span .search {
-  /* padding: 1rem; */
+  padding: 1rem;
   margin: 0 2rem;
 }
 button .search {

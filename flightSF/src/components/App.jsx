@@ -77,110 +77,115 @@ function App() {
       return priceMap[selectedCity];
     }
 
-    const airportCodeLookup = cities.reduce((acc, city) => {
-      acc[city.code] = city.name;
-      return acc;
-    }, {});
+  const airportCodeLookup = cities.reduce((acc, city) => {
+    acc[city.code] = city.name;
+    return acc;
+  }, {});
 
-    const priceTrend = (price1, price2) => {
-      const trend = price1 < price2 ? <span className="up">▲</span> : <span className="down">▼</span>;
-        return trend;
+  const priceTrend = (price1, price2) => {
+    const trend = price1 < price2 ? <span className="up">▲</span> : <span className="down">▼</span>;
+    return trend;
+  }
+
+  useEffect(() => {
+    setInitialCity(true);
+  }, []);
+
+  useEffect(() => {
+    //Randomizes the cities used for default city
+    setCityChoices(
+      cities
+      .map(value => ({ value, sort: Math.floor(Math.random() * cities.length) }))
+      .sort((a, b) => a.sort - b.sort)
+      .map(({ value }) => value)
+    );
+    }, [cities]);
+
+  useEffect(() => {
+    //Set default city if no city is selected
+    if (initialCity && cityChoices.length > 0) {
+      setSelectedCity(cityChoices[0].code);
+      setInitialCity(false);
+      console.log("initial city:", initialCity)
+      console.log("selectedCity:", selectedCity, cityChoices[0]);
     }
-    useEffect(() => {
-      setInitialCity(true);
-    }, []);
+  }, [cityChoices, initialCity, selectedCity]);
 
-              useEffect(() => {
-                setCityChoices(
-                  cities
-                  .map(value => ({ value, sort: Math.floor(Math.random() * cities.length) }))
-                  .sort((a, b) => a.sort - b.sort)
-                  .map(({ value }) => value)
-                );
-              }, [cities]);
-
-              useEffect(() => {
-                if (initialCity && cityChoices.length > 0) {
-                  setSelectedCity(cityChoices[0].code);
-                  setInitialCity(false);
-                  console.log("initial city:", initialCity)
-                  console.log("selectedCity:", selectedCity, cityChoices[0]);
-                }
-              }, [cityChoices, initialCity, selectedCity]);
-
-              useEffect(() => {
-                if (selectedCity) {
-                  setCurrentCity(airportCodeLookup[selectedCity]);
-                }
-              }, [airportCodeLookup, selectedCity])
+  useEffect(() => {
+    if (selectedCity) {
+      setCurrentCity(airportCodeLookup[selectedCity]);
+    }
+  }, [airportCodeLookup, selectedCity])
 
 
-              const updateChartData = (week4Price, week3Price, week2Price, week1Price) => {
-                setChartData({
-                  labels: ['4 Weeks Ago', '3 Weeks Ago', '2 Weeks Ago', '1 Week Ago'],
-                  datasets: [
-                    {
-                      label: `${selectedCity} Flight Prices`,
-                      data: [week4Price, week3Price, week2Price, week1Price],
-                      backgroundColor: 'rgba(75,192,192,0.4)',
-                      borderColor: 'rgba(75,192,192,1)',
-                      borderWidth: 2
-                    }
-                  ]
-                });
-              };
-              useEffect(() => {
-                if (selectedCity) {
-                  // Calculate prices for the selected city when it changes
-                  setWeek4Price(getPrice(selectedCity, 4));
-                  setWeek3Price(getPrice(selectedCity, 3));
-                  setWeek2Price(getPrice(selectedCity, 2));
-                  setWeek1Price(getPrice(selectedCity, 1));
-                }
-              }, [selectedCity]);
+  const updateChartData = (week4Price, week3Price, week2Price, week1Price) => {
+    setChartData({
+      labels: ['4 Weeks Ago', '3 Weeks Ago', '2 Weeks Ago', '1 Week Ago'],
+      datasets: [
+        {
+          label: `${selectedCity} Flight Prices`,
+          data: [week4Price, week3Price, week2Price, week1Price],
+          backgroundColor: 'rgba(75,192,192,0.4)',
+          borderColor: 'rgba(75,192,192,1)',
+          borderWidth: 2
+        }
+      ]
+    });
+  };
+  useEffect(() => {
+    if (selectedCity) {
+      // Calculate prices for the selected city when it changes
+      setWeek4Price(getPrice(selectedCity, 4));
+      setWeek3Price(getPrice(selectedCity, 3));
+      setWeek2Price(getPrice(selectedCity, 2));
+      setWeek1Price(getPrice(selectedCity, 1));
+    }
+  }, [selectedCity]);
 
-              useEffect(() => {
-                // Update chart data when weekly prices change
-                if (week4Price && week3Price && week2Price && week1Price) {
-                  updateChartData(week4Price, week3Price, week2Price, week1Price);
-                }
-              }, [week4Price, week3Price, week2Price, week1Price]);
+  useEffect(() => {
+    // Update chart data when weekly prices change
+    if (week4Price && week3Price && week2Price && week1Price) {
+      updateChartData(week4Price, week3Price, week2Price, week1Price);
+    }
+  }, [week4Price, week3Price, week2Price, week1Price]);
 
-              const filterAirports = (search) => {
-                if (!search) {
-                  return [];
-                }
-                const searchValue = cities.filter((airport) =>
-                  airport.name.toLowerCase().startsWith(search.toLowerCase()) ||
-                  airport.code.toLowerCase().startsWith(search.toLowerCase())
-                );
-                return searchValue;
-              };
+  const filterAirports = (search) => {
+    if (!search) {
+      return [];
+    }
+    const searchValue = cities.filter((airport) =>
+      airport.name.toLowerCase().startsWith(search.toLowerCase()) ||
+      airport.code.toLowerCase().startsWith(search.toLowerCase())
+    );
+    return searchValue;
+  };
 
-              const handleChange = (e) => {
-                const value = e.target.value;
-                setFilterText(value);
-                const filteredAirports = filterAirports(value);
-                setSuggestions(filteredAirports)
-                console.log("initialCity", initialCity);
-                console.log("selectedCity:", selectedCity);
-              };
-              const handleSuggestionChange = (airport) => {
-                setSelectedCity(airport.code);
-                setFilterText(airport.code);
-                setSuggestions([]);
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setFilterText(value);
 
-              };
+    const filteredAirports = filterAirports(value);
+    setSuggestions(filteredAirports)
+    console.log("initialCity", initialCity);
+    console.log("selectedCity:", selectedCity);
+  };
+
+  const handleSuggestionChange = (airport) => {
+    setSelectedCity(airport.code);
+    setFilterText(airport.code);
+    setSuggestions([]);
+
+  };
 
 
-              const handleSubmit = (e) => {
-                e.preventDefault();
-                setSelectedCity(filterText);
-                setCurrentCity(airportCodeLookup[selectedCity])
-                setShowResult(!showResult);
-                console.log("initialCity:", initialCity);
-                setFilterText('')
-              };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSelectedCity(filterText);
+    setCurrentCity(airportCodeLookup[selectedCity])
+    setShowResult(!showResult);
+    console.log("initialCity:", initialCity);
+    setFilterText('')
+  };
 
   var fourWeeksOut = new Date();
   var threeWeeksOut = new Date();
@@ -197,6 +202,48 @@ function App() {
 console.log(selectedCity)
 console.log(airportCodeLookup );
 
+//Pull flights from Amadeus API
+const getFlights = async function (location) {
+  var params = {
+    currencyCode: "USD",
+    originLocationCode: location,
+    destinationLocationCode: "SFO",
+    departureDate: "2024-11-01",
+    adults: 1
+  }
+
+  const ticketSearch = (obj, target) =>
+    target in obj
+  ? obj[target]
+  : Object.values(obj).reduce((acc, val) => {
+    if (acc !== undefined) return acc;
+    if (typeof val === 'object') return ticketSearch(val, target);
+  }, undefined);
+
+  const response = axios.get('https://test.api.amadeus.com/v2/shopping/flight-offers', {
+    params: params,
+    headers: {
+      "Authorization": `"Bearer ${process.env.ACCESS_TOKEN}"`,
+          "Content-Type": "application/json"
+      }
+    })
+    const trips = response.data;
+
+    const ticketPrice = ticketSearch(trips, 'total')
+      setCities(
+        cities.map((city) => (
+          city.price = ticketPrice()
+      )))
+
+      return response;
+    };
+  const fetchCityPrices = async () => {
+    const cityPromises = cities.map((city) => {
+      return getFlights(city.code)
+    });
+    const updatedCities = await Promise.all(cityPromises);
+      setCities(updatedCities);
+  }
   return (
     <div id="content">
       <p id="firstLine">Flights to </p>
