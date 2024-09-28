@@ -1,3 +1,10 @@
+import { useState, useEffect, useId } from 'react';
+import axios from 'axios';
+import '../App.css';
+
+function FlightData () {
+
+
 const getFlights = async function (location) {
   var params = {
     currencyCode: "USD",
@@ -39,3 +46,7 @@ const getFlights = async function (location) {
     const updatedCities = await Promise.all(cityPromises);
       setCities(updatedCities);
   }
+
+  return;
+}
+  export default FlightData;
