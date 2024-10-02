@@ -72,12 +72,12 @@ function App() {
       2: 1.5,
       1: 1.75
     }
-      const priceMap = cities.reduce((acc, city) => {
-        // {DFW: 250, ORD: 150, AUS: 239...}
-        acc[city.code] = Math.trunc(Math.random() * ((city.price * multiplier[week]) - city.price) + city.price);
-        return acc;
-      }, {});
-      return priceMap[selectedCity];
+    const priceMap = cities.reduce((acc, city) => {
+      // {DFW: 250, ORD: 150, AUS: 239...}
+      acc[city.code] = Math.trunc(Math.random() * ((city.price * multiplier[week]) - city.price) + city.price);
+      return acc;
+    }, {});
+    return priceMap[selectedCity];
     }
 
   const airportCodeLookup = cities.reduce((acc, city) => {

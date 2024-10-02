@@ -10,9 +10,17 @@ margin-top: 5em;
 font-size: 1em;
 font-weight: 500;
 font-family: inherit;
-background-color: #1a1a1a;
+background-color: #646cff;
 cursor: pointer;
 transition: border-color 0.25s;
+}
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
 }
 #root {
   min-height: 100%;
@@ -29,6 +37,7 @@ transition: border-color 0.25s;
 /* Price history styles */
 
 #timeContainer {
+  padding: 0 0 0 14rem;
   justify-content: center;
   align-items: center;
   height: 100%
@@ -40,7 +49,6 @@ transition: border-color 0.25s;
 }
 #timeContainer h3 {
   font-size: 80%;
-  padding: 0;
   margin: 0;
 }
 #timeContainer p {
@@ -128,7 +136,7 @@ button .search {
 }
 .price-alert button {
   margin: 0;
-  color: red;
+  background-color: lightcoral;
 }
 /* Suggestions styles */
 .suggestion-item {
