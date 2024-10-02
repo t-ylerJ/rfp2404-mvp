@@ -7,8 +7,8 @@ import '../App.css';
 import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
 import { FlightGraph } from "../utils/FlightGraph";
-
 // import { FlightData } from "../utils/FlightData";
+
 
 import LineChart from "./LineChart.jsx";
 import SearchBar from "./SearchBar.jsx";
@@ -249,7 +249,7 @@ console.log(airportCodeLookup );
           </form>
         ) : (
           <div className="w-full justify-between">
-            <div id="timeContainer" style={{ display: 'flex', flexDirection: 'row', gap: '6rem' }}>
+            <div id="timeContainer" style={{ display: 'flex', flexDirection: 'row', gap: '6rem', height: '100%' }}>
               <span className="w-1/4">
                 <h2>4 Weeks Ago</h2>
                 <h3>{fourWeeksOut.toLocaleDateString('en-US', options)}</h3>
@@ -275,8 +275,12 @@ console.log(airportCodeLookup );
                 <h3>{oneWeekOut.toLocaleDateString('en-US', options)}</h3>
                 <p>{priceTrend(week2Price,week1Price)} ${week1Price}</p>
               </span>
+              <span className="price-alert">
+                <button>Create Price Alert</button>
+              </span>
             </div>
             <div className="App">
+
 
             <div className="priceTitle">Price history for flights from <span className="currentCity">{currentCity}</span></div>
             {chartData && <LineChart

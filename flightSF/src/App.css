@@ -30,6 +30,8 @@ transition: border-color 0.25s;
 
 #timeContainer {
   justify-content: center;
+  align-items: center;
+  height: 100%
 }
 #timeContainer h2 {
   color: lightpink;
@@ -117,7 +119,18 @@ button .search {
   padding-left: 5rem;
   margin-left: 0;
 }
-
+.price-alert {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.price-alert button {
+  margin: 0;
+  color: red;
+}
+/* Suggestions styles */
 .suggestion-item {
   width:20%;
   padding: 8px;
