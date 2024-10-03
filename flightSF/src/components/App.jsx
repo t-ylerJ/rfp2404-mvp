@@ -1,8 +1,5 @@
 import { useState, useEffect, useId } from 'react';
-import reactLogo from '/react.svg';
-import sfLogo from '/sf-logo.png';
 import frame from '/frame.svg';
-import plane from '/airplane.svg';
 import axios from 'axios';
 import '../App.css';
 import Chart from "chart.js/auto";
@@ -212,8 +209,7 @@ console.log(airportCodeLookup );
     <div id="content">
       <p id="firstLine">Flights to </p>
           <img id="sf" src={frame} className="icon" alt="'San Francisco' with golden-gate-bridge" />
-          <a href="https://www.sftravel.com/" target="_blank">
-          </a>
+          <a href="https://www.sftravel.com/" target="_blank"></a>
       <div className="w-full">
         {!showResult ? (
           <form onSubmit={handleSubmit}>
