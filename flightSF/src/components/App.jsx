@@ -164,17 +164,18 @@ function App() {
   const handleChange = (e) => {
     const value = e.target.value;
     setFilterText(value);
-
     const filteredAirports = filterAirports(value);
-    setSuggestions(filteredAirports)
+    setSuggestions(filteredAirports);
     console.log("initialCity", initialCity);
     console.log("selectedCity:", selectedCity);
+    console.log(suggestions);
   };
 
   const handleSuggestionChange = (airport) => {
     setSelectedCity(airport.code);
     setFilterText(airport.code);
-    setSuggestions([]);
+    console.log('suggestions')
+    // setSuggestions([]);
 
   };
 
@@ -228,13 +229,15 @@ console.log(airportCodeLookup );
                 <div className="suggestions-container">
                   {suggestions.map((airport, index) => {
                     const suggestionId = useId;
-                   <Suggested
-                    handleSuggestionChange={handleSuggestionChange}
-                    index={index}
-                    airport={airport}
-                    key={index}
-                    id={suggestionId}
-                 />
+                    return (
+                      <Suggested
+                      handleSuggestionChange={handleSuggestionChange}
+                      index={index}
+                      airport={airport}
+                      key={index}
+                      id={suggestionId}
+                      />
+                    )
                   })}
                 </div>
               )}
