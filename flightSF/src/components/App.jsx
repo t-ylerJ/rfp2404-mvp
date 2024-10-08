@@ -244,7 +244,7 @@ console.log(airportCodeLookup );
                 <h3>{fourWeeksOut.toLocaleDateString('en-US', options)}</h3>
                 <p>${week4Price}</p>
               </span>
-              <span className="w-1/4">
+              <span className=" w-1/4">
                 <h2>3 Weeks Ago</h2>
                 <h3>{threeWeeksOut.toLocaleDateString('en-US', options)}</h3>
                 <p>{priceTrend(week4Price,week3Price)} ${week3Price}</p>
@@ -263,7 +263,7 @@ console.log(airportCodeLookup );
             </div>
             <div className="App">
               <div className="priceTitle">
-                <span >Price history for flights from <span className="currentCity">{currentCity}</span></span>
+                <span ><span className="currentCity">{currentCity}</span> to San Francisco:</span>
                 <button id="price-alert">Create Price Alert</button>
             </div>
             {chartData && <LineChart

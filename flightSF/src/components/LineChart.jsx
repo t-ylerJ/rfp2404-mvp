@@ -32,7 +32,7 @@ function LineChart({ chartData }) {
           },
           title: {
             display: true,
-            text: "Flight prices over last 30 days"
+            text: "30-Day Overview of Flight Price Trends"
           },
           legend: {
             display: false
