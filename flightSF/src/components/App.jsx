@@ -205,7 +205,7 @@ console.log(airportCodeLookup );
       <p id="firstLine">Flights to </p>
           <img id="sf" src={frame} className="icon" alt="'San Francisco' with golden-gate-bridge" />
           <a href="https://www.sftravel.com/" target="_blank"></a>
-      <div className="w-full">
+      <div className="main-page">
         {!showResult ? (
           <form onSubmit={handleSubmit}>
             <div className="suggestions">
@@ -244,7 +244,7 @@ console.log(airportCodeLookup );
                 <h3>{fourWeeksOut.toLocaleDateString('en-US', options)}</h3>
                 <p>${week4Price}</p>
               </span>
-              <span className=" w-1/4">
+              <span className="w-1/4">
                 <h2>3 Weeks Ago</h2>
                 <h3>{threeWeeksOut.toLocaleDateString('en-US', options)}</h3>
                 <p>{priceTrend(week4Price,week3Price)} ${week3Price}</p>
@@ -264,7 +264,7 @@ console.log(airportCodeLookup );
             <div className="App">
               <div className="priceTitle">
                 <span >Price history for flights from <span className="currentCity">{currentCity}</span></span>
-              <button>Create Price Alert</button>
+                <button id="price-alert">Create Price Alert</button>
             </div>
             {chartData && <LineChart
               width={1000}
