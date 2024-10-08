@@ -48,23 +48,7 @@ function LineChart({ chartData }) {
 
   return (
     <div className="canvas-wrapper">
-
       <div className="chart-container">
-
-      {/* <Line
-        data={chartData}
-        options={{
-          plugins: {
-            title: {
-              display: true,
-              text: "Flight prices over last 30 days"
-              },
-              legend: {
-                display: false
-                },
-                },
-                }}
-                /> */}
       <canvas ref={chartRef}></canvas>
       </div>
     </div>

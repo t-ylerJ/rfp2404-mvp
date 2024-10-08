@@ -42,7 +42,7 @@
 /* Price history styles */
 
 #timeContainer {
-  padding: 0 0 0 14rem;
+  padding: 0;
   justify-content: center;
   align-items: center;
   height: 100%
@@ -104,7 +104,21 @@
 }
 
 .priceTitle {
-  padding: 3rem 0 1rem 0;
+  padding: 0 0 0 0;
+  margin: 0 auto;
+  display: flex;
+  width: 600px;
+  height: 6rem;
+  justify-content: space-between;
+}
+.priceTitle span {
+align-content: end;
+}
+.priceTitle button {
+  margin: 0;
+  padding: .5rem;
+  background-color: lightcoral;
+  transform: translate(-50px, -10px);
 }
 .departingLabel {
   padding-right: .5rem;
@@ -127,10 +141,6 @@ button .search {
   justify-content: center;
   align-items: center;
   height: 100%;
-}
-.price-alert button {
-  margin: 0;
-  background-color: lightcoral;
 }
 /* Suggestions styles */
 .suggestion-item {

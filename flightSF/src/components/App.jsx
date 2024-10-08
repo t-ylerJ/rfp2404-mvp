@@ -31,7 +31,7 @@ function App() {
 
 
 
-//Amadeus API authentication tokens only last for 30 mins at a time, so I have added dummy data for ease of use
+//Placeholder data. Flight prices fetched from Amadeus flight price API
   const [cities, setCities] = useState([
     { 'name': 'Dallas', 'code': 'DFW', 'price': 250 },
     { 'name': 'Chicago', 'code': 'ORD', 'price': 150 },
@@ -103,7 +103,7 @@ function App() {
     }, [cities]);
 
   useEffect(() => {
-    //Set default city if no city is selected
+    //Set a default city if no city is entered
     if (initialCity && cityChoices.length > 0) {
       setSelectedCity(cityChoices[0].code);
       setInitialCity(false);
@@ -135,7 +135,6 @@ function App() {
   };
   useEffect(() => {
     if (selectedCity) {
-      // Calculate prices for the selected city when it changes
       setWeek4Price(getPrice(selectedCity, 4));
       setWeek3Price(getPrice(selectedCity, 3));
       setWeek2Price(getPrice(selectedCity, 2));
@@ -174,11 +173,8 @@ function App() {
   const handleSuggestionChange = (airport) => {
     setSelectedCity(airport.code);
     setFilterText(airport.code);
-    console.log('suggestions')
-    // setSuggestions([]);
-
+    setSuggestions([]);
   };
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -204,8 +200,6 @@ function App() {
 console.log(selectedCity)
 console.log(airportCodeLookup );
 
-//Pull flights from Amadeus API
-
   return (
     <div id="content">
       <p id="firstLine">Flights to </p>
@@ -222,7 +216,6 @@ console.log(airportCodeLookup );
                   initialCity={selectedCity}
                   filterText={filterText}
                   airportCodeLookup={airportCodeLookup}/>
-
                 <button id="search-button" type="submit">Go</button>
               </span>
               {suggestions.length > 0 && (
@@ -241,7 +234,6 @@ console.log(airportCodeLookup );
                   })}
                 </div>
               )}
-
               </div>
           </form>
         ) : (
@@ -252,34 +244,28 @@ console.log(airportCodeLookup );
                 <h3>{fourWeeksOut.toLocaleDateString('en-US', options)}</h3>
                 <p>${week4Price}</p>
               </span>
-
               <span className=" w-1/4">
                 <h2>3 Weeks Ago</h2>
                 <h3>{threeWeeksOut.toLocaleDateString('en-US', options)}</h3>
                 <p>{priceTrend(week4Price,week3Price)} ${week3Price}</p>
                 <p className="trend"></p>
               </span>
-
               <span className="flex flex-col w-1/4">
                 <h2>2 Weeks Ago</h2>
                 <h3>{twoWeeksOut.toLocaleDateString('en-US', options)}</h3>
                 <p>{priceTrend(week3Price,week2Price)} ${week2Price}</p>
-
               </span>
-
               <span className="flex flex-col w-1/4">
                 <h2>1 Week Ago</h2>
                 <h3>{oneWeekOut.toLocaleDateString('en-US', options)}</h3>
                 <p>{priceTrend(week2Price,week1Price)} ${week1Price}</p>
               </span>
-              <span className="price-alert">
-                <button>Create Price Alert</button>
-              </span>
             </div>
             <div className="App">
-
-
-            <div className="priceTitle">Price history for flights from <span className="currentCity">{currentCity}</span></div>
+              <div className="priceTitle">
+                <span >Price history for flights from <span className="currentCity">{currentCity}</span></span>
+              <button>Create Price Alert</button>
+            </div>
             {chartData && <LineChart
               width={1000}
               height={40}
@@ -287,7 +273,6 @@ console.log(airportCodeLookup );
               chartData={chartData}/>
               }
             </div>
-
             <button onClick={() => {
               setSelectedCity('');      // Reset the selected city
               setFilterText('');        // Clear the input field
@@ -298,10 +283,6 @@ console.log(airportCodeLookup );
           </div>
         )}
       </div>
-
-      <p className="read-the-docs">
-
-      </p>
     </div>
   )
 }
