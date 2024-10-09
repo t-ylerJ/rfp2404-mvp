@@ -4,6 +4,7 @@ import '../App.css';
 
 function FlightData () {
 
+//When getFlights is invoked, the price property for each stored route is updated to match recently pulled prices
 
 const getFlights = async function (location) {
   var params = {
@@ -13,7 +14,7 @@ const getFlights = async function (location) {
     departureDate: "2024-11-01",
     adults: 1
   }
-
+// recursively searches fetched data for (avg) cost of ticket for given departure date
   const ticketSearch = (obj, target) =>
     target in obj
   ? obj[target]
@@ -21,7 +22,7 @@ const getFlights = async function (location) {
     if (acc !== undefined) return acc;
     if (typeof val === 'object') return ticketSearch(val, target);
   }, undefined);
-
+// fetches data to search for ticket costs
   const response = axios.get('https://test.api.amadeus.com/v2/shopping/flight-offers', {
     params: params,
     headers: {
@@ -35,7 +36,7 @@ const getFlights = async function (location) {
       setCities(
         cities.map((city) => (
           city.price = ticketPrice()
-      )))
+      )));
 
       return response;
     };
@@ -43,6 +44,7 @@ const getFlights = async function (location) {
     const cityPromises = cities.map((city) => {
       return getFlights(city.code)
     });
+    //updates the price property for each flight to reflect the recently fetched price
     const updatedCities = await Promise.all(cityPromises);
       setCities(updatedCities);
   }

@@ -2,6 +2,7 @@ import { useState, useEffect, useId } from 'react';
 import frame from '/frame.svg';
 import axios from 'axios';
 import '../App.css';
+import { GoArrowRight } from "react-icons/go";
 import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
 import { FlightGraph } from "../utils/FlightGraph";
@@ -18,7 +19,7 @@ function App() {
   const [selectedCity, setSelectedCity] = useState('');
   const [showResult, setShowResult] = useState(false);
   const [cityChoices, setCityChoices] = useState([]);
-  const [flightDetails, setFlightDetails] = useState([]);
+  const [cityChoice, setCityChoice] = useState([]);
   const [initialCity, setInitialCity] = useState(true);
   const [chartData, setChartData] = useState(null);
   const [week4Price, setWeek4Price] = useState(0);
@@ -31,7 +32,7 @@ function App() {
 
 
 
-//Placeholder data. Flight prices fetched from Amadeus flight price API
+//Placeholder for FlightData
   const [cities, setCities] = useState([
     { 'name': 'Dallas', 'code': 'DFW', 'price': 250 },
     { 'name': 'Chicago', 'code': 'ORD', 'price': 150 },
@@ -89,6 +90,7 @@ function App() {
   }
 
   useEffect(() => {
+    //sets default city
     setInitialCity(true);
   }, []);
 
@@ -102,6 +104,14 @@ function App() {
     );
     }, [cities]);
 
+  useEffect(() => {
+    setCityChoice(
+      cities[
+        Math.floor(Math.random() * cities.length)
+      ]
+    );
+    }, [cities]);
+console.log(cityChoice);
   useEffect(() => {
     //Set a default city if no city is entered
     if (initialCity && cityChoices.length > 0) {
@@ -263,7 +273,7 @@ console.log(airportCodeLookup );
             </div>
             <div className="App">
               <div className="priceTitle">
-                <span ><span className="currentCity">{currentCity}</span> to San Francisco:</span>
+                <span><span className="currentCity">{currentCity}</span> <GoArrowRight /> San Francisco</span>
                 <button id="price-alert">Create Price Alert</button>
             </div>
             {chartData && <LineChart
