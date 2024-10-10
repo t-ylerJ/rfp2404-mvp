@@ -2,6 +2,7 @@ import { useState, useEffect, useId } from 'react';
 import frame from '/frame.svg';
 import '../App.css';
 import { GoArrowRight } from "react-icons/go";
+import createPriceAlert from './PriceAlert';
 
 // import { FlightData } from "../utils/FlightData";
 import Chart from "chart.js/auto";
@@ -10,6 +11,7 @@ import { FlightGraph } from "../utils/FlightGraph";
 import LineChart from "./LineChart.jsx";
 import SearchBar from "./SearchBar.jsx";
 import Suggested from "./Suggested.jsx";
+
 
 Chart.register(CategoryScale);
 
@@ -184,6 +186,10 @@ console.log(cityChoice);
     setFilterText('')
   };
 
+  const setPriceAltert = (city) => {
+
+  }
+
   var fourWeeksOut = new Date();
   var threeWeeksOut = new Date();
   var twoWeeksOut = new Date();
@@ -263,7 +269,7 @@ console.log(airportCodeLookup );
             <div className="App">
               <div className="priceTitle">
                 <span><span className="currentCity">{currentCity}</span> <GoArrowRight /> San Francisco</span>
-                <button id="price-alert">Create Price Alert</button>
+                <button id="price-alert" onClick={createPriceAlert}>Create Price Alert</button>
             </div>
             {chartData && <LineChart
               width={1000}
