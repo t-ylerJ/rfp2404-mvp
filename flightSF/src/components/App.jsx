@@ -1,14 +1,12 @@
 import { useState, useEffect, useId } from 'react';
 import frame from '/frame.svg';
-import axios from 'axios';
 import '../App.css';
 import { GoArrowRight } from "react-icons/go";
+
+// import { FlightData } from "../utils/FlightData";
 import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
 import { FlightGraph } from "../utils/FlightGraph";
-// import { FlightData } from "../utils/FlightData";
-
-
 import LineChart from "./LineChart.jsx";
 import SearchBar from "./SearchBar.jsx";
 import Suggested from "./Suggested.jsx";
@@ -18,7 +16,6 @@ Chart.register(CategoryScale);
 function App() {
   const [selectedCity, setSelectedCity] = useState('');
   const [showResult, setShowResult] = useState(false);
-  const [cityChoices, setCityChoices] = useState([]);
   const [cityChoice, setCityChoice] = useState([]);
   const [initialCity, setInitialCity] = useState(true);
   const [chartData, setChartData] = useState(null);
@@ -94,17 +91,9 @@ function App() {
     setInitialCity(true);
   }, []);
 
-  useEffect(() => {
-    //Randomizes the cities used for default city
-    setCityChoices(
-      cities
-      .map(value => ({ value, sort: Math.floor(Math.random() * cities.length) }))
-      .sort((a, b) => a.sort - b.sort)
-      .map(({ value }) => value)
-    );
-    }, [cities]);
 
   useEffect(() => {
+    //Randomizes the cities used for default city
     setCityChoice(
       cities[
         Math.floor(Math.random() * cities.length)
@@ -114,13 +103,13 @@ function App() {
 console.log(cityChoice);
   useEffect(() => {
     //Set a default city if no city is entered
-    if (initialCity && cityChoices.length > 0) {
-      setSelectedCity(cityChoices[0].code);
+    if (initialCity && cityChoice) {
+      setSelectedCity(cityChoice.code);
       setInitialCity(false);
       console.log("initial city:", initialCity)
-      console.log("selectedCity:", selectedCity, cityChoices[0]);
+      console.log("selectedCity:", selectedCity, cityChoice);
     }
-  }, [cityChoices, initialCity, selectedCity]);
+  }, [cityChoice, initialCity, selectedCity]);
 
   useEffect(() => {
     if (selectedCity) {
