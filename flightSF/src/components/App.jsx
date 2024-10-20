@@ -279,11 +279,11 @@ console.log(airportCodeLookup );
               }
             </div>
             <button onClick={() => {
-              setSelectedCity('');      // Reset the selected city
-              setFilterText('');        // Clear the input field
-              setSuggestions([]);       // Clear any suggestions
-              setInitialCity(true);     // Set initialCity back to true
-              setShowResult(!showResult);  // Toggle the result view
+              setSelectedCity('');
+              setFilterText('');
+              setSuggestions([]);
+              setInitialCity(true);
+              setShowResult(!showResult);
             }}>New Search</button>
           </div>
         )}
