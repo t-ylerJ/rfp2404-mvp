@@ -108,8 +108,6 @@ console.log(cityChoice);
     if (initialCity && cityChoice) {
       setSelectedCity(cityChoice.code);
       setInitialCity(false);
-      console.log("initial city:", initialCity)
-      console.log("selectedCity:", selectedCity, cityChoice);
     }
   }, [cityChoice, initialCity, selectedCity]);
 
