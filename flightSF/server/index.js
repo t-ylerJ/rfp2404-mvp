@@ -19,6 +19,7 @@ app.use(express.static('/Users/tylerjohnson/hackreactor/rfp2404/mvp/rfp2404-mvp/
 app.use(cors({
   origin: 'http://localhost:5173'
 }));
+app.post('/priceAlerts')
 app.all('https://test.api.amadeus.com/v2/shopping/flight-offers', getFlightPrices);
 
 
