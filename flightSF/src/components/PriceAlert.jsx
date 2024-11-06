@@ -38,11 +38,14 @@ function PriceAlert() {
   }
   return (
     <form>
-      <input>
-        <label>Notify me if price goes</label>
-          <options>Above</options>
-          <options>Below</options>
-        <label value={amount}></label>
+      <label>Notify me if price goes</label>
+      <label>Above</label>
+        <input type="radio" name="aboveThreshold" value="aboveThreshold"></input>
+      <label>Below</label>
+          <input type="radio" name="belowThreshold" value="belowThreshold">Below</input>
+          $
+          <input type="text" value="amount">Below</input>
+        <label name="amount"></label>
       </input>
     </form>
   );
