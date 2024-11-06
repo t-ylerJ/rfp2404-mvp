@@ -11,6 +11,7 @@ import { FlightGraph } from "../utils/FlightGraph";
 import LineChart from "./LineChart.jsx";
 import SearchBar from "./SearchBar.jsx";
 import Suggested from "./Suggested.jsx";
+import PriceAlert from "./PriceAlert.jsx";
 
 
 Chart.register(CategoryScale);
@@ -267,7 +268,11 @@ console.log(airportCodeLookup );
             <div className="App">
               <div className="priceTitle">
                 <span><span className="currentCity">{currentCity}</span> <GoArrowRight /> San Francisco</span>
-                <button id="price-alert" onClick={createPriceAlert}>Create Price Alert</button>
+                  <button id="price-alert" onClick={createPriceAlert}>Create Price Alert</button>
+                  {showAlert && (
+                    <PriceAlert
+                    />
+                  )}
             </div>
             {chartData && <LineChart
               width={1000}

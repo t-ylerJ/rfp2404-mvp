@@ -42,7 +42,7 @@ function PriceAlert() {
         <label>Notify me if price goes</label>
           <options>Above</options>
           <options>Below</options>
-        <label value="amount"></label>
+        <label value={amount}></label>
       </input>
     </form>
   );
