@@ -15,12 +15,15 @@ function PriceAlert() {
     return [values, handleChange];
   }
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
   function CreateNotification() {
     const [formData, handleChange] = useForm({
       name: '', email: '', upperPrice: 0, lowerPrice: 0;
     })
-
-    const handleSubmit = async (e) => {
+    const handleNotication = async (e) => {
       e.preventDefault();
 
       try {
@@ -37,14 +40,14 @@ function PriceAlert() {
     }
   }
   return (
-    <form>
+    <form onSubmit={handleNotication}>
       <label>Notify me if price goes</label>
       <label>Above</label>
         <input type="radio" name="aboveThreshold" value="aboveThreshold"></input>
       <label>Below</label>
           <input type="radio" name="belowThreshold" value="belowThreshold">Below</input>
           $
-          <input type="text" value="amount">Below</input>
+          <input type="text" value="amount" Placeholder="Enter Amount"></input>
         <label name="amount"></label>
       </input>
     </form>
