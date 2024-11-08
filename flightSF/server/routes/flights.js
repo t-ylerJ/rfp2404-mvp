@@ -1,11 +1,25 @@
-import Amadeus from 'amadeus';
+// import Amadeus from 'amadeus';
 import express from 'express';
 import axios from 'axios';
 
-const amadeus = new Amadeus({
-  clientId: process.env.API_KEY,
-  clientSecret: process.env.API_SECRET
-})
+// Temporary mock object to simulate Amadeus behavior
+const amadeus = {
+  shopping: {
+    flightOffersSearch: {
+      get: async () => ({
+        data: [
+          // Mock flight data, structure it as expected by your app
+          { id: '1', price: { total: '150' }, airline: 'MockAir' },
+          { id: '2', price: { total: '200' }, airline: 'DemoFlights' },
+        ]
+      })
+    }
+  }
+};
+// const amadeus = new Amadeus({
+//   clientId: process.env.API_KEY,
+//   clientSecret: process.env.API_SECRET
+// })
 
 
 export function getFlightPrices(req, res) {
