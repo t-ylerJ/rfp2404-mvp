@@ -177,8 +177,11 @@ button .search {
   display: flex;
   flex-direction: column;
   justify-content: center;
-
   z-index:1000;
+}
 
-
+.notification {
+  background-color: white;
+  border: black;
+  border-radius: 1px;
 }

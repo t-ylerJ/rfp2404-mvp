@@ -40,7 +40,7 @@ function PriceAlert() {
     }
   }
   return (
-    <div className="priceAlert">
+    <div className="notification">
       <form onSubmit={handleNotication}>
         <label>Notify me if price goes</label>
         <label>Above</label>
