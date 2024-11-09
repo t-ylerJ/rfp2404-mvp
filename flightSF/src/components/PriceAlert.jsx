@@ -42,14 +42,15 @@ function PriceAlert() {
   return (
     <div className="notification">
       <form onSubmit={handleNotication}>
+          <input type="text" value="amount" Placeholder="Enter Amount"></input>
         <label>Notify me if price goes</label>
         <label>Above</label>
           <input type="radio" name="aboveThreshold" value="aboveThreshold"></input>
         <label>Below</label>
-            <input type="radio" name="belowThreshold" value="belowThreshold">Below</input>
-            $
-            <input type="text" value="amount" Placeholder="Enter Amount"></input>
-          <label name="amount"></label>
+          <input type="radio" name="belowThreshold" value="belowThreshold">Below  $</input>
+        <input type="text" value="amount" Placeholder="Enter Amount"></input>
+        <label name="amount"></label>
+          <button type="submit">Create Notification</button>
         </input>
       </form>
   </div >

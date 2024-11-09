@@ -31,7 +31,6 @@ function App() {
   const [currentCity, setCurrentCity] = useState('')
 
 
-
 //Placeholder for FlightData
   const [cities, setCities] = useState([
     { 'name': 'Dallas', 'code': 'DFW', 'price': 250 },
@@ -94,7 +93,6 @@ function App() {
     setInitialCity(true);
   }, []);
 
-
   useEffect(() => {
     //Randomizes the cities used for default city
     setCityChoice(
@@ -103,7 +101,7 @@ function App() {
       ]
     );
     }, [cities]);
-console.log(cityChoice);
+
   useEffect(() => {
     //Set a default city if no city is entered
     if (initialCity && cityChoice) {
@@ -186,7 +184,6 @@ console.log(cityChoice);
   };
 
   const setPriceAltert = (city) => {
-
   }
 
   var fourWeeksOut = new Date();
@@ -207,8 +204,8 @@ console.log(airportCodeLookup );
   return (
     <div id="content">
       <p id="firstLine">Flights to </p>
-          <img id="sf" src={frame} className="icon" alt="'San Francisco' with golden-gate-bridge" />
-          <a href="https://www.sftravel.com/" target="_blank"></a>
+        <img id="sf" src={frame} className="icon" alt="'San Francisco' with golden-gate-bridge" />
+        <a href="https://www.sftravel.com/" target="_blank"></a>
       <div className="main-page">
         {!showResult ? (
           <form onSubmit={handleSubmit}>
