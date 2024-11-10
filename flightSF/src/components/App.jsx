@@ -28,7 +28,8 @@ function App() {
   const [week1Price, setWeek1Price] = useState(0);
   const [filterText, setFilterText] = useState('');
   const [suggestions, setSuggestions] = useState([]);
-  const [currentCity, setCurrentCity] = useState('')
+  const [currentCity, setCurrentCity] = useState('');
+  const [showAlert, setShowAlert] = useState(false);
 
 
 //Placeholder for FlightData
@@ -265,9 +266,11 @@ console.log(airportCodeLookup );
             <div className="App">
               <div className="priceTitle">
                 <span><span className="currentCity">{currentCity}</span> <GoArrowRight /> San Francisco</span>
-                  <button id="price-alert" onClick={createPriceAlert}>Create Price Alert</button>
+                  <button id="price-alert" onClick={setShowAlert(true)}>Create Price Alert</button>
                   {showAlert && (
                     <PriceAlert
+                      showAlert={showAlert}
+                      setShowAlert={setShowAlert}
                     />
                   )}
             </div>

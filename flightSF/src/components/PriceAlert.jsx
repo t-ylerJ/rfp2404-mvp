@@ -1,6 +1,6 @@
 import { useState, useForm } from 'react';
 
-function PriceAlert() {
+function PriceAlert({ setShowAlert } ) {
 
   function useForm(priceNotification) {
     const [values, setValues] = useState(priceNotification);
@@ -15,15 +15,13 @@ function PriceAlert() {
     return [values, handleChange];
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
 
-  function CreateNotification() {
+
+  function createNotification() {
     const [formData, handleChange] = useForm({
       name: '', email: '', upperPrice: 0, lowerPrice: 0;
     })
-    const handleNotication = async (e) => {
+    const handleSubmit = async (e) => {
       e.preventDefault();
 
       try {
@@ -33,7 +31,8 @@ function PriceAlert() {
           }, {
             body: JSON.stringify(formData),
           }
-        }),
+        })
+      setShowAlert(false);
       } catch(err) {
         console.error('Error creating price notification:', err);
       }
@@ -41,7 +40,7 @@ function PriceAlert() {
   }
   return (
     <div className="notification">
-      <form onSubmit={handleNotication}>
+      <form onSubmit={createNotification}>
           <input type="text" value="amount" Placeholder="Enter Amount"></input>
         <label>Notify me if price goes</label>
         <label>Above</label>

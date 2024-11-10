@@ -24,10 +24,10 @@ app.post('/priceAlerts');
 
 app.get('/api/flights', async (req, res) => {
   try {
-    const response = await amadeus.shopping.flightOffersSearch.get(/* parameters here */);
+    const response = await amadeus.shopping.flightOffersSearch.get();
     res.json(response.data);
   } catch (error) {
-    res.status(500).json({ error: 'Error fetching mock flight data' });
+    res.status(500).json({ error: 'Error fetching flight data' });
   }
 });
 // app.all('https://test.api.amadeus.com/v2/shopping/flight-offers', getFlightPrices);

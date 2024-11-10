@@ -2,13 +2,12 @@
 import express from 'express';
 import axios from 'axios';
 
-// Temporary mock object to simulate Amadeus behavior
+// Temporary object to simulate Amadeus behavior
 const amadeus = {
   shopping: {
     flightOffersSearch: {
       get: async () => ({
         data: [
-          // Mock flight data, structure it as expected by your app
           { id: '1', price: { total: '150' }, airline: 'MockAir' },
           { id: '2', price: { total: '200' }, airline: 'DemoFlights' },
         ]

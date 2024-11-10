@@ -185,3 +185,7 @@ button .search {
   border: black;
   border-radius: 1px;
 }
+.notification button {
+  padding-left: 5rem;
+  margin-left: 0;
+}
