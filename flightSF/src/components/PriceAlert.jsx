@@ -40,14 +40,25 @@ function PriceAlert({ setShowAlert } ) {
   }
   return (
     <div className="notification">
-      <form onSubmit={createNotification}>
-          <input type="text" value="amount" Placeholder="Enter Amount"></input>
-        <label>Notify me if price goes</label>
+      <form onSubmit={createNotification} id="priceAlert">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name"></input>
+        <span id="nameError">Name is required.</span>
+
+        <label for="name">Email:</label>
+        <input type="text" id="email" name="email"></input>
+        <span id="nameError">Email is required.</span>
+
+        <p>Notify me if price goes</p>
         <label>Above</label>
-          <input type="radio" name="aboveThreshold" value="aboveThreshold"></input>
+        <input type="radio" name="aboveThreshold" value="aboveThreshold"></input>
+
         <label>Below</label>
-          <input type="radio" name="belowThreshold" value="belowThreshold">Below  $</input>
-        <input type="text" value="amount" Placeholder="Enter Amount"></input>
+        <input type="radio" name="belowThreshold" value="belowThreshold">Below  </input>
+        <div className="alertAmount">
+          <span>$</span>
+          <input type="text" value="amount" Placeholder="Enter Amount"></input>
+        </div>
         <label name="amount"></label>
           <button type="submit">Create Notification</button>
         </input>

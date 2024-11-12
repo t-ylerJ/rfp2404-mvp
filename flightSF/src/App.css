@@ -189,3 +189,11 @@ button .search {
   padding-left: 5rem;
   margin-left: 0;
 }
+.alertAmount {
+  border-radius: 2px;
+}
+/* Form Validation */
+#nameError {
+  color: red;
+  display: none;
+}
