@@ -1,4 +1,7 @@
 import { useState, useForm } from 'react';
+import { GoArrowRight } from "react-icons/go";
+import { GoX } from "react-icons/go";
+
 
 function PriceAlert({ setShowAlert } ) {
 
@@ -40,6 +43,7 @@ function PriceAlert({ setShowAlert } ) {
   }
   return (
     <div className="notification">
+      <span className="toolbar"><GoX /></span>
       <form onSubmit={createNotification} id="priceAlert">
         <label for="name">Name:</label>
         <input type="text" id="name" name="name"></input>

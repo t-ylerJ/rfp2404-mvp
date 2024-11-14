@@ -2,6 +2,7 @@ import { useState, useEffect, useId } from 'react';
 import frame from '/frame.svg';
 import '../App.css';
 import { GoArrowRight } from "react-icons/go";
+
 import createPriceAlert from './PriceAlert';
 
 // import { FlightData } from "../utils/FlightData";
