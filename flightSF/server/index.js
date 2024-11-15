@@ -1,3 +1,4 @@
+import path from 'path';
 import cors from 'cors';
 // import Amadeus from 'amadeus';
 import express from 'express';
@@ -12,10 +13,13 @@ const PORT = process.env.PORT || 5000;
 //   clientId: process.env.API_KEY,
 //   clientSecret: process.env.API_SECRET
 // })
+const publicPath = path.join('/home', 'tylerj', 'hackreactor', 'flightToSf', 'rfp2404-mvp', 'flightSF', 'public')
 
 app.use(express.json());
 app.use(morgan('dev'));
-app.use(express.static('/Users/tylerjohnson/hackreactor/rfp2404/mvp/rfp2404-mvp/flightSF/public'))
+// app.use(express.static('/Users/tylerjohnson/hackreactor/rfp2404/mvp/rfp2404-mvp/flightSF/public'))
+app.use(express.static('//wsl.localhost/Ubuntu/home/tylerj/hackreactor/flightToSf/rfp2404-mvp/flightSF/public'))
+app.use(express.static(publicPath))
 app.use(cors({
   origin: 'http://localhost:5173'
 }));
