@@ -189,6 +189,10 @@ button .search {
   padding-left: 5rem;
   margin-left: 0;
 }
+.priceAlertContainer {
+  width: 1/2;
+  border: gray;
+}
 .alertAmount {
   border-radius: 2px;
 }

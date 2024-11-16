@@ -269,10 +269,12 @@ console.log(airportCodeLookup );
                 <span><span className="currentCity">{currentCity}</span> <GoArrowRight /> San Francisco</span>
                   <button id="price-alert" onClick={setShowAlert(true)}>Create Price Alert</button>
                   {showAlert && (
+                    <div className="priceAlertContainer">
                     <PriceAlert
                       showAlert={showAlert}
                       setShowAlert={setShowAlert}
-                    />
+                      />
+                      </div>
                   )}
             </div>
             {chartData && <LineChart

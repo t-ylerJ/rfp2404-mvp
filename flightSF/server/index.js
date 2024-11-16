@@ -1,27 +1,22 @@
 import path from 'path';
 import cors from 'cors';
-// import Amadeus from 'amadeus';
+import Amadeus from 'amadeus';
 import express from 'express';
 import morgan from 'morgan';
 import 'dotenv/config';
 import { getFlightPrices } from './routes/flights.js';
 import { fileURLToPath } from 'url';
 
-//opt 1
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
-// const publicPath = path.join(__dirname, 'public');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const publicPath = path.join(__dirname, 'public');
 
-// app.use(express.static('/Users/tylerjohnson/hackreactor/rfp2404/mvp/rfp2404-mvp/flightSF/public'))
-// app.use(express.static('//wsl.localhost/Ubuntu/home/tylerj/hackreactor/flightToSf/rfp2404-mvp/flightSF/public'))
 const app = express();
 const PORT = process.env.PORT || 5000;
 // const amadeus = new Amadeus({
 //   clientId: process.env.API_KEY,
 //   clientSecret: process.env.API_SECRET
 // })
-const publicPath = path.join('/home', 'tylerj', 'hackreactor', 'flightToSf', 'rfp2404-mvp', 'flightSF', 'public');
-
 
 app.use(express.json());
 app.use(morgan('dev'));
@@ -30,7 +25,6 @@ app.use(cors({
   origin: 'http://localhost:5173'
 }));
 app.post('/priceAlerts');
-
 
 app.get('/api/flights', async (req, res) => {
   try {
@@ -41,7 +35,6 @@ app.get('/api/flights', async (req, res) => {
   }
 });
 // app.all('https://test.api.amadeus.com/v2/shopping/flight-offers', getFlightPrices);
-
 
 app.listen(PORT, () => {
   console.log(`Listening on http://localhost:${PORT}`)
