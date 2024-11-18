@@ -110,7 +110,7 @@ function App() {
       setSelectedCity(cityChoice.code);
       setInitialCity(false);
     }
-  }, [cityChoice, initialCity, selectedCity]);
+  }, [cityChoice, initialCity]);
 
   useEffect(() => {
     if (selectedCity) {
@@ -179,7 +179,7 @@ function App() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setSelectedCity(filterText);
-    setCurrentCity(airportCodeLookup[selectedCity])
+    setCurrentCity(airportCodeLookup[filterText])
     setShowResult(!showResult);
     console.log("initialCity:", initialCity);
     setFilterText('')
@@ -241,7 +241,7 @@ console.log(airportCodeLookup );
           </form>
         ) : (
           <div className="w-full justify-between">
-            <div id="timeContainer" style={{ display: 'flex', flexDirection: 'row', gap: '6rem', height: '100%' }}>
+            <div id="timeContainer">
               <span className="w-1/4">
                 <h2>4 Weeks Ago</h2>
                 <h3>{fourWeeksOut.toLocaleDateString('en-US', options)}</h3>

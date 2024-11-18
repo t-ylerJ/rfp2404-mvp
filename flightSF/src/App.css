@@ -42,6 +42,10 @@
 /* Price history styles */
 
 #timeContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 6rem;
+  height: 100%;
   padding: 0;
   justify-content: center;
   align-items: center;
