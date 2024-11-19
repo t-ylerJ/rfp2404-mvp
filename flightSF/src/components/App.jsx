@@ -86,8 +86,8 @@ function App() {
   }, {});
 
   const priceTrend = (price1, price2) => {
-    const trend = price1 < price2 ? <span className="up">▲</span> : <span className="down">▼</span>;
-    return trend;
+    return price1 < price2 ? '▲': '▼';
+
   }
 
   useEffect(() => {
@@ -102,7 +102,7 @@ function App() {
         Math.floor(Math.random() * cities.length)
       ]
     );
-    }, [cities]);
+    }, []);
 
   useEffect(() => {
     //Set a default city if no city is entered
@@ -241,29 +241,24 @@ console.log(airportCodeLookup );
           </form>
         ) : (
           <div className="w-full justify-between">
-            <div id="timeContainer">
-              <span className="w-1/4">
-                <h2>4 Weeks Ago</h2>
-                <h3>{fourWeeksOut.toLocaleDateString('en-US', options)}</h3>
-                <p>${week4Price}</p>
-              </span>
-              <span className=" w-1/4">
-                <h2>3 Weeks Ago</h2>
-                <h3>{threeWeeksOut.toLocaleDateString('en-US', options)}</h3>
-                <p>{priceTrend(week4Price,week3Price)} ${week3Price}</p>
-                <p className="trend"></p>
-              </span>
-              <span className="flex flex-col w-1/4">
-                <h2>2 Weeks Ago</h2>
-                <h3>{twoWeeksOut.toLocaleDateString('en-US', options)}</h3>
-                <p>{priceTrend(week3Price,week2Price)} ${week2Price}</p>
-              </span>
-              <span className="flex flex-col w-1/4">
-                <h2>1 Week Ago</h2>
-                <h3>{oneWeekOut.toLocaleDateString('en-US', options)}</h3>
-                <p>{priceTrend(week2Price,week1Price)} ${week1Price}</p>
-              </span>
-            </div>
+              <div id="timeContainer">
+                {[
+                  { label: "4 Weeks Ago", date: fourWeeksOut, price: week4Price, prevPrice: null },
+                  { label: "3 Weeks Ago", date: threeWeeksOut, price: week3Price, prevPrice: week4Price },
+                  { label: "2 Weeks Ago", date: twoWeeksOut, price: week2Price, prevPrice: week3Price },
+                  { label: "1 Week Ago", date: oneWeekOut, price: week1Price, prevPrice: week2Price }
+                ].map((weekData, index) => (
+                  <div key={index} className="timeCard w-1/4">
+                    <h2>{weekData.label}</h2>
+                    <h3>{weekData.date.toLocaleDateString('en-US', options)}</h3>
+                    <p className={weekData.prevPrice !== null && weekData.price > weekData.prevPrice ? 'up' : 'down'}>
+                      {weekData.prevPrice !== null && priceTrend(weekData.prevPrice, weekData.price)}
+                      ${weekData.price}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
             <div className="App">
               <div className="priceTitle">
                 <span><span className="currentCity">{currentCity}</span> <GoArrowRight /> San Francisco</span>
