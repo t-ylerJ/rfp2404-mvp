@@ -184,18 +184,29 @@ button .search {
   z-index:1000;
 }
 
+/* Price Alert Styles */
+.toolbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+}
 .notification {
   background-color: white;
   border: black;
   border-radius: 1px;
+  display: flex;
 }
 .notification button {
   padding-left: 5rem;
   margin-left: 0;
 }
+.x {
+  justify-content: start;
+  align-content: start;
+}
 .priceAlertContainer {
   width: 1/2;
-  border: gray;
+  color: black;
 }
 .alertAmount {
   border-radius: 2px;

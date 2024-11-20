@@ -42,8 +42,8 @@ function PriceAlert({ setShowAlert } ) {
   }
   return (
     <div className="notification">
-      <span className="toolbar"><GoX /></span>
       <form onSubmit={createNotification} id="priceAlert">
+      <div className="toolbar"><GoX /></div>
         <label for="name">Name:</label>
         <input type="text" id="name" name="name"/>
         <span id="nameError">Name is required.</span>
