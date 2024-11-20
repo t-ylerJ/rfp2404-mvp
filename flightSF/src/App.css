@@ -201,8 +201,21 @@ button .search {
   margin-left: 0;
 }
 .x {
-  justify-content: start;
-  align-content: start;
+  color: black;
+  margin: 5px;
+  padding: 7px;
+}
+.x:hover {
+  color: white;
+  background-color: red;
+  margin: 4.5px;
+  padding: 7px;
+  border-bottom: solid 1px;
+  border-left: solid 1px;
+  border-radius: 7px;
+}
+.x:active {
+  color: black;
 }
 .priceAlertContainer {
   width: 1/2;

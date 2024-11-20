@@ -43,14 +43,18 @@ function PriceAlert({ setShowAlert } ) {
   return (
     <div className="notification">
       <form onSubmit={createNotification} id="priceAlert">
-      <div className="toolbar"><GoX /></div>
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name"/>
-        <span id="nameError">Name is required.</span>
+      <div className="toolbar"><GoX className="x"/></div>
+        <div>
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name"/>
+          <span id="nameError">Name is required.</span>
+        </div>
 
+        <div>
         <label for="name">Email:</label>
         <input type="text" id="email" name="email"/>
         <span id="nameError">Email is required.</span>
+        </div>
 
         <p>Notify me if price goes</p>
         <label>Above</label>
