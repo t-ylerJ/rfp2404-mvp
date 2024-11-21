@@ -41,8 +41,10 @@ function PriceAlert({ setShowAlert } ) {
     }
   }
   return (
+    <>
+    <div className="space">space</div>
     <div className="notification">
-      <form onSubmit={createNotification} id="priceAlert">
+      <form onSubmit={createNotification}>
       <div className="toolbar"><GoX className="x"/></div>
         <div>
           <label for="name">Name:</label>
@@ -56,20 +58,20 @@ function PriceAlert({ setShowAlert } ) {
         <span id="nameError">Email is required.</span>
         </div>
 
-        <p>Notify me if price goes</p>
-        <label>Above</label>
+        <p>Notify me if price goes:</p>
         <input type="radio" name="aboveThreshold" value="aboveThreshold"/>
+        <label>Above</label>
 
-        <label>Below</label>
         <input type="radio" name="belowThreshold" value="belowThreshold"/>Below
         <div className="alertAmount">
           <span>$</span>
-          <input type="text" value="amount" Placeholder="Enter Amount"/>
+          <input type="text"  placeholder="Enter Amount"/>
         </div>
-        <label name="amount"></label>
-          <button type="submit">Create Notification</button>
+
+          <button type="submit" id="submitNotification">Create Notification</button>
       </form>
-  </div>
+      </div>
+    </>
   );
 }
 

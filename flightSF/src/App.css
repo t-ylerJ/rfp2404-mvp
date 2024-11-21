@@ -185,16 +185,26 @@ button .search {
 }
 
 /* Price Alert Styles */
+.space {
+  height: 120px;
+  margin-top: 40px;
+}
 .toolbar {
   display: flex;
   flex-direction: row;
   justify-content: end;
+
 }
 .notification {
+  display: flex;
+  width: 140%;
   background-color: white;
   border: black;
   border-radius: 1px;
-  display: flex;
+}
+.notification form {
+  width: 100%;
+  padding-top: 10px;
 }
 .notification button {
   padding-left: 5rem;
@@ -223,6 +233,11 @@ button .search {
 }
 .alertAmount {
   border-radius: 2px;
+}
+#submitNotification {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
 }
 /* Form Validation */
 #nameError {
