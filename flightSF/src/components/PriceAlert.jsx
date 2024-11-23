@@ -42,7 +42,6 @@ function PriceAlert({ setShowAlert } ) {
   }
   return (
     <>
-    <div className="space">space</div>
     <div className="notification">
       <form onSubmit={createNotification}>
       <div className="toolbar"><GoX className="x"/></div>

@@ -1,4 +1,4 @@
-
+/*
 /* Main page styles */
 #root {
   min-height: 100%;
@@ -79,12 +79,8 @@
 .icon {
   height: 1em;
   padding-top: none;
-  will-change: filter;
-  transition: filter 300ms;
 }
-.icon:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
+
 .up {
   color: red;
 }
