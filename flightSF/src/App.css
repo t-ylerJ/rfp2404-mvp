@@ -195,11 +195,11 @@ button .search {
   display: flex;
   width: 270px;
   background-color: white;
-  border: black;
+  border: 3px red;
   border-radius: 1px;
 }
 .notification form {
-  width: 100%;
+  width: 110%;
   padding: 2px 20px 5px 15px;
   text-align: left;
 }
