@@ -189,19 +189,25 @@ button .search {
   display: flex;
   flex-direction: row;
   justify-content: end;
+  padding: 2px;
+  margin-bottom: 10px;
+  background-color: lightgray;
+  border-color: green;
+  border: 2px;
 
 }
 .notification {
   display: flex;
   width: 270px;
   background-color: white;
-  border: 3px red;
+  border: red;
   border-radius: 1px;
 }
 .notification form {
-  width: 110%;
-  padding: 2px 20px 5px 15px;
+  width: 100%;
+  padding: 8px 10px 5px 8px;
   text-align: left;
+  border: red;
 }
 
 .fields {
