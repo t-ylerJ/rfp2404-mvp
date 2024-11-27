@@ -64,7 +64,7 @@ function PriceAlert({ setShowAlert } ) {
         <input type="radio" name="belowThreshold" value="belowThreshold"/>Below
         <div className="alertAmount">
           <span>$</span>
-          <input type="text"  placeholder="Enter Amount"/>
+          <input id="priceAmount" type="text" placeholder="Enter Amount"/>
         </div>
 
           <button type="submit" id="submitNotification">Create Notification</button>

@@ -249,9 +249,11 @@ button .search {
   border-radius: 2px;
 }
 #submitNotification {
-  display: flex;
-  flex-direction: row;
-  justify-content: start;
+  display: block;
+  margin: 0 auto;
+}
+#priceAmount {
+  margin-bottom: 8px;
 }
 /* Form Validation */
 #nameError {
