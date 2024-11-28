@@ -3,7 +3,7 @@ import { GoArrowRight } from "react-icons/go";
 import { GoX } from "react-icons/go";
 
 
-function PriceAlert({ setShowAlert } ) {
+function PriceAlert({ setShowAlert, currentCity } ) {
 
   function useForm(priceNotification) {
     const [values, setValues] = useState(priceNotification);
@@ -44,7 +44,10 @@ function PriceAlert({ setShowAlert } ) {
     <>
     <div className="notification">
       <form onSubmit={createNotification}>
-      <div className="toolbar"><GoX className="x"/></div>
+          <div className="toolbar">
+            <span><span className="currentCity">{currentCity}</span> <GoArrowRight className="x" /> San Francisco</span>
+
+            <GoX className="x" /></div>
         <div className="fields">
           <label htmlFor="name">Name:</label>
           <input type="text" id="name" name="name"/>

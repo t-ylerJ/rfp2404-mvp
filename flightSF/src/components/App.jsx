@@ -268,7 +268,8 @@ console.log(airportCodeLookup );
                     <div className="priceAlertContainer">
                     <PriceAlert
                       showAlert={showAlert}
-                      setShowAlert={setShowAlert}
+                        setShowAlert={setShowAlert}
+                        currentCity={currentCity}
                       />
                       </div>
                   )}
