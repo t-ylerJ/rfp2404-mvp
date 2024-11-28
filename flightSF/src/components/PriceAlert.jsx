@@ -45,9 +45,15 @@ function PriceAlert({ setShowAlert, currentCity } ) {
     <div className="notification">
       <form onSubmit={createNotification}>
           <div className="toolbar">
-            <span><span className="currentCity">{currentCity}</span> <GoArrowRight className="x" /> San Francisco</span>
-
-            <GoX className="x" /></div>
+            <span className="currentCity">
+              {currentCity}
+              <GoArrowRight/>
+              San Francisco
+            </span>
+              <GoX className="x"
+              onClick={() => setShowAlert(false)}
+            />
+          </div>
         <div className="fields">
           <label htmlFor="name">Name:</label>
           <input type="text" id="name" name="name"/>
