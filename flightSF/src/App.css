@@ -198,7 +198,7 @@ button .search {
 }
 .notification {
   display: flex;
-  width: 350px;
+  width: 275px;
   background-color: white;
   border: red;
   border-radius: 1px;
@@ -236,7 +236,6 @@ button .search {
   color: white;
   background-color: red;
   margin: 4.5px;
-  padding: 7px;
   border-bottom: solid 1px;
   border-left: solid 1px;
   border-radius: 7px;

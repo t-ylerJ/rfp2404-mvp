@@ -85,6 +85,8 @@ function App() {
     return acc;
   }, {});
 
+  const city = airportCodeLookup[selectedCity];
+
   const priceTrend = (price1, price2) => {
     return price1 < price2 ? '▲': '▼';
 
@@ -178,8 +180,12 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSelectedCity(filterText);
-    setCurrentCity(airportCodeLookup[filterText])
+    if (airportCodeLookup[filterText]) {
+      setSelectedCity(filterText);
+      setCurrentCity(airportCodeLookup[filterText])
+    } else {
+      console.error('Invalid city code or name entered')
+    }
     setShowResult(!showResult);
     console.log("initialCity:", initialCity);
     setFilterText('')
@@ -260,7 +266,11 @@ console.log(airportCodeLookup );
               </div>
             <div className="App">
               <div className="priceTitle">
-                <span><span className="selectedCity">{selectedCity}</span> <GoArrowRight/> San Francisco</span>
+                  <span>
+                    <span className="selectedCity">{city}</span>
+                    <GoArrowRight className="arrow" />
+                    San Francisco
+                  </span>
                   <button id="price-alert" onClick={()=> setShowAlert(true)}>Create Price Alert</button>
                   {showAlert && (
                     <div className="priceAlertContainer">
@@ -268,6 +278,7 @@ console.log(airportCodeLookup );
                       showAlert={showAlert}
                         setShowAlert={setShowAlert}
                         selectedCity={selectedCity}
+                        airportCodeLookup={airportCodeLookup}
                       />
                       </div>
                   )}

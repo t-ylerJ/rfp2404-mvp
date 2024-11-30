@@ -4,10 +4,11 @@ import { GoX } from "react-icons/go";
 
 
 
-function PriceAlert({ setShowAlert, selectedCity } ) {
+function PriceAlert({ setShowAlert, selectedCity, airportCodeLookup } ) {
+
+  const city = airportCodeLookup[selectedCity];
 
   useEffect(() => {
-
   }, [selectedCity]);
 
   function useForm(priceNotification) {
@@ -56,7 +57,7 @@ function PriceAlert({ setShowAlert, selectedCity } ) {
               <GoArrowRight
                 className="arrow"
               />
-              San Francisco
+              SFO
             </span>
               <GoX className="x"
               onClick={() => setShowAlert(false)}
@@ -75,14 +76,16 @@ function PriceAlert({ setShowAlert, selectedCity } ) {
         </div>
 
         <p>Notify me if price goes:</p>
-        <input type="radio" name="aboveThreshold" value="aboveThreshold"/>
-        <label>Above</label>
+        <div>
+          <input type="radio" name="aboveThreshold" value="aboveThreshold" />
+          <label>Above</label>
+          <input type="radio" name="belowThreshold" value="belowThreshold"/>Below
 
-        <input type="radio" name="belowThreshold" value="belowThreshold"/>Below
-        <div className="alertAmount">
-          <span>$</span>
-          <input id="priceAmount" type="text" placeholder="Enter Amount"/>
-        </div>
+            <div>$
+              <input id="priceAmount" className="alertAmount" type="text" placeholder="Enter Amount"/>
+            </div>
+
+          </div>
 
           <button type="submit" id="submitNotification">Create Notification</button>
       </form>
