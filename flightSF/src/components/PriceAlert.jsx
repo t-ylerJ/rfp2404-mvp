@@ -1,9 +1,14 @@
-import { useState, useForm } from 'react';
+import { useState, useEffect, useForm } from 'react';
 import { GoArrowRight } from "react-icons/go";
 import { GoX } from "react-icons/go";
 
 
-function PriceAlert({ setShowAlert, currentCity } ) {
+
+function PriceAlert({ setShowAlert, selectedCity } ) {
+
+  useEffect(() => {
+
+  }, [selectedCity]);
 
   function useForm(priceNotification) {
     const [values, setValues] = useState(priceNotification);
@@ -40,14 +45,17 @@ function PriceAlert({ setShowAlert, currentCity } ) {
       }
     }
   }
+  console.log(selectedCity)
   return (
     <>
     <div className="notification">
       <form onSubmit={createNotification}>
           <div className="toolbar">
-            <span className="currentCity">
-              {currentCity}
-              <GoArrowRight/>
+            <span className="selectedCity">
+              {selectedCity}
+              <GoArrowRight
+                className="arrow"
+              />
               San Francisco
             </span>
               <GoX className="x"

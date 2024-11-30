@@ -188,17 +188,17 @@ button .search {
 .toolbar {
   display: flex;
   flex-direction: row;
-  justify-content: end;
+  justify-content: space-between;
+  align-items: center;
   padding: 2px;
-  margin-bottom: 10px;
-  background-color: lightgray;
-  border-color: green;
+  margin-bottom: 15px;
+  margin-left: 0;
+  padding-left: 0;
   border: 2px;
-
 }
 .notification {
   display: flex;
-  width: 270px;
+  width: 350px;
   background-color: white;
   border: red;
   border-radius: 1px;
@@ -209,7 +209,9 @@ button .search {
   text-align: left;
   border: red;
 }
-
+.arrow {
+  padding: 0 6px;
+}
 .fields {
   display: flex;
   align-items: center;
@@ -227,7 +229,8 @@ button .search {
 .x {
   color: black;
   margin: 5px;
-  padding: 7px;
+  padding: 0px;
+  align-self: end;
 }
 .x:hover {
   color: white;
