@@ -76,15 +76,17 @@ function PriceAlert({ setShowAlert, selectedCity, airportCodeLookup } ) {
         </div>
 
         <p>Notify me if price goes:</p>
-        <div>
-          <input type="radio" name="aboveThreshold" value="aboveThreshold" />
-          <label>Above</label>
-          <input type="radio" name="belowThreshold" value="belowThreshold"/>Below
-
-            <div>$
-              <input id="priceAmount" className="alertAmount" type="text" placeholder="Enter Amount"/>
-            </div>
-
+          <div>
+            <label>
+              <input type="radio" name="threshold" value="aboveThreshold" />
+              Above
+            </label>
+            <label>
+              <input type="radio" name="threshold" value="belowThreshold"/>Below
+              <div>$
+                <input id="priceAmount" className="alertAmount" type="text" placeholder="Enter Amount" />
+              </div>
+            </label>
           </div>
 
           <button type="submit" id="submitNotification">Create Notification</button>
