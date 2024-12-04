@@ -13,6 +13,7 @@ import LineChart from "./LineChart.jsx";
 import SearchBar from "./SearchBar.jsx";
 import Suggested from "./Suggested.jsx";
 import PriceAlert from "./PriceAlert.jsx";
+import { createPortal } from 'react-dom';
 
 
 Chart.register(CategoryScale);
@@ -30,7 +31,7 @@ function App() {
   const [filterText, setFilterText] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [currentCity, setCurrentCity] = useState('');
-  const [showAlert, setShowAlert] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
 
 //Placeholder for FlightData
@@ -212,8 +213,8 @@ console.log(airportCodeLookup );
   return (
     <div id="content">
       <p id="firstLine">Flights to </p>
-        <img id="sf" src={frame} className="icon" alt="'San Francisco' with golden-gate-bridge" />
-        <a href="https://www.sftravel.com/" target="_blank"></a>
+      <img id="sf" src={frame} className="icon" alt="'San Francisco' with golden-gate-bridge" />
+      <a href="https://www.sftravel.com/" target="_blank"></a>
       <div className="main-page">
         {!showResult ? (
           <form onSubmit={handleSubmit}>
@@ -224,7 +225,7 @@ console.log(airportCodeLookup );
                   handleChange={handleChange}
                   initialCity={selectedCity}
                   filterText={filterText}
-                  airportCodeLookup={airportCodeLookup}/>
+                  airportCodeLookup={airportCodeLookup} />
                 <button id="search-button" type="submit">Go</button>
               </span>
               {suggestions.length > 0 && (
@@ -233,61 +234,66 @@ console.log(airportCodeLookup );
                     const suggestionId = useId;
                     return (
                       <Suggested
-                      handleSuggestionChange={handleSuggestionChange}
-                      index={index}
-                      airport={airport}
-                      key={index}
-                      id={suggestionId}
+                        handleSuggestionChange={handleSuggestionChange}
+                        index={index}
+                        airport={airport}
+                        key={index}
+                        id={suggestionId}
                       />
                     )
                   })}
                 </div>
               )}
-              </div>
+            </div>
           </form>
         ) : (
           <div className="w-full justify-between">
-              <div id="timeContainer">
-                {[
-                  { label: "4 Weeks Ago", date: fourWeeksOut, price: week4Price, prevPrice: null },
-                  { label: "3 Weeks Ago", date: threeWeeksOut, price: week3Price, prevPrice: week4Price },
-                  { label: "2 Weeks Ago", date: twoWeeksOut, price: week2Price, prevPrice: week3Price },
-                  { label: "1 Week Ago", date: oneWeekOut, price: week1Price, prevPrice: week2Price }
-                ].map((weekData, index) => (
-                  <div key={index} className="timeCard w-1/4">
-                    <h2>{weekData.label}</h2>
-                    <h3>{weekData.date.toLocaleDateString('en-US', options)}</h3>
-                    <p className={weekData.prevPrice !== null && weekData.price > weekData.prevPrice ? 'up' : 'down'}>
-                      {weekData.prevPrice !== null && priceTrend(weekData.prevPrice, weekData.price)}
-                      ${weekData.price}
-                    </p>
-                  </div>
-                ))}
-              </div>
+            <div id="timeContainer">
+              {[
+                { label: "4 Weeks Ago", date: fourWeeksOut, price: week4Price, prevPrice: null },
+                { label: "3 Weeks Ago", date: threeWeeksOut, price: week3Price, prevPrice: week4Price },
+                { label: "2 Weeks Ago", date: twoWeeksOut, price: week2Price, prevPrice: week3Price },
+                { label: "1 Week Ago", date: oneWeekOut, price: week1Price, prevPrice: week2Price }
+              ].map((weekData, index) => (
+                <div key={index} className="timeCard w-1/4">
+                  <h2>{weekData.label}</h2>
+                  <h3>{weekData.date.toLocaleDateString('en-US', options)}</h3>
+                  <p className={weekData.prevPrice !== null && weekData.price > weekData.prevPrice ? 'up' : 'down'}>
+                    {weekData.prevPrice !== null && priceTrend(weekData.prevPrice, weekData.price)}
+                    ${weekData.price}
+                  </p>
+                </div>
+              ))}
+            </div>
             <div className="App">
               <div className="priceTitle">
-                  <span>
-                    <span className="selectedCity">{city}</span>
-                    <GoArrowRight className="arrow" />
-                    San Francisco
-                  </span>
-                  <button id="price-alert" onClick={()=> setShowAlert(true)}>Create Price Alert</button>
-                  {showAlert && (
-                    <div className="priceAlertContainer">
-                    <PriceAlert
-                      showAlert={showAlert}
-                        setShowAlert={setShowAlert}
+                <span>
+                  <span className="selectedCity">{city}</span>
+                  <GoArrowRight className="arrow" />
+                  San Francisco
+                </span>
+                <button id="price-alert" onClick={() => setShowModal(true)}>Create Price Alert</button>
+                {showModal && (
+                  <div>
+                  {createPortal(
+                      <PriceAlert
+                        className="priceAlertContainer"
+                        showModal={showModal}
+                        setShowModal={setShowModal}
                         selectedCity={selectedCity}
                         airportCodeLookup={airportCodeLookup}
-                      />
-                      </div>
-                  )}
-            </div>
-            {chartData && <LineChart
-              width={1000}
-              height={40}
-              options={{ maintainAspectRatio: false }}
-              chartData={chartData}/>
+                        onClose={() => setShowModal(false)}
+                      />,
+                      document.body
+                    )}
+                  </div>
+                )}
+              </div>
+              {chartData && <LineChart
+                width={1000}
+                height={40}
+                options={{ maintainAspectRatio: false }}
+                chartData={chartData} />
               }
             </div>
             <button onClick={() => {

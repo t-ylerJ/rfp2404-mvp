@@ -1,11 +1,11 @@
 import { useState, useEffect, useForm } from 'react';
+import { createPortal } from 'react-dom';
 import { GoArrowRight } from "react-icons/go";
 import { GoX } from "react-icons/go";
 
 
 
-function PriceAlert({ setShowAlert, selectedCity, airportCodeLookup } ) {
-
+function PriceAlert({ setShowModal, selectedCity, airportCodeLookup, onClose } ) {
   const city = airportCodeLookup[selectedCity];
 
   useEffect(() => {
@@ -17,9 +17,8 @@ function PriceAlert({ setShowAlert, selectedCity, airportCodeLookup } ) {
     const handleChange = function (e) {
       const [name, value] = [e.target.name, e.target.value];
       const formValues = { ...values, name: value}
-      setValues(formValues); // Can use ...values as first key
+      setValues(formValues);
     };
-
     return [values, handleChange];
   }
 
@@ -40,7 +39,7 @@ function PriceAlert({ setShowAlert, selectedCity, airportCodeLookup } ) {
         //     body: JSON.stringify(formData),
         //   }
         // })
-      setShowAlert(false);
+      setShowModal(false);
       } catch(err) {
         console.error('Error creating price notification:', err);
       }
@@ -49,8 +48,8 @@ function PriceAlert({ setShowAlert, selectedCity, airportCodeLookup } ) {
   console.log(selectedCity)
   return (
     <>
-    <div className="notification">
-      <form onSubmit={createNotification}>
+      <div className="notification">
+        <form onSubmit={createNotification}>
           <div className="toolbar">
             <span className="selectedCity">
               {selectedCity}
@@ -59,30 +58,28 @@ function PriceAlert({ setShowAlert, selectedCity, airportCodeLookup } ) {
               />
               SFO
             </span>
-              <GoX className="x"
-              onClick={() => setShowAlert(false)}
-            />
+            <GoX className="x" onClick={onClose}/>
           </div>
-        <div className="fields">
-          <label htmlFor="name">Name:</label>
-          <input type="text" id="name" name="name"/>
-          <span id="nameError">Name is required.</span>
-        </div>
+          <div className="fields">
+            <label htmlFor="name">Name:</label>
+            <input type="text" id="name" name="name" />
+            <span id="nameError">Name is required.</span>
+          </div>
 
-        <div className="fields">
-          <label htmlFor="name">Email:</label>
-          <input type="text" id="email" name="email"/>
-          <span id="nameError">Email is required.</span>
-        </div>
+          <div className="fields">
+            <label htmlFor="name">Email:</label>
+            <input type="text" id="email" name="email" />
+            <span id="nameError">Email is required.</span>
+          </div>
 
-        <p>Notify me if price goes:</p>
+          <p>Notify me if price goes:</p>
           <div>
             <label>
               <input type="radio" name="threshold" value="aboveThreshold" />
               Above
             </label>
             <label>
-              <input type="radio" name="threshold" value="belowThreshold"/>Below
+              <input type="radio" name="threshold" value="belowThreshold" />Below
               <div>$
                 <input id="priceAmount" className="alertAmount" type="text" placeholder="Enter Amount" />
               </div>
@@ -90,7 +87,7 @@ function PriceAlert({ setShowAlert, selectedCity, airportCodeLookup } ) {
           </div>
 
           <button type="submit" id="submitNotification">Create Notification</button>
-      </form>
+        </form>
       </div>
     </>
   );
