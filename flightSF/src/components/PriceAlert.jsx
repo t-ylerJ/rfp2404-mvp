@@ -47,8 +47,11 @@ function PriceAlert({ setShowModal, selectedCity, airportCodeLookup, onClose } )
   }
   console.log(selectedCity)
   return (
-    <>
-      <div className="notification">
+    <div className="priceAlertContainer">
+      <div
+        //className="notification" 
+        className="modalContent"
+      >
         <form onSubmit={createNotification}>
           <div className="toolbar">
             <span className="selectedCity">
@@ -89,7 +92,7 @@ function PriceAlert({ setShowModal, selectedCity, airportCodeLookup, onClose } )
           <button type="submit" id="submitNotification">Create Notification</button>
         </form>
       </div>
-    </>
+    </div>
   );
 }
 

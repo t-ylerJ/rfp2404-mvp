@@ -272,23 +272,22 @@ console.log(airportCodeLookup );
                   <GoArrowRight className="arrow" />
                   San Francisco
                 </span>
-                <button id="price-alert" onClick={() => setShowModal(true)}>Create Price Alert</button>
-                {showModal && (
-                  <div>
-                  {createPortal(
-                      <PriceAlert
-                        className="priceAlertContainer"
-                        showModal={showModal}
-                        setShowModal={setShowModal}
-                        selectedCity={selectedCity}
-                        airportCodeLookup={airportCodeLookup}
-                        onClose={() => setShowModal(false)}
-                      />,
-                      document.body
-                    )}
-                  </div>
-                )}
-              </div>
+                  <button id="price-alert" onClick={() => setShowModal(true)}>Create Price Alert</button>
+                  {showModal && (
+                    <div>
+                      {createPortal(
+                        <PriceAlert
+                          showModal={showModal}
+                          setShowModal={setShowModal}
+                          selectedCity={selectedCity}
+                          airportCodeLookup={airportCodeLookup}
+                          onClose={() => setShowModal(false)}
+                        />,
+                        document.body
+                      )}
+                    </div>
+                  )}
+                </div>
               {chartData && <LineChart
                 width={1000}
                 height={40}
