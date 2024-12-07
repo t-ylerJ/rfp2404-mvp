@@ -274,7 +274,7 @@ console.log(airportCodeLookup );
                 </span>
                   <button id="price-alert" onClick={() => setShowModal(true)}>Create Price Alert</button>
                   {showModal && (
-                    <div>
+                    <div id="offset">
                       {createPortal(
                         <PriceAlert
                           showModal={showModal}

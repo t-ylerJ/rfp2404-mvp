@@ -247,14 +247,21 @@ button .search {
   display: flex;
   position: fixed;
   top: 50;
-  right: 50;
+  left: 50;
   color: black;
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1000;
 }
+#price-alert + div {
+  display: none;
+}
+#offset{
+  /* display: none; */
+}
 .modalContent {
+  display: inline;
   background-color: white;
   color: black;
   padding: 20px;
@@ -267,7 +274,7 @@ button .search {
   border-radius: 2px;
 }
 #submitNotification {
-  display: block;
+  /* display: block; */
   margin: 0 auto;
 }
 #priceAmount {
