@@ -9,6 +9,9 @@ function PriceAlert({ setShowModal, selectedCity, airportCodeLookup, closeModal 
   const [modalState, setModalState] = useState('form');
   const city = airportCodeLookup[selectedCity];
 
+  const [formData, handleChange] = useForm({
+    name: '', email: '', upperPrice: 0, lowerPrice: 0
+  })
   useEffect(() => {
   }, [selectedCity]);
 
@@ -25,53 +28,64 @@ function PriceAlert({ setShowModal, selectedCity, airportCodeLookup, closeModal 
 
 
 
-  const createNotification = async (e) => {
-    const [formData, handleChange] = useForm({
-      name: '', email: '', upperPrice: 0, lowerPrice: 0
-    })
-    const handleSubmit = async (e) => {
-      e.preventDefault();
+  const handleSubmit = async (e) => {
+    setModalState('loading');
+    console.log('Loading')
+    e.preventDefault();
 
-      try {
-        // const response = await axios.post('http://localhost:5173', {
-        //   headers {
-        //     'Content-Type': 'application/json',
-        //   }, {
-        //     body: JSON.stringify(formData),
-        //   }
-        // })
+    try {
+      // const response = await axios.post('http://localhost:5173', {
+      //   headers {
+      //     'Content-Type': 'application/json',
+      //   }, {
+      //     body: JSON.stringify(formData),
+      //   }
+      // })
+      setTimeout(() => {
+        setModalState('success'); // Transition to success state
+      }, 3000);
 
-        setShowModal(false);
-      } catch(err) {
-        console.error('Error creating price notification:', err);
-      }
+    } catch(err) {
+      console.error('Error creating price notification:', err);
     }
   }
   console.log(selectedCity)
   return (
-    <div className="priceAlertContainer">
+    <div className="modalBackground">
       <div className="modalContent">
-        <form onSubmit={createNotification}>
-
+        {modalState === 'form' && (
+          <form onSubmit={handleSubmit}>
           <div className="toolbar">
             <span className="selectedCity">
               {selectedCity}
               <GoArrowRight
                 className="arrow"
-              />
+                />
               SFO
             </span>
             <GoX className="x" onClick={closeModal}/>
           </div>
           <div className="fields">
             <label htmlFor="name">Name:</label>
-            <input type="text" id="name" name="name" />
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+              />
             <span id="nameError">Name is required.</span>
           </div>
 
           <div className="fields">
-            <label htmlFor="name">Email:</label>
-            <input type="text" id="email" name="email" />
+            <label htmlFor="email">Email:</label>
+              <input
+                type="text"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+              />
             <span id="nameError">Email is required.</span>
           </div>
 
@@ -88,9 +102,24 @@ function PriceAlert({ setShowModal, selectedCity, airportCodeLookup, closeModal 
               </div>
             </label>
           </div>
+            <button type="submit" id="submitNotification">Create Notification</button>
+          </form>
+        )}
 
-          <button type="submit" id="submitNotification">Create Notification</button>
-        </form>
+        {modalState === 'loading' && (
+          <div className="loading">
+            <div className="spinner"></div>
+            <p>Loading...</p>
+          </div>
+        )}
+
+        {modalState === 'success' && (
+          <div className="sucess">
+            <p>Notification Created!</p>
+            <p>You will be notified if your trip falls below the specified amount.</p>
+            <button onClick={closeModal}>Close Window</button>
+          </div>
+        )}
       </div>
     </div>
   );
