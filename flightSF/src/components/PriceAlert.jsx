@@ -5,7 +5,8 @@ import { GoX } from "react-icons/go";
 
 
 
-function PriceAlert({ setShowModal, selectedCity, airportCodeLookup, onClose } ) {
+function PriceAlert({ setShowModal, selectedCity, airportCodeLookup, closeModal }) {
+  const [modalState, setModalState] = useState('form');
   const city = airportCodeLookup[selectedCity];
 
   useEffect(() => {
@@ -24,7 +25,7 @@ function PriceAlert({ setShowModal, selectedCity, airportCodeLookup, onClose } )
 
 
 
-  function createNotification() {
+  const createNotification = async (e) => {
     const [formData, handleChange] = useForm({
       name: '', email: '', upperPrice: 0, lowerPrice: 0
     })
@@ -39,7 +40,8 @@ function PriceAlert({ setShowModal, selectedCity, airportCodeLookup, onClose } )
         //     body: JSON.stringify(formData),
         //   }
         // })
-      setShowModal(false);
+
+        setShowModal(false);
       } catch(err) {
         console.error('Error creating price notification:', err);
       }
@@ -48,11 +50,9 @@ function PriceAlert({ setShowModal, selectedCity, airportCodeLookup, onClose } )
   console.log(selectedCity)
   return (
     <div className="priceAlertContainer">
-      <div
-        //className="notification" 
-        className="modalContent"
-      >
+      <div className="modalContent">
         <form onSubmit={createNotification}>
+
           <div className="toolbar">
             <span className="selectedCity">
               {selectedCity}
@@ -61,7 +61,7 @@ function PriceAlert({ setShowModal, selectedCity, airportCodeLookup, onClose } )
               />
               SFO
             </span>
-            <GoX className="x" onClick={onClose}/>
+            <GoX className="x" onClick={closeModal}/>
           </div>
           <div className="fields">
             <label htmlFor="name">Name:</label>

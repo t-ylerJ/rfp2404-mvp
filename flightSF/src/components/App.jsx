@@ -281,7 +281,7 @@ console.log(airportCodeLookup );
                           setShowModal={setShowModal}
                           selectedCity={selectedCity}
                           airportCodeLookup={airportCodeLookup}
-                          onClose={() => setShowModal(false)}
+                          closeModal={() => setShowModal(false)}
                         />,
                         document.body
                       )}
