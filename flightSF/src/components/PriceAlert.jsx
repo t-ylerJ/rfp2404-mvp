@@ -89,14 +89,9 @@ function PriceAlert({ setShowModal, selectedCity, airportCodeLookup, closeModal 
             <span id="nameError">Email is required.</span>
           </div>
 
-          <p>Notify me if price goes:</p>
+          <p>Notify me if price goes below:</p>
           <div>
             <label>
-              <input type="radio" name="threshold" value="aboveThreshold" />
-              Above
-            </label>
-            <label>
-              <input type="radio" name="threshold" value="belowThreshold" />Below
               <div>$
                 <input id="priceAmount" className="alertAmount" type="text" placeholder="Enter Amount" />
               </div>
