@@ -222,28 +222,28 @@ console.log(airportCodeLookup );
               <span className="search"  >
                 <label className="departingLabel" htmlFor={cityId}>Enter name or airport code of departing city:</label>
                 <SearchBar
-                  handleChange={handleChange}
-                  initialCity={selectedCity}
-                  filterText={filterText}
-                  airportCodeLookup={airportCodeLookup} />
+                handleChange={handleChange}
+                initialCity={selectedCity}
+                filterText={filterText}
+                airportCodeLookup={airportCodeLookup} />
                 <button id="search-button" type="submit">Go</button>
               </span>
               {suggestions.length > 0 && (
                 <div className="suggestions-container">
-                  {suggestions.map((airport, index) => {
-                    const suggestionId = useId;
-                    return (
+                {suggestions.map((airport, index) => {
+                  const suggestionId = useId;
+                  return (
                       <Suggested
                         handleSuggestionChange={handleSuggestionChange}
                         index={index}
                         airport={airport}
                         key={index}
                         id={suggestionId}
-                      />
-                    )
-                  })}
-                </div>
-              )}
+                        />
+                      )
+                    })}
+                    </div>
+                  )}
             </div>
           </form>
         ) : (
