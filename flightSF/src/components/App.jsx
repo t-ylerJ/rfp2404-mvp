@@ -181,6 +181,10 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!filterText.trim()) {
+      alert('Please enter a departing city or airport.');
+      return;
+    }
     if (airportCodeLookup[filterText]) {
       setSelectedCity(filterText);
       setCurrentCity(airportCodeLookup[filterText])
@@ -222,11 +226,18 @@ console.log(airportCodeLookup );
               <span className="search"  >
                 <label className="departingLabel" htmlFor={cityId}>Enter name or airport code of departing city:</label>
                 <SearchBar
-                handleChange={handleChange}
-                initialCity={selectedCity}
-                filterText={filterText}
-                airportCodeLookup={airportCodeLookup} />
-                <button id="search-button" type="submit">Go</button>
+
+                  handleChange={handleChange}
+                  initialCity={selectedCity}
+                  filterText={filterText}
+                  airportCodeLookup={airportCodeLookup} />
+                <button
+                  id="search-button"
+                  type="submit"
+                  disabled={!filterText.trim()}
+                >
+                  Go
+                </button>
               </span>
               {suggestions.length > 0 && (
                 <div className="suggestions-container">

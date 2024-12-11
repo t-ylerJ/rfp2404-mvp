@@ -8,7 +8,7 @@ const city = airportCodeLookup[initialCity];
     <>
       <input
         type="text"
-        placeholder={`e.g. "Los Angeles" or "LAX"`}
+        placeholder={`e.g. "Baltimore" or "BWI"`}
         value={filterText}
         className="text-input"
         onChange={handleChange}
