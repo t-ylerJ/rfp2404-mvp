@@ -181,10 +181,7 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!filterText.trim()) {
-      alert('Please enter a departing city or airport.');
-      return;
-    }
+  
     if (airportCodeLookup[filterText]) {
       setSelectedCity(filterText);
       setCurrentCity(airportCodeLookup[filterText])

@@ -292,3 +292,7 @@ button .search {
   color: red;
   display: none;
 }
+.errorMessage {
+  color: 'red';
+  margin-top: '5px';
+}
