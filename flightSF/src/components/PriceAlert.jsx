@@ -32,12 +32,14 @@ function PriceAlert({ setShowModal, selectedCity, airportCodeLookup, closeModal 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setModalState('loading');
-
+    if (!formData.name.trim() || !formData.email.trim()) {
+      setErrorMessage('Please enter a valid name and email address.');
+      setModalState('form');
+      return;
+    }
+    setErrorMessage('');
+    setModalState('loading');
     try {
-      if (!formData) {
-        setErrorMessage('Please enter a valid name and email address.');
-        return;
-      }
       // const response = await axios.post('http://localhost:5173', {
       //   headers {
       //     'Content-Type': 'application/json',
