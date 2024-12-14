@@ -7,55 +7,50 @@ import { GoX } from "react-icons/go";
 
 function PriceAlert({ setShowModal, selectedCity, airportCodeLookup, closeModal }) {
   const [modalState, setModalState] = useState('form');
-  const [errorMessage1, setErrorMessage1] = useState('');
-  const [errorMessage2, setErrorMessage2] = useState('');
-  const [errorMessage3, setErrorMessage3] = useState('');
+  const [errors, setErrors] = useState({});
   const city = airportCodeLookup[selectedCity];
 
-  const [formData, handleChange] = useForm({
-    name: '', email: '', price: ''
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    price: ''
   })
   useEffect(() => {
   }, [selectedCity]);
 
-  function useForm(priceNotification) {
-    const [values, setValues] = useState(priceNotification);
+  // function useForm(priceNotification) {
+  //   const [values, setValues] = useState(priceNotification);
+  //   return [values, handleChange];
+  // }
 
-    const handleChange = function (e) {
-      const { name, value } = e.target
-      const formValues = { ...values, [name]: value }
-      setValues(formValues);
+    const handleChange = (e) => {
+      const { name, value } = e.target;
+      setFormData({ ...formData, [name]: value });
+      setErrors({ ...errors, [name]: '' });
     };
-    return [values, handleChange];
-  }
 
-
+  const validateForm = () => {
+    const newErrors = {};
+    if (!formData.name.trim()) {
+      newErrors.name = 'Please enter a valid name.';
+    }
+    if (!formData.email.trim()) {
+      newErrors.email = 'Please enter a valid email address.';
+    }
+    if (!formData.price.trim()) {
+      newErrors.price = 'Please enter an amount.';
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrorMessage1('');
-    setErrorMessage2('');
-    setErrorMessage3('');
-    let isValid = true;
-
-    if (!formData.name.trim() || !formData.email.trim() || formData.price.trim()) {
-
-      if (!formData.name.trim()) {
-        setErrorMessage1('Please enter a valid name.');
-      }
-      if (!formData.email.trim()) {
-        setErrorMessage2('Please enter a valid email address.');
-      }
-      if (!formData.price.trim()) {
-        setErrorMessage3('Please enter an amount.');
-      }
-      isValid = false;
+    if (!validateForm()) {
       setModalState('form');
       return;
     }
-    if (isValid) {
-      setModalState('loading');
-    }
+    setModalState('loading');
     try {
       // const response = await axios.post('http://localhost:5173', {
       //   headers {
@@ -71,8 +66,8 @@ function PriceAlert({ setShowModal, selectedCity, airportCodeLookup, closeModal 
     } catch (err) {
       console.error('Error creating price notification:', err);
     }
-  }
-  console.log(selectedCity)
+  };
+
   return (
     <div className="modalBackground">
       <div className="modalContent">
@@ -97,9 +92,7 @@ function PriceAlert({ setShowModal, selectedCity, airportCodeLookup, closeModal 
                 value={formData.name}
                 onChange={handleChange}
               />
-              {errorMessage1 && (
-                <span className="errorMessage">{errorMessage1}</span>
-              )}
+              {errors.name && <span className="errorMessage">{errors.name}</span>}
             </div>
 
             <div className="fields">
@@ -111,9 +104,7 @@ function PriceAlert({ setShowModal, selectedCity, airportCodeLookup, closeModal 
                 value={formData.email}
                 onChange={handleChange}
               />
-              {errorMessage2 && (
-                <span className="errorMessage">{errorMessage2}</span>
-              )}
+              {errors.email && <span className="errorMessage">{errors.email}</span>}
             </div>
 
             <p>Notify me if price goes below:</p>
@@ -128,9 +119,7 @@ function PriceAlert({ setShowModal, selectedCity, airportCodeLookup, closeModal 
                     value={formData.price}
                     onChange={handleChange}
                     />
-                    {errorMessage3 && (
-                      <span className="errorMessage">{errorMessage3}</span>
-                    )}
+                  {errors.price && <span className="errorMessage">{errors.price}</span>}
                 </div>
               </label>
             </div>
