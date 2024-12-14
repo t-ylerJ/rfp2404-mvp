@@ -7,11 +7,13 @@ import { GoX } from "react-icons/go";
 
 function PriceAlert({ setShowModal, selectedCity, airportCodeLookup, closeModal }) {
   const [modalState, setModalState] = useState('form');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage1, setErrorMessage1] = useState('');
+  const [errorMessage2, setErrorMessage2] = useState('');
+  const [errorMessage3, setErrorMessage3] = useState('');
   const city = airportCodeLookup[selectedCity];
 
   const [formData, handleChange] = useForm({
-    name: '', email: '', upperPrice: 0, lowerPrice: 0
+    name: '', email: '', price: ''
   })
   useEffect(() => {
   }, [selectedCity]);
@@ -31,14 +33,31 @@ function PriceAlert({ setShowModal, selectedCity, airportCodeLookup, closeModal 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setModalState('loading');
-    if (!formData.name.trim() || !formData.email.trim()) {
-      setErrorMessage('Please enter a valid name and email address.');
-      setModalState('form');
+    setErrorMessage1('');
+    setErrorMessage2('');
+    setErrorMessage3('');
+    let isValid = true;
+
+    if (!formData.name.trim() || !formData.email.trim() || formData.price.trim()) {
+
+      if (!formData.name.trim()) {
+        setErrorMessage1('Please enter a valid name.');
+        setModalState('form');
+      }
+      if (!formData.email.trim()) {
+        setErrorMessage2('Please enter a valid email address.');
+      }
+      if (!formData.price.trim()) {
+        setErrorMessage3('Please enter an amount.');
+      }
+      isValid = false;
       return;
     }
-    setErrorMessage('');
-    setModalState('loading');
+    if (isValid) {
+      setModalState('loading');
+    } else {
+      setModalState('form');
+    }
     try {
       // const response = await axios.post('http://localhost:5173', {
       //   headers {
@@ -80,10 +99,8 @@ function PriceAlert({ setShowModal, selectedCity, airportCodeLookup, closeModal 
                 value={formData.name}
                 onChange={handleChange}
               />
-              {errorMessage && (
-                <span className="errorMessage">Name is required.
-                  {errorMessage}
-                </span>
+              {errorMessage1 && (
+                <span className="errorMessage">{errorMessage1}</span>
               )}
             </div>
 
@@ -96,7 +113,9 @@ function PriceAlert({ setShowModal, selectedCity, airportCodeLookup, closeModal 
                 value={formData.email}
                 onChange={handleChange}
               />
-              <span id="nameError">Email is required.</span>
+              {errorMessage2 && (
+                <span className="errorMessage">{errorMessage2}</span>
+              )}
             </div>
 
             <p>Notify me if price goes below:</p>
@@ -104,9 +123,15 @@ function PriceAlert({ setShowModal, selectedCity, airportCodeLookup, closeModal 
               <label>
                 <div>$
                   <input
-                    id="priceAmount" className="alertAmount"
+                    id="priceAmount"
+                    className="alertAmount"
+                    value={formData.price}
                     type="text"
-                    placeholder="Enter Amount" />
+                    placeholder="Enter Amount"
+                    />
+                    {errorMessage3 && (
+                      <span className="errorMessage">{errorMessage3}</span>
+                    )}
                 </div>
               </label>
             </div>
