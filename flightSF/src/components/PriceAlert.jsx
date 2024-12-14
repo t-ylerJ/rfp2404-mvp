@@ -92,8 +92,8 @@ function PriceAlert({ setShowModal, selectedCity, airportCodeLookup, closeModal 
                 value={formData.name}
                 onChange={handleChange}
               />
-              {errors.name && <span className="errorMessage">{errors.name}</span>}
             </div>
+              {errors.name && <div className="errorMessage">{errors.name}</div>}
 
             <div className="fields">
               <label htmlFor="email">Email:</label>
@@ -104,8 +104,8 @@ function PriceAlert({ setShowModal, selectedCity, airportCodeLookup, closeModal 
                 value={formData.email}
                 onChange={handleChange}
               />
-              {errors.email && <span className="errorMessage">{errors.email}</span>}
             </div>
+              {errors.email && <div className="errorMessage">{errors.email}</div>}
 
             <p>Notify me if price goes below:</p>
             <div>
@@ -119,8 +119,8 @@ function PriceAlert({ setShowModal, selectedCity, airportCodeLookup, closeModal 
                     value={formData.price}
                     onChange={handleChange}
                     />
-                  {errors.price && <span className="errorMessage">{errors.price}</span>}
                 </div>
+                  {errors.price && <div className="errorMessage">{errors.price}</div>}
               </label>
             </div>
             <button
