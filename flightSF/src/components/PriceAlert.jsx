@@ -42,7 +42,6 @@ function PriceAlert({ setShowModal, selectedCity, airportCodeLookup, closeModal 
 
       if (!formData.name.trim()) {
         setErrorMessage1('Please enter a valid name.');
-        setModalState('form');
       }
       if (!formData.email.trim()) {
         setErrorMessage2('Please enter a valid email address.');
@@ -51,12 +50,11 @@ function PriceAlert({ setShowModal, selectedCity, airportCodeLookup, closeModal 
         setErrorMessage3('Please enter an amount.');
       }
       isValid = false;
+      setModalState('form');
       return;
     }
     if (isValid) {
       setModalState('loading');
-    } else {
-      setModalState('form');
     }
     try {
       // const response = await axios.post('http://localhost:5173', {
@@ -124,10 +122,11 @@ function PriceAlert({ setShowModal, selectedCity, airportCodeLookup, closeModal 
                 <div>$
                   <input
                     id="priceAmount"
-                    className="alertAmount"
-                    value={formData.price}
+                    name="price"
                     type="text"
                     placeholder="Enter Amount"
+                    value={formData.price}
+                    onChange={handleChange}
                     />
                     {errorMessage3 && (
                       <span className="errorMessage">{errorMessage3}</span>
