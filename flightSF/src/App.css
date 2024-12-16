@@ -268,7 +268,7 @@ button .search {
   left: 50%;
   transform: translate(-50%, -50%);
   /* display: inline; */
-  /* width: 400px; */
+  width: 275px;
   height: 300px;
   background-color: white;
   color: black;
@@ -279,6 +279,10 @@ button .search {
   text-align: center;
   z-index: 1000;
 }
+.modalContent p {
+  padding: 10px 0 0 0;
+  margin: 0;
+}
 .alertAmount {
   border-radius: 2px;
 }
@@ -287,18 +291,22 @@ button .search {
   margin: 0 auto;
 }
 #priceAmount {
-  margin-bottom: 8px;
+  margin-bottom: 3px;
 }
 /* Form Validation */
-#nameError {
-  color: red;
-  display: none;
-}
+
 .errorMessage {
+  height: 20px;
+  display: flex;
   color: red;
   animation: fadeIn 1s;
-  text-align: start;
-  padding: 0 0 5px 3px;
+  text-align: center;
+  padding: 0 0 20px 20px;
+}
+div .errorMessage:last-of-type {
+  padding: 0 0 18px 0px;
+  align-items: center;
+  justify-content: center;
 }
 @keyframes fadeIn {
   0% {opacity: 0;}

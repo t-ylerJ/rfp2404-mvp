@@ -93,8 +93,7 @@ function PriceAlert({ setShowModal, selectedCity, airportCodeLookup, closeModal 
                 onChange={handleChange}
               />
             </div>
-              {errors.name && <div className="errorMessage">{errors.name}</div>}
-
+              <div className="errorMessage">{errors.name}</div>
             <div className="fields">
               <label htmlFor="email">Email:</label>
               <input
@@ -105,7 +104,7 @@ function PriceAlert({ setShowModal, selectedCity, airportCodeLookup, closeModal 
                 onChange={handleChange}
               />
             </div>
-              {errors.email && <div className="errorMessage">{errors.email}</div>}
+              <div className="errorMessage">{errors.email}</div>
 
             <p>Notify me if price goes below:</p>
             <div>
