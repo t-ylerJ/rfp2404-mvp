@@ -148,6 +148,7 @@ button .search {
   align-items: center;
   height: 100%;
 }
+
 /* Suggestions styles */
 .suggestion-item {
   width:20%;
@@ -256,18 +257,21 @@ button .search {
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 999;
 }
+#price-alert {
+  padding: 0;
+  margin: 0;
+}
 #price-alert + div {
   display: none;
 }
-#offset{
-  /* display: none; */
+form div:last-of-type {
+  text-align: center;
 }
 .modalContent {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  /* display: inline; */
   width: 275px;
   height: 300px;
   background-color: white;
@@ -275,7 +279,6 @@ button .search {
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  /* width: 400px; */
   text-align: center;
   z-index: 1000;
 }
@@ -287,7 +290,6 @@ button .search {
   border-radius: 2px;
 }
 #submitNotification {
-  /* display: block; */
   margin: 0 auto;
 }
 #priceAmount {
@@ -313,94 +315,7 @@ div .errorMessage:last-of-type {
   100% {opacity: 1;}
 }
 
-/*
-
-.fields {
-  display: flex;
-  align-items: center;
-
-}
-
-.notification label {
-  flex: 1 1;
-  text-align: left;
-}
-
-.notification input {
-  flex: 0;
-  margin-left: 10px;
-}
-
-
-#price-alert {
-  padding: 0;
-  margin: 0;
-}
-
-form div:last-of-type {
-  text-align: center;
-}
-
-#price-alert+div {
-  display: none;
-}
 
 
 
-.modalContent {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 
-  height: 300px;
-  background-color: white;
-  color: black;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-
-  text-align: center;
-  z-index: 1000;
-} */
-/*
-.modalContent p {
-  padding: 10px 0 0 0;
-  margin: 0;
-}
-
-.alertAmount {
-  border-radius: 2px;
-}
-
-#submitNotification {
-
-  margin: 0 auto;
-}
-
-#priceAmount {
-  margin-bottom: 2px;
-}
-
-/* Form Validation */
-/* #nameError {
-  color: red;
-  display: none;
-}
-
-.errorMessage {
-  color: red;
-  animation: fadeIn 1s;
-  text-align: start;
-  padding: 0 0 10px 15px;
-}
-
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
-} */
