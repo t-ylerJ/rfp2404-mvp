@@ -21,7 +21,7 @@ Chart.register(CategoryScale);
 function App() {
   const [selectedCity, setSelectedCity] = useState('');
   const [showResult, setShowResult] = useState(false);
-  const [cityChoice, setCityChoice] = useState([]);
+  const [cityChoice, setCityChoice] = useState([{ 'name': 'Dallas', 'code': 'DFW', 'price': 250 }]);
   const [initialCity, setInitialCity] = useState(true);
   const [chartData, setChartData] = useState(null);
   const [week4Price, setWeek4Price] = useState(0);
@@ -34,7 +34,7 @@ function App() {
   const [showModal, setShowModal] = useState(false);
 
 
-//Placeholder for FlightData
+  //Placeholder for FlightData
   const [cities, setCities] = useState([
     { 'name': 'Dallas', 'code': 'DFW', 'price': 250 },
     { 'name': 'Chicago', 'code': 'ORD', 'price': 150 },
@@ -79,7 +79,7 @@ function App() {
       return acc;
     }, {});
     return priceMap[selectedCity];
-    }
+  }
 
   const airportCodeLookup = cities.reduce((acc, city) => {
     acc[city.code] = city.name;
@@ -89,7 +89,7 @@ function App() {
   const city = airportCodeLookup[selectedCity];
 
   const priceTrend = (price1, price2) => {
-    return price1 < price2 ? '▲': '▼';
+    return price1 < price2 ? '▲' : '▼';
 
   }
 
@@ -98,20 +98,10 @@ function App() {
     setInitialCity(true);
   }, []);
 
-  useEffect(() => {
-    //Randomizes the cities used for default city
-    setCityChoice(
-      cities[
-        Math.floor(Math.random() * cities.length)
-      ]
-    );
-    }, []);
 
   useEffect(() => {
-    //Set a default city if no city is entered
     if (initialCity && cityChoice) {
       setSelectedCity(cityChoice.code);
-      setInitialCity(false);
     }
   }, [cityChoice, initialCity]);
 
@@ -168,9 +158,6 @@ function App() {
     setFilterText(value);
     const filteredAirports = filterAirports(value);
     setSuggestions(filteredAirports);
-    console.log("initialCity", initialCity);
-    console.log("selectedCity:", selectedCity);
-    console.log(suggestions);
   };
 
   const handleSuggestionChange = (airport) => {
@@ -181,7 +168,7 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  
+
     if (airportCodeLookup[filterText]) {
       setSelectedCity(filterText);
       setCurrentCity(airportCodeLookup[filterText])
@@ -199,17 +186,17 @@ function App() {
   var fourWeeksOut = new Date();
   var threeWeeksOut = new Date();
   var twoWeeksOut = new Date();
-  var oneWeekOut = new Date ();
+  var oneWeekOut = new Date();
   fourWeeksOut.setDate(fourWeeksOut.getDate() - 28);
   threeWeeksOut.setDate(threeWeeksOut.getDate() - 21);
   twoWeeksOut.setDate(twoWeeksOut.getDate() - 14);
   oneWeekOut.setDate(oneWeekOut.getDate() - 7);
 
-  const options = { year: 'numeric', month: 'short', day: 'numeric'};
+  const options = { year: 'numeric', month: 'short', day: 'numeric' };
 
 
-console.log(selectedCity)
-console.log(airportCodeLookup );
+  console.log(selectedCity)
+  console.log(airportCodeLookup);
 
   return (
     <div id="content">
@@ -238,20 +225,20 @@ console.log(airportCodeLookup );
               </span>
               {suggestions.length > 0 && (
                 <div className="suggestions-container">
-                {suggestions.map((airport, index) => {
-                  const suggestionId = useId;
-                  return (
+                  {suggestions.map((airport, index) => {
+                    const suggestionId = useId;
+                    return (
                       <Suggested
                         handleSuggestionChange={handleSuggestionChange}
                         index={index}
                         airport={airport}
                         key={index}
                         id={suggestionId}
-                        />
-                      )
-                    })}
-                    </div>
-                  )}
+                      />
+                    )
+                  })}
+                </div>
+              )}
             </div>
           </form>
         ) : (
@@ -280,22 +267,22 @@ console.log(airportCodeLookup );
                   <GoArrowRight className="arrow" />
                   San Francisco
                 </span>
-                  <button id="price-alert" onClick={() => setShowModal(true)}>Create Price Alert</button>
-                  {showModal && (
-                    <div id="offset">
-                      {createPortal(
-                        <PriceAlert
-                          showModal={showModal}
-                          setShowModal={setShowModal}
-                          selectedCity={selectedCity}
-                          airportCodeLookup={airportCodeLookup}
-                          closeModal={() => setShowModal(false)}
-                        />,
-                        document.body
-                      )}
-                    </div>
-                  )}
-                </div>
+                <button id="price-alert" onClick={() => setShowModal(true)}>Create Price Alert</button>
+                {showModal && (
+                  <div id="offset">
+                    {createPortal(
+                      <PriceAlert
+                        showModal={showModal}
+                        setShowModal={setShowModal}
+                        selectedCity={selectedCity}
+                        airportCodeLookup={airportCodeLookup}
+                        closeModal={() => setShowModal(false)}
+                      />,
+                      document.body
+                    )}
+                  </div>
+                )}
+              </div>
               {chartData && <LineChart
                 width={1000}
                 height={40}
