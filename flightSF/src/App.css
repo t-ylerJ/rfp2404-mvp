@@ -257,10 +257,6 @@ button .search {
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 999;
 }
-#price-alert {
-  padding: 0;
-  margin: 0;
-}
 #price-alert + div {
   display: none;
 }
