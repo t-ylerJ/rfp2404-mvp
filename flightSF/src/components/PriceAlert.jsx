@@ -139,7 +139,7 @@ function PriceAlert({ setShowModal, selectedCity, airportCodeLookup, closeModal 
         )}
 
         {modalState === 'success' && (
-          <div className="sucess">
+          <div className="success">
             <p>Notification Created!</p>
             <p>You will be notified if your trip falls below the specified amount.</p>
             <button onClick={closeModal}>Close Window</button>
