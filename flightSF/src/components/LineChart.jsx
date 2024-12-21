@@ -2,9 +2,12 @@ import react, {useEffect, useRef} from "react";
 import { Line } from "react-chartjs-2";
 import { FlightGraph } from "../utils/FlightGraph";
 import { Chart } from 'chart.js';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 function LineChart({ chartData }) {
+  Chart.register(ChartDataLabels);
   const chartRef = useRef(null);
+
   useEffect(() => {
     const canvas = chartRef.current.getContext('2d');
 
@@ -37,10 +40,24 @@ function LineChart({ chartData }) {
           legend: {
             display: false
           },
+          datalabels: {
+            display: true,
+            align: top,
+            backgroundColor: 'rgba(174, 25, 75, 1)',
+            borderRadius: 4,
+            color: 'black',
+            font: {
+              size: 12,
+              weight: 'bold'
+            },
+            formatter: (value) => `$${value}`,
+            anchor: 'end',
+          }
         },
       },
-      plugins: [customCanvasBackgroundColor],
+      plugins: [customCanvasBackgroundColor, ChartDataLabels],
     });
+    
     return () => {
       myChart.destroy();
     };

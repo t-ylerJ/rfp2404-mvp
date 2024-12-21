@@ -210,7 +210,6 @@ function App() {
               <span className="search"  >
                 <label className="departingLabel" htmlFor={cityId}>Enter name or airport code of departing city:</label>
                 <SearchBar
-
                   handleChange={handleChange}
                   initialCity={selectedCity}
                   filterText={filterText}
@@ -286,8 +285,9 @@ function App() {
               {chartData && <LineChart
                 width={1000}
                 height={40}
-                options={{ maintainAspectRatio: false }}
-                chartData={chartData} />
+                options={{ maintainAspectRatio: false, maintainAspectRatio: true }}
+                chartData={chartData}
+                />
               }
             </div>
             <button onClick={() => {

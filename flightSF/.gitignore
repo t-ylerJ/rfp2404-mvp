@@ -32,4 +32,7 @@ db.connect({
   password: process.env.DB_PASS
 })
 
+# Amadeus credentials
+API_KEY = ''
+API_SECRET = '4GTCuEWlr6ShF1fr'
 /src/components/PriceAlert.jsx
