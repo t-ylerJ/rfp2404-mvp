@@ -41,9 +41,8 @@ function LineChart({ chartData }) {
             display: false
           },
           datalabels: {
-            display: true,
-            align: top,
-            backgroundColor: 'rgba(174, 25, 75, 1)',
+            display: false,
+            align: 'bottom',
             borderRadius: 4,
             color: 'black',
             font: {
@@ -57,7 +56,7 @@ function LineChart({ chartData }) {
       },
       plugins: [customCanvasBackgroundColor, ChartDataLabels],
     });
-    
+
     return () => {
       myChart.destroy();
     };
