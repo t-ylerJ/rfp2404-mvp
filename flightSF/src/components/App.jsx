@@ -32,6 +32,7 @@ function App() {
   const [suggestions, setSuggestions] = useState([]);
   const [currentCity, setCurrentCity] = useState('');
   const [showModal, setShowModal] = useState(false);
+  const [suggestionSelected, setSuggestionSelected ] = useState(false);
 
 
   //Placeholder for FlightData
@@ -158,12 +159,14 @@ function App() {
     setFilterText(value);
     const filteredAirports = filterAirports(value);
     setSuggestions(filteredAirports);
+    setSuggestionSelected(true);
   };
 
   const handleSuggestionChange = (airport) => {
     setSelectedCity(airport.code);
     setFilterText(airport.code);
     setSuggestions([]);
+    setSuggestionSelected(true);
   };
 
   const handleSubmit = (e) => {
@@ -177,8 +180,25 @@ function App() {
     }
     setShowResult(!showResult);
     console.log("initialCity:", initialCity);
-    setFilterText('')
+    setFilterText('');
+    setSuggestionSelected(false);
   };
+
+  useEffect(() => {
+    const handleGlobalKeyDown = (e) => {
+      if (e.key === 'Enter') {
+        if (suggestionSelected) {
+          handleSubmit(e);
+        }
+      }
+    }
+    document.addEventListener('keydown', handleGlobalKeyDown);
+    return () => {
+      document.removeEventListener('keydown', handleGlobalKeyDown)
+    }
+
+
+  }, [suggestionSelected]);
 
   const setPriceAltert = (city) => {
   }
