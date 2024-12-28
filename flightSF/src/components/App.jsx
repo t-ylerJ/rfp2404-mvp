@@ -83,7 +83,17 @@ function App() {
   ]);
 
   const cityId = useId();
-
+  const getAuthKey = () => {
+    const url = 'https://test.api.amadeus.com/v1/security/oauth2/token';
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Response Status${response.status}`);
+      }
+    } catch (err) {
+      console.error('Error:', err)
+    }
+  }
   const getPrice = (selectedCity, week) => {
     const multiplier = {
       4: 1,
