@@ -83,8 +83,13 @@ function App() {
   ]);
 
   const cityId = useId();
-  const getAuthKey = () => {
+
+  const getAuthKey = async() => {
     const url = 'https://test.api.amadeus.com/v1/security/oauth2/token';
+    const headers = {
+      'Content-Type': 'text/xml'
+
+    }
     try {
       const response = await fetch(url);
       if (!response.ok) {
