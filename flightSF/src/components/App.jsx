@@ -84,19 +84,32 @@ function App() {
 
   const cityId = useId();
 
-  const getAuthKey = async() => {
+  const getAuthKey = async(clientId, clientSecret) => {
     const url = 'https://test.api.amadeus.com/v1/security/oauth2/token';
     const headers = {
-      'Content-Type': 'text/xml'
-
-    }
+      'Authorization': `'Bearer ${process.env.ACCESS_TOKEN}'`,
+      'Content-Type': 'application/x-www-form-urlencoded'
+    };
+    const body = new URLSearchParams({
+      grant_type: 'client_credentials',
+      client_id: clientId,
+      clientSecret: clientSecret
+    })
     try {
-      const response = await fetch(url);
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: headers,
+        body: body.toString(),
+      });
       if (!response.ok) {
-        throw new Error(`Response Status${response.status}`);
+        throw new Error(`Error: ${response.status}`);
       }
+      const data = await repsonse.json();
+      console.log("Auth token:", data.access_token);
+      return data.access_token;
     } catch (err) {
-      console.error('Error:', err)
+      console.error('Error:', err);
+      return null;
     }
   }
   const getPrice = (selectedCity, week) => {
