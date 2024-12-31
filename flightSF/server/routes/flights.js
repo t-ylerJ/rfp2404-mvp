@@ -2,23 +2,11 @@
 import express from 'express';
 import axios from 'axios';
 
-// Temporary object to simulate Amadeus behavior
-const amadeus = {
-  shopping: {
-    flightOffersSearch: {
-      get: async () => ({
-        data: [
-          { id: '1', price: { total: '150' }, airline: 'MockAir' },
-          { id: '2', price: { total: '200' }, airline: 'DemoFlights' },
-        ]
-      })
-    }
-  }
-};
-// const amadeus = new Amadeus({
-//   clientId: process.env.API_KEY,
-//   clientSecret: process.env.API_SECRET
-// })
+
+const amadeus = new Amadeus({
+  clientId: process.env.API_KEY,
+  clientSecret: process.env.API_SECRET
+})
 
 
 export function getFlightPrices(req, res) {
@@ -47,6 +35,33 @@ export function getFlightPrices(req, res) {
   //     "GDS"
   //   ]
   // }
+
+  const options = {
+    method: 'GET',
+    url: 'https://test.api.amadeus.com/v2/shopping/flight-offers',
+    params: {
+      currencyCode: 'USD',
+      originLocationCode: 'NYC',
+      destinationLocationCode: 'SFO',
+      departureDate: '2025-05-02',
+      adults: 1,
+      nonStop: false,
+      max: 250,
+    },
+    headers: {
+      accept: 'application/vnd.amadeus+json',
+      Authorization: 'Bearer g0VszxeH2LMSqOEmfGpRpVMGXjYU',
+    },
+  };
+
+  axios.request(options)
+    .then(response => {
+      console.log(response.data);
+    })
+    .catch(error => {
+      console.error(error);
+    });
+
   var params = {
     currencyCode: "USD",
     originLocationCode: req.body.location,
