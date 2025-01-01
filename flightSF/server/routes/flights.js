@@ -41,7 +41,7 @@ export function getFlightPrices(req, res) {
     url: 'https://test.api.amadeus.com/v2/shopping/flight-offers',
     params: {
       currencyCode: 'USD',
-      originLocationCode: 'NYC',
+      originLocationCode: 'NYC' //req.body.location,
       destinationLocationCode: 'SFO',
       departureDate: '2025-05-02',
       adults: 1,
@@ -50,40 +50,19 @@ export function getFlightPrices(req, res) {
     },
     headers: {
       accept: 'application/vnd.amadeus+json',
-      Authorization: 'Bearer g0VszxeH2LMSqOEmfGpRpVMGXjYU',
+      Authorization: `"Bearer ${process.env.ACCESS_TOKEN}"`,
     },
   };
 
   axios.request(options)
     .then(response => {
       console.log(response.data);
+      res.status(200).send(response.result);
     })
     .catch(error => {
-      console.error(error);
-    });
-
-  var params = {
-    currencyCode: "USD",
-    originLocationCode: req.body.location,
-    destinationLocationCode: "SFO",
-    departureDate: "2024-11-01",
-    adults: 1
-  }
-
-  axios.get('https://test.api.amadeus.com/v2/shopping/flight-offers', {
-    params: params,
-    headers: {
-      "Authorization": `"Bearer ${process.env.ACCESS_TOKEN}"`,
-      "Content-Type": "application/json"
-    }
-  })
-    .then((response) => {
-      res.send(response.result);
-    })
-    .catch((err) => {
       res.status(500).send('Error fetching flight data');
-      console.error('Error fetching flight data:', err)
-  })
+      console.error('Error fetching flight data:', error);
+    });
 }
 
 
