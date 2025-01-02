@@ -10,32 +10,6 @@ const amadeus = new Amadeus({
 
 
 export function getFlightPrices(req, res) {
-  // var flightSearch = {
-  //   "currencyCode": "USD",
-  //   "originDestinations": [
-  //     {
-  //       "id": "1",
-  //       "originLocationCode": req.body.location,
-  //       "destinationLocationCode": "SFO",
-  //       "departureDateTimeRange": {
-  //         "date": "2024-11-01"
-  //       }
-  //     }
-  //   ],
-  //   "travelers": [
-  //     {
-  //       "id": "1",
-  //       "travelerType": "ADULT"
-  //     }
-  //   ],
-  //   "searchCriteria": {
-  //   "maxFlightOffers": 2
-  //     },
-  //   "sources": [
-  //     "GDS"
-  //   ]
-  // }
-
   const options = {
     method: 'GET',
     url: 'https://test.api.amadeus.com/v2/shopping/flight-offers',
@@ -47,6 +21,18 @@ export function getFlightPrices(req, res) {
       adults: 1,
       nonStop: false,
       max: 250,
+      "travelers": [
+        {
+          "id": "1",
+          "travelerType": "ADULT"
+        }
+      ],
+      "searchCriteria": {
+        "maxFlightOffers": 2
+      },
+      "sources": [
+        "GDS"
+      ]
     },
     headers: {
       accept: 'application/vnd.amadeus+json',
