@@ -1,4 +1,4 @@
-// import Amadeus from 'amadeus';
+import Amadeus from 'amadeus';
 import express from 'express';
 import axios from 'axios';
 

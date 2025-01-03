@@ -241,9 +241,19 @@ function App() {
     return () => {
       document.removeEventListener('keydown', handleGlobalKeyDown)
     }
-
-
   }, [suggestionSelected]);
+
+  useEffect(() => {
+    const handleGlobalKeyDown = (e) => {
+      if (e.key === 'Enter' && showResult) {
+        handleSubmit();
+      }
+    }
+    document.addEventListener('keydown', handleGlobalKeyDown);
+    return () => {
+      document.removeEventListener('keydown', handleGlobalKeyDown)
+    }
+  }, []);
 
   const setPriceAltert = (city) => {
   }
