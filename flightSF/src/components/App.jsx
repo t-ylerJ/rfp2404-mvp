@@ -1,4 +1,4 @@
-import { useState, useEffect, useId } from 'react';
+import { useState, useEffect, useCallback, useId } from 'react';
 import frame from '/frame.svg';
 import '../App.css';
 import { GoArrowRight } from "react-icons/go";
@@ -206,6 +206,13 @@ function App() {
     setSuggestions(filteredAirports);
     setSuggestionSelected(true);
   };
+  // const debouncedFilter = useCallback(
+  //   debounce((value) => {
+  //     const filteredAirports = filterAirports(value);
+  //     setSuggestions(filteredAirports);
+  //   }, 300),
+  //   []
+  // );
 
   const handleSuggestionChange = (airport) => {
     setSelectedCity(airport.code);
@@ -243,6 +250,7 @@ function App() {
     }
   }, [suggestionSelected]);
 
+  //If search results are already pulled up, pressing enter initiates a new search
   useEffect(() => {
     const handleGlobalKeyDown = (e) => {
       if (e.key === 'Enter' && showResult) {
@@ -270,8 +278,17 @@ function App() {
   const options = { year: 'numeric', month: 'short', day: 'numeric' };
 
 
-  console.log(selectedCity)
-  console.log(airportCodeLookup);
+  // const debounce = (func, delay) => {
+  //   let timeoutId;
+  //   return (...args) => {
+  //     if (timeoutId) {
+  //       clearTimeout(timeoutId);
+  //     }
+  //     timeoutId = setTimeout(() => {
+  //       func(...args);
+  //     }, delay);
+  //   };
+  // };
 
   return (
     <div id="content">
