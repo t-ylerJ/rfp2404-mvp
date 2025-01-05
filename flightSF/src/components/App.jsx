@@ -206,13 +206,13 @@ function App() {
     setSuggestions(filteredAirports);
     setSuggestionSelected(true);
   };
-  // const debouncedFilter = useCallback(
-  //   debounce((value) => {
-  //     const filteredAirports = filterAirports(value);
-  //     setSuggestions(filteredAirports);
-  //   }, 300),
-  //   []
-  // );
+  const debouncedFilter = useCallback(
+    debounce((value) => {
+      const filteredAirports = filterAirports(value);
+      setSuggestions(filteredAirports);
+    }, 300),
+    []
+  );
 
   const handleSuggestionChange = (airport) => {
     setSelectedCity(airport.code);
@@ -250,18 +250,7 @@ function App() {
     }
   }, [suggestionSelected]);
 
-  //If search results are already pulled up, pressing enter initiates a new search
-  useEffect(() => {
-    const handleGlobalKeyDown = (e) => {
-      if (e.key === 'Enter' && showResult) {
-        handleSubmit();
-      }
-    }
-    document.addEventListener('keydown', handleGlobalKeyDown);
-    return () => {
-      document.removeEventListener('keydown', handleGlobalKeyDown)
-    }
-  }, []);
+
 
   const setPriceAltert = (city) => {
   }
@@ -277,6 +266,16 @@ function App() {
 
   const options = { year: 'numeric', month: 'short', day: 'numeric' };
 
+  // const getCachedAuthKey = async () => {
+  //   const thirtyMinutes = 30 * 60 * 1000;
+  //   if (cachedKey && lastRetrieved && Date.now() - lastRetrieved < thirtyMinutes) {
+  //     console.log("Using cached key.");
+  //     return cachedKey;
+  //   }
+
+  //   console.log("Fetching new key.");
+  //   return await getAuthKey();
+  // };
 
   // const debounce = (func, delay) => {
   //   let timeoutId;
