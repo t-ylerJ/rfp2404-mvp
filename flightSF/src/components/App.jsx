@@ -83,6 +83,8 @@ function App() {
   ]);
 
   const cityId = useId();
+  let cachedKey = null;
+  let lastRetrieved = null;
 
   const getAuthKey = async(clientId, clientSecret) => {
     const url = 'https://test.api.amadeus.com/v1/security/oauth2/token';
@@ -106,7 +108,12 @@ function App() {
       }
       const data = await repsonse.json();
       console.log("Auth token:", data.access_token);
-      return data.access_token;
+
+      const data = await response.json();
+      cachedKey = data.access_token;
+      lastRetrieved = Date.now(); // Update timestamp
+      return cachedKey;
+
     } catch (err) {
       console.error('Error:', err);
       return null;
@@ -288,6 +295,15 @@ function App() {
   //     }, delay);
   //   };
   // };
+  //cache key implementation:
+  // (async () => {
+  //   try {
+  //     const apiKey = await getCachedAuthKey();
+  //     console.log("API Key:", apiKey);
+  //   } catch (error) {
+  //     console.error("Error:", error.message);
+  //   }
+  // })();
 
   return (
     <div id="content">
