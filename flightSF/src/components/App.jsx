@@ -109,7 +109,7 @@ function App() {
       const data = await repsonse.json();
       console.log("Auth token:", data.access_token);
 
-      const data = await response.json();
+
       cachedKey = data.access_token;
       lastRetrieved = Date.now(); // Update timestamp
       return cachedKey;
@@ -201,11 +201,22 @@ function App() {
     }
     const searchValue = cities.filter((airport) =>
       airport.name.toLowerCase().startsWith(search.toLowerCase()) ||
-      airport.code.toLowerCase().startsWith(search.toLowerCase())
-    );
-    return searchValue;
-  };
+    airport.code.toLowerCase().startsWith(search.toLowerCase())
+  );
+  return searchValue;
+};
 
+const debounce = (func, delay) => {
+  let timeoutId;
+  return (...args) => {
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+    timeoutId = setTimeout(() => {
+      func(...args);
+    }, delay);
+  };
+};
   const handleChange = (e) => {
     const value = e.target.value;
     setFilterText(value);
@@ -273,37 +284,26 @@ function App() {
 
   const options = { year: 'numeric', month: 'short', day: 'numeric' };
 
-  // const getCachedAuthKey = async () => {
-  //   const thirtyMinutes = 30 * 60 * 1000;
-  //   if (cachedKey && lastRetrieved && Date.now() - lastRetrieved < thirtyMinutes) {
-  //     console.log("Using cached key.");
-  //     return cachedKey;
-  //   }
+  const getCachedAuthKey = async () => {
+    const thirtyMinutes = 30 * 60 * 1000;
+    if (cachedKey && lastRetrieved && Date.now() - lastRetrieved < thirtyMinutes) {
+      console.log("Using cached key.");
+      return cachedKey;
+    }
 
-  //   console.log("Fetching new key.");
-  //   return await getAuthKey();
-  // };
+    console.log("Fetching new key.");
+    return await getAuthKey();
+  };
 
-  // const debounce = (func, delay) => {
-  //   let timeoutId;
-  //   return (...args) => {
-  //     if (timeoutId) {
-  //       clearTimeout(timeoutId);
-  //     }
-  //     timeoutId = setTimeout(() => {
-  //       func(...args);
-  //     }, delay);
-  //   };
-  // };
-  //cache key implementation:
-  // (async () => {
-  //   try {
-  //     const apiKey = await getCachedAuthKey();
-  //     console.log("API Key:", apiKey);
-  //   } catch (error) {
-  //     console.error("Error:", error.message);
-  //   }
-  // })();
+  // cache key implementation:
+  (async () => {
+    try {
+      const apiKey = await getCachedAuthKey();
+      console.log("API Key:", apiKey);
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
+  })();
 
   return (
     <div id="content">
