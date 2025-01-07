@@ -1,0 +1,135 @@
+[33m771eee8[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m implement cacheKey and debounce functions
+[33m671db43[m add cache key variables
+[33m07e0517[m create function to cache auth key results
+[33mf778c57[m Add debounce function for search suggestions
+[33maddf349[m add listener for new search
+[33mfcb62b0[m consolidate remaining query parameters
+[33m4511c9b[m update flight data GET request
+[33m708b50c[m update GET req for flights
+[33mcb61225[m complete auth token function
+[33md323e7a[m add headers to fetch request
+[33mfe805bb[m add function to refresh auth key
+[33m0616b9d[m adjust example data and add new cities
+[33m91b36d7[m add keyboard event listener to submit form when enter is pressed
+[33m1fc005a[m create formatting for data labels
+[33mdf31ecd[m add data labels to chart
+[33m2cf75ae[m centered sucess message content
+[33m0ec55d8[m update price alert button css for consistent format
+[33m12c2dc2[m remove logic for random city selection
+[33mf2d4172[m remove CSS comments and placeholders
+[33mec3338b[m insert default spacing for error messages
+[33m028092a[m add animation and additional css formatting for validation errors
+[33mcb15238[m consolidated form validation logic
+[33m1c8712b[m add css styling for errors in form validation
+[33mce3d4c0[m add separate errors for name, email, and price
+[33mbe0e8f2[m implement inline errors for form validation
+[33m462a927[m added state and logic for price alert error messages- form validation
+[33m027330b[m disable search button if text is not entered
+[33m5824da4[m hard coded placeholder text
+[33m66a43b0[m remove above/below radio buttons
+[33m4461eb7[m separate useForm custom hook logic and loading spinner + sucess message for price alert form
+[33m320ebd3[m replace onClose with closeModal function
+[33m0596161[m center modal window and add black background
+[33mb5e2fee[m remove ghost div causing alert button to shift when opening window
+[33ma509980[m adjust modal window to center on screen
+[33m6b00894[m Add logic for price alert modal window
+[33mceb6fa7[m fix bug causing multiple radio button choices to be selected at the same time
+[33m69ca618[m Add city lookup to window and search results page
+[33maa5c06c[m Add flight path to toolbar and justify toolbar contents
+[33md5b589c[m Add button to close window
+[33mf4bd774[m add flight path to price alert toolbar
+[33mdf124be[m centered notification button and adjusted padding of child elements
+[33m4316e49[m Add toolbar and align padding
+[33m6a24d6f[m Add border to price notification
+[33m0dda211[m remove glow from sf logo and remove placeholder div
+[33m9a1d290[m add notification container ids and switch to flex basis
+[33m11224a0[m separarte form styles from notification styles
+[33m00c2f7e[m align x button, name, and email classes
+[33ma3d35ca[m add x button in top left corner
+[33m05fcdd6[m Fix infinite loop bug - moved priceAlert to jsx function
+[33me5081b9[m dynamically render data for changes in price
+[33m1fb74b0[m remove inline styling
+[33md159792[m Add additional styling for price alert box
+[33m9621597[m reset vite config and correct filepath in index.js
+[33me638d3f[m add updated filepath in index.js'
+[33m9a92827[m add icon for closing popup window
+[33m0eb5ced[m add remaining fields, labels, and styling to price alert form
+[33m4b071a9[m handle props for creating price alert
+[33m3100c71[m add additional css for notification form
+[33m002f8dc[m set up styling for price alerts
+[33m69dbb75[m adjust connection settings for windows
+[33me58bd46[m create handlesubmit function
+[33me58ce43[m add logic for selecting above or below threshold
+[33m28bbe38[m implement pricealert component
+[33me042de5[m revise filepaths in gitignore
+[33m0ec1b1c[m add databse functions and import/exports
+[33m3da770b[m create database connection
+[33m8752076[m transfer repo
+[33m84679be[m create PriceAlert component and createPriceAlert function
+[33mae07c88[m implement cityChoice and remove cityChoices array
+[33mbc8dfff[m Add comments to flight data component
+[33m45fb0f8[m changed titles in graph component
+[33mef36f7f[m fix bug causing price alert button to change sizes
+[33m75db6d3[m create flexbox for flight data and add button and text
+[33m9fd0783[m fix bug preventing airport suggestions from rendering
+[33m9d6ff9e[m add figma logo svg and resize content on main page
+[33mdecc5e9[m move all universal element styles to index.css
+[33mf0f47d3[m fix price alert button spacing and update default style colors
+[33me26f5c1[m add price alert button and adjust time container styling
+[33m9fae12b[m add import and export statements for flight data; remove remaining duplicate functions from App.jsx
+[33m45f10e9[m add comments and fix indentation in App.jsx
+[33mdbe9127[m create flight data component and transfer fetcher functions from App.jsx
+[33m291f39d[m updated colors and logic for price history arrows
+[33m7c9350d[m assign button id selector and move button logic to app.css
+[33m5f34a11[m remove extra comments and add useId for suggestions component
+[33m6626d27[m add initial city as placeholder text to search bar
+[33mad8b2f3[m add logic to fill search bar after selecting a suggestion
+[33me6d6490[m fix bug causing suggestions menu to reposition
+[33m51f48fe[m align suggestions component to search bar
+[33m366e4cf[m move search bar and buttons to span
+[33ma38c2e6[m add css styling to pop-up suggestions box
+[33m28a1593[m implement suggestion popup menu
+[33m834885d[m add suggestions box component
+[33m28d0c2f[m add title  above flight graph and differentiate selected city styling
+[33m6952796[m convert city names to airport codes and create code to city hashmap
+[33m7552b95[m add initial city as default placeholder city for searchbar
+[33mb69fc46[m create search bar component
+[33m7216aa8[m change background color to white
+[33m01d818d[m update useEffects for weekly flight prices to match graph data points
+[33mc12458d[m adjust graph alignment to full and center
+[33mf3ec542[m align chart center horiontally and vertically
+[33m045e140[m make line graph dynamic
+[33m7d4c9a3[m Add plugin for custom background color
+[33m0e99dfe[m import chart.js and implement pie graph placeholder
+[33mc725901[m add coloring to arrows and adjust alignment
+[33m5d51fdf[m add css styling for headers and dates
+[33m7c7293f[m add arrow for price trends
+[33mc309d21[m implement multiplier in priceMap to accurately reflect flight price based on timing
+[33m42c0c3c[m implement price map and display flight price on submission
+[33m2d1fefa[m move logic from handleSubmit to onClick
+[33m8008637[m fix bug preventing initialCity from resetting on submission
+[33m4efa9d5[m fix bug causing selected city to re-render on submit
+[33m72b12b2[m fix bug where selectedCity was not correctly updating state
+[33mfb6b8c6[m create priceMap and add selected city to results
+[33mcaad899[m remove gaps between dates and descriptions
+[33m17185b8[m modify h1 and h2 tags, reformat header structure
+[33m97e3074[m remove excess tokens
+[33meec2953[m Merge branch 'priceTrends'
+[33m6992f9a[m add DS_store files to commit
+[33mb6c1e41[m move variables to .env
+[33m4883333[m fix alignment of four week columns
+[33m17e9e2d[m create date objects for four weeks of dates
+[33m306b269[m convert radio button selection into dropdown menu
+[33mdba59d6[m Add placeholder data in case of API not connecting
+[33m5243c3f[m Add in ticket price recursion
+[33mce48d41[m move variables to .env
+[33m82951dd[m fix alignment of four week columns
+[33m62ee7cd[m create date objects for four weeks of dates
+[33m8c0ea3e[m convert radio button selection into dropdown menu
+[33m5a44d6b[m Update title from mvp to flight to sf
+[33m821e046[m Update README.md with description
+[33md0fd027[m Add readme explaining Hack Reactor projects.
+[33m7df2fc3[m Add placeholder data in case of API not connecting
+[33m073733a[m Add in ticket price recursion
+[33mb060b2f[m Submit MVP
+[33m81afed8[m Update searchReturn to 
