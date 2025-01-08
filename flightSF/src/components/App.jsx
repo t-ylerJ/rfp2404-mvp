@@ -2,10 +2,7 @@ import { useState, useEffect, useCallback, useId } from 'react';
 import frame from '/frame.svg';
 import '../App.css';
 import { GoArrowRight } from "react-icons/go";
-
 import createPriceAlert from './PriceAlert';
-
-// import { FlightData } from "../utils/FlightData";
 import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
 import { FlightGraph } from "../utils/FlightGraph";
@@ -14,6 +11,7 @@ import SearchBar from "./SearchBar.jsx";
 import Suggested from "./Suggested.jsx";
 import PriceAlert from "./PriceAlert.jsx";
 import { createPortal } from 'react-dom';
+// import { FlightData } from "../utils/FlightData";
 
 
 Chart.register(CategoryScale);
@@ -127,7 +125,6 @@ function App() {
       1: 1.75
     }
     const priceMap = cities.reduce((acc, city) => {
-      // {DFW: 250, ORD: 150, AUS: 239...}
       acc[city.code] = Math.trunc(Math.random() * ((city.price * multiplier[week]) - city.price) + city.price);
       return acc;
     }, {});
@@ -147,7 +144,6 @@ function App() {
   }
 
   useEffect(() => {
-    //sets default city
     setInitialCity(true);
   }, []);
 
@@ -189,7 +185,6 @@ function App() {
   }, [selectedCity]);
 
   useEffect(() => {
-    // Update chart data when weekly prices change
     if (week4Price && week3Price && week2Price && week1Price) {
       updateChartData(week4Price, week3Price, week2Price, week1Price);
     }
@@ -296,14 +291,14 @@ const debounce = (func, delay) => {
   };
 
   // cache key implementation:
-  (async () => {
+  async () => {
     try {
       const apiKey = await getCachedAuthKey();
       console.log("API Key:", apiKey);
     } catch (error) {
       console.error("Error:", error.message);
     }
-  })();
+  };
 
   return (
     <div id="content">
