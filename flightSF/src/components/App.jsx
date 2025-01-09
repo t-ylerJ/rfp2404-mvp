@@ -291,7 +291,7 @@ const debounce = (func, delay) => {
   };
 
   // cache key implementation:
-  async () => {
+  const refreshKey = async () => {
     try {
       const apiKey = await getCachedAuthKey();
       console.log("API Key:", apiKey);
@@ -398,7 +398,9 @@ const debounce = (func, delay) => {
               setSuggestions([]);
               setInitialCity(true);
               setShowResult(!showResult);
-            }}>New Search</button>
+              }}>New Search</button>
+              <button onClick={refreshKey()}>
+                Refresh</button>
           </div>
         )}
       </div>
