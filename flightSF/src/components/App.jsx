@@ -13,13 +13,12 @@ import PriceAlert from "./PriceAlert.jsx";
 import { createPortal } from 'react-dom';
 // import { FlightData } from "../utils/FlightData";
 
-
 Chart.register(CategoryScale);
 
 function App() {
   const [selectedCity, setSelectedCity] = useState('');
   const [showResult, setShowResult] = useState(false);
-  const [cityChoice, setCityChoice] = useState([{ 'name': 'Dallas', 'code': 'DFW', 'price': 250 }]);
+  const [cityChoice, setCityChoice] = useState();
   const [initialCity, setInitialCity] = useState(true);
   const [chartData, setChartData] = useState(null);
   const [week4Price, setWeek4Price] = useState(0);
@@ -31,7 +30,6 @@ function App() {
   const [currentCity, setCurrentCity] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [suggestionSelected, setSuggestionSelected ] = useState(false);
-
 
   //Placeholder for FlightData
   const [cities, setCities] = useState([
@@ -106,10 +104,8 @@ function App() {
       }
       const data = await repsonse.json();
       console.log("Auth token:", data.access_token);
-
-
       cachedKey = data.access_token;
-      lastRetrieved = Date.now(); // Update timestamp
+      lastRetrieved = Date.now(); //Update timestamp
       return cachedKey;
 
     } catch (err) {
@@ -135,18 +131,14 @@ function App() {
     acc[city.code] = city.name;
     return acc;
   }, {});
-
   const city = airportCodeLookup[selectedCity];
-
   const priceTrend = (price1, price2) => {
     return price1 < price2 ? '▲' : '▼';
-
   }
 
   useEffect(() => {
     setInitialCity(true);
   }, []);
-
 
   useEffect(() => {
     if (initialCity && cityChoice) {
@@ -159,7 +151,6 @@ function App() {
       setCurrentCity(airportCodeLookup[selectedCity]);
     }
   }, [airportCodeLookup, selectedCity])
-
 
   const updateChartData = (week4Price, week3Price, week2Price, week1Price) => {
     setChartData({
@@ -183,7 +174,6 @@ function App() {
       setWeek1Price(getPrice(selectedCity, 1));
     }
   }, [selectedCity]);
-
   useEffect(() => {
     if (week4Price && week3Price && week2Price && week1Price) {
       updateChartData(week4Price, week3Price, week2Price, week1Price);
@@ -236,7 +226,6 @@ const debounce = (func, delay) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     if (airportCodeLookup[filterText]) {
       setSelectedCity(filterText);
       setCurrentCity(airportCodeLookup[filterText])
@@ -262,11 +251,6 @@ const debounce = (func, delay) => {
       document.removeEventListener('keydown', handleGlobalKeyDown)
     }
   }, [suggestionSelected]);
-
-
-
-  const setPriceAltert = (city) => {
-  }
 
   var fourWeeksOut = new Date();
   var threeWeeksOut = new Date();
@@ -399,8 +383,7 @@ const debounce = (func, delay) => {
               setInitialCity(true);
               setShowResult(!showResult);
               }}>New Search</button>
-              <button onClick={refreshKey()}>
-                Refresh</button>
+            <button onClick={refreshKey()}>Refresh</button>
           </div>
         )}
       </div>

@@ -31,13 +31,11 @@ const getFlights = async function (location) {
       }
     })
     const trips = response.data;
-
     const ticketPrice = ticketSearch(trips, 'total')
       setCities(
         cities.map((city) => (
           city.price = ticketPrice()
       )));
-
       return response;
     };
   const fetchCityPrices = async () => {
@@ -51,4 +49,5 @@ const getFlights = async function (location) {
 
   return;
 }
-  export default FlightData;
+
+export default FlightData;

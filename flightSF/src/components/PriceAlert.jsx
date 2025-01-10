@@ -3,8 +3,6 @@ import { createPortal } from 'react-dom';
 import { GoArrowRight } from "react-icons/go";
 import { GoX } from "react-icons/go";
 
-
-
 function PriceAlert({ setShowModal, selectedCity, airportCodeLookup, closeModal }) {
   const [modalState, setModalState] = useState('form');
   const [errors, setErrors] = useState({});
@@ -17,7 +15,6 @@ function PriceAlert({ setShowModal, selectedCity, airportCodeLookup, closeModal 
   })
   useEffect(() => {
   }, [selectedCity]);
-
   // function useForm(priceNotification) {
   //   const [values, setValues] = useState(priceNotification);
   //   return [values, handleChange];
