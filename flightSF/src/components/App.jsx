@@ -85,7 +85,7 @@ function App() {
   const getAuthKey = async(clientId, clientSecret) => {
     const url = 'https://test.api.amadeus.com/v1/security/oauth2/token';
     const headers = {
-      'Authorization': `'Bearer ${process.env.ACCESS_TOKEN}'`,
+      'Authorization': `'Bearer ${process.env.REACT_APP_ACCESS_TOKEN}'`,
       'Content-Type': 'application/x-www-form-urlencoded'
     };
     const body = new URLSearchParams({
@@ -102,7 +102,7 @@ function App() {
       if (!response.ok) {
         throw new Error(`Error: ${response.status}`);
       }
-      const data = await repsonse.json();
+      const data = await response.json();
       console.log("Auth token:", data.access_token);
       cachedKey = data.access_token;
       lastRetrieved = Date.now(); //Update timestamp
@@ -383,7 +383,7 @@ const debounce = (func, delay) => {
               setInitialCity(true);
               setShowResult(!showResult);
               }}>New Search</button>
-            <button onClick={refreshKey()}>Refresh</button>
+            <button onClick={refreshKey}>Refresh</button>
           </div>
         )}
       </div>
