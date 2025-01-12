@@ -11,6 +11,7 @@ import SearchBar from "./SearchBar.jsx";
 import Suggested from "./Suggested.jsx";
 import PriceAlert from "./PriceAlert.jsx";
 import { createPortal } from 'react-dom';
+import { FiRefreshCcw } from "react-icons/fi";
 // import { FlightData } from "../utils/FlightData";
 
 Chart.register(CategoryScale);
@@ -371,19 +372,20 @@ const debounce = (func, delay) => {
               {chartData && <LineChart
                 width={1000}
                 height={40}
-                options={{ maintainAspectRatio: false, maintainAspectRatio: true }}
+                options={{maintainAspectRatio: true }}
                 chartData={chartData}
                 />
               }
             </div>
-            <button onClick={() => {
+              <button onClick={() => {
               setSelectedCity('');
               setFilterText('');
               setSuggestions([]);
               setInitialCity(true);
               setShowResult(!showResult);
               }}>New Search</button>
-            <button onClick={refreshKey}>Refresh</button>
+              <button id="refresh"
+                onClick={refreshKey}><FiRefreshCcw /></button>
           </div>
         )}
       </div>

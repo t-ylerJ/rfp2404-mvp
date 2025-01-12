@@ -317,6 +317,10 @@ div .errorMessage:last-of-type {
   justify-content: center;
 }
 
-
+#refresh {
+  margin-left: 20px;
+  background-color: lightgreen;
+  color: green;
+}
 
 
