@@ -388,6 +388,7 @@ const debounce = (func, delay) => {
                 onClick={refreshKey}><FiRefreshCcw /></button>
           </div>
         )}
+        <div className="searchResults"></div>
       </div>
     </div>
   )

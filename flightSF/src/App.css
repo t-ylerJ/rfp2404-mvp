@@ -323,4 +323,10 @@ div .errorMessage:last-of-type {
   color: green;
 }
 
+.searchResults {
+  height: 400px;
+  width: 600px;
+  border: 2px solid gray;
+}
+
 
