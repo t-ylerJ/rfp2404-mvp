@@ -19,6 +19,7 @@ Chart.register(CategoryScale);
 function App() {
   const [selectedCity, setSelectedCity] = useState('');
   const [showResult, setShowResult] = useState(false);
+  const [flightInfo, setFlightInfo] = useState(false);
   const [cityChoice, setCityChoice] = useState();
   const [initialCity, setInitialCity] = useState(true);
   const [chartData, setChartData] = useState(null);
@@ -280,6 +281,7 @@ const debounce = (func, delay) => {
     try {
       const apiKey = await getCachedAuthKey();
       console.log("API Key:", apiKey);
+      setFlightInfo(true);
     } catch (error) {
       console.error("Error:", error.message);
     }
@@ -388,7 +390,9 @@ const debounce = (func, delay) => {
                 onClick={refreshKey}><FiRefreshCcw /></button>
           </div>
         )}
-        <div className="searchResults"></div>
+        {flightInfo &&
+          <div className="searchResults"></div>
+        }
       </div>
     </div>
   )
