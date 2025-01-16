@@ -1,4 +1,6 @@
 import { useState, useEffect, useCallback, useId } from 'react';
+// import 'dotenv'
+import.meta.env.VITE_BASE_URL;
 import frame from '/frame.svg';
 import '../App.css';
 import { GoArrowRight } from "react-icons/go";
@@ -83,11 +85,12 @@ function App() {
   const cityId = useId();
   let cachedKey = null;
   let lastRetrieved = null;
+  const token = process.env.REACT_APP_ACCESS_TOKEN
 
   const getAuthKey = async(clientId, clientSecret) => {
     const url = 'https://test.api.amadeus.com/v1/security/oauth2/token';
     const headers = {
-      'Authorization': `'Bearer ${process.env.REACT_APP_ACCESS_TOKEN}'`,
+      'Authorization': `'Bearer ${token}'`,
       'Content-Type': 'application/x-www-form-urlencoded'
     };
     const body = new URLSearchParams({
