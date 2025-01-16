@@ -1,5 +1,4 @@
 import { useState, useEffect, useCallback, useId } from 'react';
-// import 'dotenv'
 import.meta.env.VITE_BASE_URL;
 import frame from '/frame.svg';
 import '../App.css';
@@ -85,7 +84,8 @@ function App() {
   const cityId = useId();
   let cachedKey = null;
   let lastRetrieved = null;
-  const token = process.env.REACT_APP_ACCESS_TOKEN
+  const token = import.meta.env.VITE_ACCESS_TOKEN;
+
 
   const getAuthKey = async(clientId, clientSecret) => {
     const url = 'https://test.api.amadeus.com/v1/security/oauth2/token';
