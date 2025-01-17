@@ -32,7 +32,8 @@ function App() {
   const [suggestions, setSuggestions] = useState([]);
   const [currentCity, setCurrentCity] = useState('');
   const [showModal, setShowModal] = useState(false);
-  const [suggestionSelected, setSuggestionSelected ] = useState(false);
+  const [suggestionSelected, setSuggestionSelected] = useState(false);
+  const [cachedKey, setCachedKey] = useState(null);
 
   //Placeholder for FlightData
   const [cities, setCities] = useState([
@@ -82,7 +83,7 @@ function App() {
   ]);
 
   const cityId = useId();
-  let cachedKey = null;
+
   let lastRetrieved = null;
   const token = import.meta.env.VITE_ACCESS_TOKEN;
 
@@ -109,7 +110,7 @@ function App() {
       }
       const data = await response.json();
       console.log("Auth token:", data.access_token);
-      cachedKey = data.access_token;
+      setCachedKey(data.access_token);
       lastRetrieved = Date.now(); //Update timestamp
       return cachedKey;
 
@@ -268,13 +269,14 @@ const debounce = (func, delay) => {
 
   const options = { year: 'numeric', month: 'short', day: 'numeric' };
 
+  //if cached key has been created and less than 30 mins have passed, use the existing key
   const getCachedAuthKey = async () => {
     const thirtyMinutes = 30 * 60 * 1000;
     if (cachedKey && lastRetrieved && Date.now() - lastRetrieved < thirtyMinutes) {
       console.log("Using cached key.");
       return cachedKey;
     }
-
+  //otherwise, fetch a new key
     console.log("Fetching new key.");
     return await getAuthKey();
   };
