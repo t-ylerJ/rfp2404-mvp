@@ -34,6 +34,7 @@ function App() {
   const [showModal, setShowModal] = useState(false);
   const [suggestionSelected, setSuggestionSelected] = useState(false);
   const [cachedKey, setCachedKey] = useState(null);
+  const [lastRetrieved, setLastRetrieved] = useState(null);
 
   //Placeholder for FlightData
   const [cities, setCities] = useState([
@@ -83,12 +84,13 @@ function App() {
   ]);
 
   const cityId = useId();
-
-  let lastRetrieved = null;
   const token = import.meta.env.VITE_ACCESS_TOKEN;
+  const clientId = process.env.API_KEY;
+  const clientSecret = process.env.API_SECRET
 
 
-  const getAuthKey = async(clientId, clientSecret) => {
+
+  const getAuthKey = async() => {
     const url = 'https://test.api.amadeus.com/v1/security/oauth2/token';
     const headers = {
       'Authorization': `'Bearer ${token}'`,
@@ -111,7 +113,7 @@ function App() {
       const data = await response.json();
       console.log("Auth token:", data.access_token);
       setCachedKey(data.access_token);
-      lastRetrieved = Date.now(); //Update timestamp
+      setLastRetrieved(Date.now()); //Update timestamp
       return cachedKey;
 
     } catch (err) {
@@ -278,7 +280,7 @@ const debounce = (func, delay) => {
     }
   //otherwise, fetch a new key
     console.log("Fetching new key.");
-    return await getAuthKey();
+    return await getAuthKey(clientId, clientSecret);
   };
 
   // cache key implementation:
@@ -286,6 +288,7 @@ const debounce = (func, delay) => {
     try {
       const apiKey = await getCachedAuthKey();
       console.log("API Key:", apiKey);
+      console.log(lastRetrieved);
       setFlightInfo(true);
     } catch (error) {
       console.error("Error:", error.message);
