@@ -84,29 +84,9 @@ function App() {
   ]);
 
   const cityId = useId();
-  const token = import.meta.env.VITE_ACCESS_TOKEN;
-  const clientId = process.env.API_KEY;
-  const clientSecret = process.env.API_SECRET
-
-
-
   const getAuthKey = async() => {
-    const url = 'https://test.api.amadeus.com/v1/security/oauth2/token';
-    const headers = {
-      'Authorization': `'Bearer ${token}'`,
-      'Content-Type': 'application/x-www-form-urlencoded'
-    };
-    const body = new URLSearchParams({
-      grant_type: 'client_credentials',
-      client_id: clientId,
-      clientSecret: clientSecret
-    })
     try {
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: headers,
-        body: body.toString(),
-      });
+      const response = await fetch('/api/auth');
       if (!response.ok) {
         throw new Error(`Error: ${response.status}`);
       }
@@ -115,7 +95,6 @@ function App() {
       setCachedKey(data.access_token);
       setLastRetrieved(Date.now()); //Update timestamp
       return cachedKey;
-
     } catch (err) {
       console.error('Error:', err);
       return null;
