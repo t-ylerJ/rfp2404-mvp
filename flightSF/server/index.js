@@ -14,10 +14,10 @@ const publicPath = path.join(__dirname, 'public');
 const app = express();
 const PORT = process.env.PORT || 5000;
 const router = express.Router();
-// const amadeus = new Amadeus({
-//   clientId: process.env.API_KEY,
-//   clientSecret: process.env.API_SECRET
-// })
+const amadeus = new Amadeus({
+  clientId: process.env.API_KEY,
+  clientSecret: process.env.API_SECRET
+})
 
 app.use(express.json());
 app.use(morgan('dev'));

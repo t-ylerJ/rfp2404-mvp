@@ -86,14 +86,14 @@ function App() {
   const cityId = useId();
   const getAuthKey = async() => {
     try {
-      const response = await fetch('/api/auth');
+      const response = await fetch('/auth');
       if (!response.ok) {
         throw new Error(`Error: ${response.status}`);
       }
       const data = await response.json();
       console.log("Auth token:", data.access_token);
       setCachedKey(data.access_token);
-      setLastRetrieved(Date.now()); //Update timestamp
+      setLastRetrieved(Date.now());
       return cachedKey;
     } catch (err) {
       console.error('Error:', err);
