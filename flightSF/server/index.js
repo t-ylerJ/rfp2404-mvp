@@ -40,7 +40,6 @@ router.post('/auth', async (req, res) => {
     const response = await fetch('https://test.api.amadeus.com/v1/security/oauth2/token', {
       method: 'POST',
       headers: {
-        'Authorization': `'Bearer ${process.env.ACCESS_TOKEN}'`,
         'Content-Type': 'application/x-www-form-urlencoded'
       }, body: new URLSearchParams({
         grant_type: 'client_credentials',
