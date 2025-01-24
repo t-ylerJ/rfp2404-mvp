@@ -249,19 +249,16 @@ const debounce = (func, delay) => {
 
   const options = { year: 'numeric', month: 'short', day: 'numeric' };
 
-  //if cached key has been created and less than 30 mins have passed, use the existing key
   const getCachedAuthKey = async () => {
     const thirtyMinutes = 30 * 60 * 1000;
     if (cachedKey && lastRetrieved && Date.now() - lastRetrieved < thirtyMinutes) {
       console.log("Using cached key.");
       return cachedKey;
     }
-  //otherwise, fetch a new key
     console.log("Fetching new key.");
     return await getAuthKey(clientId, clientSecret);
   };
 
-  // cache key implementation:
   const refreshKey = async () => {
     try {
       const apiKey = await getCachedAuthKey();
