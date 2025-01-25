@@ -1,14 +1,4 @@
 import React, { useState } from "react";
-import Amadeus from 'amadeus';
-import express from 'express';
-import axios from 'axios';
-
-
-const amadeus = new Amadeus({
-  client_id: process.env.API_KEY,
-  client_secret: process.env.API_SECRET
-})
-
 
 
 const Flights = () => {
@@ -17,8 +7,11 @@ const Flights = () => {
   const [loading, setLoading] = useState(false);
 
   const fetchFlights = async () => {
-    const accessToken = process.env.ACCESS_TOKEN;
-    const endpoint = "https://test.api.amadeus.com/v2/shopping/flight-offers";
+    const clientId = process.env.REACT_APP_CLIENT_ID;
+    const clientSecret = process.env.REACT_APP_CLIENT_SECRET;
+
+    const tokenEndpoint = "https://test.api.amadeus.com/v1/security/oauth2/token";
+    const flightsEndpoint = "https://test.api.amadeus.com/v2/shopping/flight-offers";
 
     const params = new URLSearchParams({
       originLocationCode: "NYC",
@@ -33,7 +26,28 @@ const Flights = () => {
     setError(null);
 
     try {
-      const response = await fetch(`${endpoint}?${params}`, {
+      //Get Access Token
+      const tokenResponse = await fetch(tokenEndpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: new URLSearchParams({
+          grant_type: "client_credentials",
+          client_id: clientId,
+          client_secret: clientSecret,
+        }),
+      });
+
+      if (!tokenResponse.ok) {
+        throw new Error(`Token Error: ${tokenResponse.status}`);
+      }
+
+      const tokenData = await tokenResponse.json();
+      const accessToken = tokenData.access_token;
+
+      //Fetch Flights
+      const response = await fetch(`${flightsEndpoint}?${params}`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -42,13 +56,13 @@ const Flights = () => {
       });
 
       if (!response.ok) {
-        throw new Error(`Error: ${response.status} - ${response.statusText}`);
+        throw new Error(`Flights Error: ${response.status} - ${response.statusText}`);
       }
 
-      const data = await response.json();
-      setFlights(data.data || []);
+      const flightData = await response.json();
+      setFlights(flightData.data || []);
     } catch (err) {
-      console.error("Failed to fetch flights:", err);
+      console.error("Error fetching flights:", err);
       setError("Failed to fetch flights. Please try again.");
     } finally {
       setLoading(false);
@@ -60,14 +74,13 @@ const Flights = () => {
       <h1>Flight Search: NYC to SFO</h1>
       <button
         onClick={fetchFlights}
-
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
       >
         Get Flights
       </button>
 
       {loading && <p>Loading...</p>}
-
-      {error && <p>{error}</p>}
+      {error && <p className="text-red-500">{error}</p>}
 
       <div className="mt-6">
         {flights.length === 0 && !loading && !error && (
@@ -78,7 +91,7 @@ const Flights = () => {
           return (
             <div
               key={index}
-              className="results"
+              className="bg-gray-100 p-4 rounded shadow-md mb-4"
             >
               <p>
                 <strong>Flight:</strong> {itinerary.carrierCode}
@@ -105,8 +118,3 @@ const Flights = () => {
 };
 
 export default Flights;
-
-
-
-
-

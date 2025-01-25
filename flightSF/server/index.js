@@ -15,8 +15,8 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const router = express.Router();
 const amadeus = new Amadeus({
-  clientId: process.env.API_KEY,
-  clientSecret: process.env.API_SECRET
+  client_id: process.env.API_KEY,
+  client_secret: process.env.API_SECRET
 })
 
 app.use(express.json());
@@ -44,7 +44,7 @@ router.post('/auth', async (req, res) => {
       }, body: new URLSearchParams({
         grant_type: 'client_credentials',
         client_id: process.env.API_KEY,
-        clientSecret: process.env.API_SECRET,
+        client_secret: process.env.API_SECRET,
       }),
     });
     if (!response.ok) {

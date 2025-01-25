@@ -13,6 +13,7 @@ import Suggested from "./Suggested.jsx";
 import PriceAlert from "./PriceAlert.jsx";
 import { createPortal } from 'react-dom';
 import { FiRefreshCcw } from "react-icons/fi";
+import Flights from "./Flights"
 // import { FlightData } from "../utils/FlightData";
 
 Chart.register(CategoryScale);
@@ -34,6 +35,7 @@ function App() {
   const [suggestionSelected, setSuggestionSelected] = useState(false);
   const [cachedKey, setCachedKey] = useState(null);
   const [lastRetrieved, setLastRetrieved] = useState(null);
+  const [showFlights, setShowFlights] = useState(false);
 
   //Placeholder for FlightData
   const [cities, setCities] = useState([
@@ -264,6 +266,7 @@ const debounce = (func, delay) => {
       const apiKey = await getCachedAuthKey();
       console.log("API Key:", apiKey);
       console.log(lastRetrieved);
+      setShowFlights(true);
     } catch (error) {
       console.error("Error:", error.message);
     }
@@ -370,8 +373,9 @@ const debounce = (func, delay) => {
               }}>New Search</button>
               <button id="refresh"
                 onClick={refreshKey}><FiRefreshCcw /></button>
-          </div>
+            </div>
         )}
+        {setShowFlights && <Flights />}
       </div>
     </div>
   )
