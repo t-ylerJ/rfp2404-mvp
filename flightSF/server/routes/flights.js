@@ -56,7 +56,7 @@ const Flights = () => {
   };
 
   return (
-    <div>
+    <div className="p-4">
       <h1>Flight Search: NYC to SFO</h1>
       <button
         onClick={fetchFlights}

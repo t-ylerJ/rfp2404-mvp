@@ -13,7 +13,7 @@ import Suggested from "./Suggested.jsx";
 import PriceAlert from "./PriceAlert.jsx";
 import { createPortal } from 'react-dom';
 import { FiRefreshCcw } from "react-icons/fi";
-import Flights from "./Flights"
+import Flights from "./Flights.jsx"
 // import { FlightData } from "../utils/FlightData";
 
 Chart.register(CategoryScale);
@@ -85,22 +85,7 @@ function App() {
   ]);
 
   const cityId = useId();
-  const getAuthKey = async() => {
-    try {
-      const response = await fetch('/auth');
-      if (!response.ok) {
-        throw new Error(`Error: ${response.status}`);
-      }
-      const data = await response.json();
-      console.log("Auth token:", data.access_token);
-      setCachedKey(data.access_token);
-      setLastRetrieved(Date.now());
-      return cachedKey;
-    } catch (err) {
-      console.error('Error:', err);
-      return null;
-    }
-  }
+
   const getPrice = (selectedCity, week) => {
     const multiplier = {
       4: 1,
@@ -251,26 +236,7 @@ const debounce = (func, delay) => {
 
   const options = { year: 'numeric', month: 'short', day: 'numeric' };
 
-  const getCachedAuthKey = async () => {
-    const thirtyMinutes = 30 * 60 * 1000;
-    if (cachedKey && lastRetrieved && Date.now() - lastRetrieved < thirtyMinutes) {
-      console.log("Using cached key.");
-      return cachedKey;
-    }
-    console.log("Fetching new key.");
-    return await getAuthKey(clientId, clientSecret);
-  };
-
-  const refreshKey = async () => {
-    try {
-      const apiKey = await getCachedAuthKey();
-      console.log("API Key:", apiKey);
-      console.log(lastRetrieved);
-      setShowFlights(true);
-    } catch (error) {
-      console.error("Error:", error.message);
-    }
-  };
+  
 
   return (
     <div id="content">
@@ -371,11 +337,8 @@ const debounce = (func, delay) => {
               setInitialCity(true);
               setShowResult(!showResult);
               }}>New Search</button>
-              <button id="refresh"
-                onClick={refreshKey}><FiRefreshCcw /></button>
             </div>
         )}
-        {setShowFlights && <Flights />}
       </div>
     </div>
   )

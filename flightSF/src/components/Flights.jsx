@@ -1,17 +1,22 @@
 import React, { useState } from "react";
 
-
 const Flights = () => {
   const [flights, setFlights] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const fetchFlights = async () => {
-    const clientId = process.env.REACT_APP_CLIENT_ID;
-    const clientSecret = process.env.REACT_APP_CLIENT_SECRET;
+    const clientId = 'y7sXBTfgJZqstDIvdJplxb9THVw3FcbC';
+    const clientSecret = '4GTCuEWlr6ShF1fr';
+    const clientId2 = process.env.CLIENT_ID;
+    const clientSecret2 = process.env.CLIENT_SECRET;
 
     const tokenEndpoint = "https://test.api.amadeus.com/v1/security/oauth2/token";
     const flightsEndpoint = "https://test.api.amadeus.com/v2/shopping/flight-offers";
+    console.log("Client ID:", clientId);
+    console.log("Client Secret:", clientSecret);
+    console.log(import.meta.env);
+    console.log(clientId2);
 
     const params = new URLSearchParams({
       originLocationCode: "NYC",
@@ -26,7 +31,7 @@ const Flights = () => {
     setError(null);
 
     try {
-      //Get Access Token
+      // Step 1: Request Access Token
       const tokenResponse = await fetch(tokenEndpoint, {
         method: "POST",
         headers: {
@@ -46,7 +51,7 @@ const Flights = () => {
       const tokenData = await tokenResponse.json();
       const accessToken = tokenData.access_token;
 
-      //Fetch Flights
+      // Step 2: Fetch Flights
       const response = await fetch(`${flightsEndpoint}?${params}`, {
         method: "GET",
         headers: {
