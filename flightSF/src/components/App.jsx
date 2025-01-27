@@ -13,7 +13,6 @@ import Suggested from "./Suggested.jsx";
 import PriceAlert from "./PriceAlert.jsx";
 import { createPortal } from 'react-dom';
 import { FiRefreshCcw } from "react-icons/fi";
-import Flights from "./Flights.jsx"
 // import { FlightData } from "../utils/FlightData";
 
 Chart.register(CategoryScale);
@@ -236,7 +235,7 @@ const debounce = (func, delay) => {
 
   const options = { year: 'numeric', month: 'short', day: 'numeric' };
 
-  
+
 
   return (
     <div id="content">
